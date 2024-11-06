@@ -1,5 +1,7 @@
 package store.vo;
 
+import store.constants.Errors;
+
 public class ItemPrice {
 
     private final int price;
@@ -15,7 +17,7 @@ public class ItemPrice {
 
     private void isBiggerThanZero(int price) {
         if(price <= 0) {
-            throw new IllegalArgumentException("품목의 가격은 0보다 커야합니다");
+            throw new IllegalArgumentException(Errors.PRICE_UNDER_ZERO.getMessage());
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class ItemName {
 
-    private static int NAME_LIMIT = 10;
+    private final static int NAME_LIMIT = 10;
 
     private final String itemName;
 

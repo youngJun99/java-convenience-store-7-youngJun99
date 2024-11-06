@@ -16,7 +16,7 @@ class ItemPriceTest {
     void priceUnderZeroTest(int inputPrice) {
         assertThatThrownBy(() -> new ItemPrice(inputPrice))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("품목의 가격은 0보다 커야 합니다");
+                .hasMessageContaining("품목의 가격은 0보다 커야합니다");
     }
 
 }

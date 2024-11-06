@@ -12,16 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class ItemQuantityTest {
 
     @ParameterizedTest
-    @DisplayName("상품의 수량은 음수일 수 없다")
+    @DisplayName("상품의 재고는 음수일 수 없다")
     @ValueSource(ints = {-1, -2, -10})
     void negativeQuantityTest(int inputQuantity) {
         assertThatThrownBy(() -> new ItemQuantity(inputQuantity))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("상품의 개수는 음수일 수 없습니다");
+                .hasMessageContaining("상품의 재고는 음수일 수 없습니다");
     }
 
     @Test
-    @DisplayName("상품 수량은 리필할 수 있다")
+    @DisplayName("상품 재고는 리필할 수 있다")
     void refillQuantityTest() {
         //given
         ItemQuantity itemQuantity = new ItemQuantity(0);
@@ -34,7 +34,7 @@ class ItemQuantityTest {
     }
 
     @Test
-    @DisplayName("상품 수량은 보유 이상을 팔려고 하면 에러가 난다")
+    @DisplayName("상품 재고는 보유 이상을 팔려고 하면 에러가 난다")
     void sellOverPossession() {
         ItemQuantity itemQuantity = new ItemQuantity(0);
 

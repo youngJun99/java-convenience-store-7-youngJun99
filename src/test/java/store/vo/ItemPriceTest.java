@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ItemPriceTest {
 
     @ParameterizedTest
-    @DisplayName("가격은 0보다 커야한다")
+    @DisplayName("상품의 가격은 0보다 커야한다")
     @ValueSource(ints = {0, -1, -2})
     void priceUnderZeroTest(int inputPrice) {
         assertThatThrownBy(() -> new ItemPrice(inputPrice))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("품목의 가격은 0보다 커야합니다");
+                .hasMessageContaining("상품의 가격은 0보다 커야합니다");
     }
 
 }

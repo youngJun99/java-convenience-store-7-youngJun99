@@ -32,7 +32,7 @@ class NameTest {
     @Test
     @DisplayName("이름은 지정된 최대 길이를 넘을 수 없다")
     void nameLimitTest() {
-        assertThatThrownBy(() -> new Name("X".repeat(11)))
+        assertThatThrownBy(() -> new Name("X".repeat(10+1)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("이름이 10글자를 초과했습니다");
     }

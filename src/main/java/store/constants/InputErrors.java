@@ -1,6 +1,6 @@
 package store.constants;
 
-public enum Errors {
+public enum InputErrors {
 
     INVALID_AMOUNT_OR_NAME("올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요."),
     NO_SUCH_ITEM("존재하지 않는 상품입니다. 다시 입력해 주세요."),
@@ -11,7 +11,7 @@ public enum Errors {
 
     private String message;
 
-    Errors(String message) {
+    InputErrors(String message) {
         this.message = ERROR_PREFIX+message;
     }
 

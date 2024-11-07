@@ -1,7 +1,6 @@
 package store.domain.store;
 
-import store.constants.Errors;
-import store.domain.Order;
+import store.constants.InputErrors;
 import store.domain.OrderSheet;
 import store.domain.store.promotion.Promotion;
 import store.dto.CheckSummaryDto;
@@ -46,7 +45,7 @@ public class Product {
     private void validateRequest(int requestAmount) {
         int TotalAmount = promotionInventory + normalInventory;
         if (TotalAmount < requestAmount) {
-            throw new IllegalArgumentException(Errors.INVENTORY_SHORTAGE.getMessage());
+            throw new IllegalArgumentException(InputErrors.INVENTORY_SHORTAGE.getMessage());
         }
     }
 

@@ -7,39 +7,38 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ItemQuantityTest {
 
     @ParameterizedTest
-    @DisplayName("상품의 재고는 음수일 수 없다")
+    @DisplayName("상품의 수량는 음수일 수 없다")
     @ValueSource(ints = {-1, -2, -10})
     void negativeQuantityTest(int inputQuantity) {
         assertThatThrownBy(() -> new ItemQuantity(inputQuantity))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("상품의 재고는 음수일 수 없습니다");
+                .hasMessageContaining("상품의 수량은 음수일 수 없습니다");
     }
 
     @Test
-    @DisplayName("상품 재고는 리필할 수 있다")
-    void refillQuantityTest() {
+    @DisplayName("상품 수량은 더할 수 있다")
+    void addQuantityTest() {
         //given
         ItemQuantity itemQuantity = new ItemQuantity(0);
 
         //when
-        itemQuantity.refill(2);
+        itemQuantity.add(2);
 
         //then
         assertThat(itemQuantity.getItemQuantity()).isEqualTo(2);
     }
 
     @Test
-    @DisplayName("상품 재고는 보유 이상을 팔려고 하면 에러가 난다")
-    void sellOverPossession() {
+    @DisplayName("상품 수량 이상을 빼려고 하면 에러가 난다")
+    void subtractOverPossession() {
         ItemQuantity itemQuantity = new ItemQuantity(0);
 
-        assertThatThrownBy(() -> itemQuantity.sell(1))
+        assertThatThrownBy(() -> itemQuantity.subtract(1))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("상품의 재고가 충분하지 않습니다");
+                .hasMessageContaining("상품의 수량을 음수로 만들 수 없습니다, 현재 수량은 0개 입니다.");
     }
 }

@@ -10,8 +10,8 @@ public enum Errors {
     PRICE_UNDER_ZERO("상품의 가격은 0보다 커야합니다"),
 
     //ItemQuantity
-    NEGATIVE_QUANTITY("상품의 재고는 음수일 수 없습니다"),
-    OVER_QUANTITY_SELL("상품의 재고가 충분하지 않습니다");
+    NEGATIVE_QUANTITY("상품의 수량은 음수일 수 없습니다"),
+    OVER_QUANTITY_SUBTRACTION("상품의 수량을 음수로 만들 수 없습니다, 현재 수량은 %d개 입니다.");
 
     private static final String ERROR_PREFIX = "[ERROR]";
 

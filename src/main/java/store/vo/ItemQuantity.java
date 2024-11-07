@@ -15,13 +15,13 @@ public class ItemQuantity {
         return itemQuantity;
     }
 
-    public void refill(int refillAmount) {
-        itemQuantity += refillAmount;
+    public void add(int addAmount) {
+        itemQuantity += addAmount;
     }
 
-    public void sell(int sellAmount) {
-        validateSellAmount(sellAmount);
-        itemQuantity -= sellAmount;
+    public void subtract(int subtractAmount) {
+        validateSubtractionAmount(subtractAmount);
+        itemQuantity -= subtractAmount;
     }
 
     private void isNotNegative(int itemQuantity) {
@@ -30,9 +30,9 @@ public class ItemQuantity {
         }
     }
 
-    private void validateSellAmount(int sellAmount) {
+    private void validateSubtractionAmount(int sellAmount) {
         if(sellAmount > itemQuantity){
-            throw new IllegalArgumentException(Errors.OVER_QUANTITY_SELL.getMessage());
+            throw new IllegalArgumentException(String.format(Errors.OVER_QUANTITY_SUBTRACTION.getMessage(),itemQuantity));
         }
     }
 }

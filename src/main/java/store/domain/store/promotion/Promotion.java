@@ -10,5 +10,4 @@ public interface Promotion {
 
     CheckSummaryDto checkRequest(String productName,int requestAmount, int promotionInventory);
 
-    public int calculatePromotableAmount(int requestAmount, int promotionInventory);
 }

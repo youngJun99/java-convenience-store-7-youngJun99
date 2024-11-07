@@ -1,30 +1,29 @@
-package store.domain;
+package store.domain.store;
 
 import store.constants.Errors;
-import store.domain.promotion.Promotion;
+import store.domain.store.promotion.Promotion;
 import store.dto.ProductRequestDto;
-import store.vo.Name;
-import store.vo.Money;
-import store.vo.Quantity;
+import store.vo.ItemName;
+import store.vo.purchaseQuantity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Product {
 
-    private final Name productName;
+    private final ItemName productItemName;
     private final Promotion promotion;
     private final Money productMoney;
-    private final Quantity promotionQuantity;
-    private final Quantity productQuantity;
+    private final purchaseQuantity promotionPurchaseQuantity;
+    private final purchaseQuantity productPurchaseQuantity;
 
-    public Product(Name productName, Promotion promotion, Money productMoney, Quantity promotionQuantity, Quantity productQuantity) {
-        validateInputs(productName, promotion, productMoney, promotionQuantity, productQuantity);
-        this.productName = productName;
+    public Product(ItemName productItemName, Promotion promotion, Money productMoney, purchaseQuantity promotionPurchaseQuantity, purchaseQuantity productPurchaseQuantity) {
+        validateInputs(productItemName, promotion, productMoney, promotionPurchaseQuantity, productPurchaseQuantity);
+        this.productItemName = productItemName;
         this.promotion = promotion;
         this.productMoney = productMoney;
-        this.promotionQuantity = promotionQuantity;
-        this.productQuantity = productQuantity;
+        this.promotionPurchaseQuantity = promotionPurchaseQuantity;
+        this.productPurchaseQuantity = productPurchaseQuantity;
     }
 
 
@@ -36,10 +35,13 @@ public class Product {
     }
 
     private ProductRequestDto checkPromotionRequest(int requestAmount) {
-        return promotion.checkRequest(requestAmount,promotionQuantity,promotionQuantity);
+        return promotion.checkRequest(requestAmount, promotionPurchaseQuantity, promotionPurchaseQuantity);
     }
 
     private ProductRequestDto checkNormalRequest(int requestAmount) {
+        if(requestAmount <= productPurchaseQuantity.getQuantity()){
+            return
+        }
 
     }
 
@@ -48,18 +50,18 @@ public class Product {
     }
 
     private void validateRequest(int requestAmount) {
-        int TotalAmount = promotionQuantity.getQuantity()+productQuantity.getQuantity();
+        int TotalAmount = promotionPurchaseQuantity.getQuantity()+ productPurchaseQuantity.getQuantity();
         if(TotalAmount < requestAmount){
             throw new IllegalArgumentException(Errors.OVER_TOTAL_QUANTITY_REQUEST.getMessage());
         }
     }
 
-    private void validateInputs(Name productName, Promotion promotion, Money productMoney, Quantity promotionQuantity, Quantity productQuantity) {
-        validateNull(productName);
+    private void validateInputs(ItemName productItemName, Promotion promotion, Money productMoney, purchaseQuantity promotionPurchaseQuantity, purchaseQuantity productPurchaseQuantity) {
+        validateNull(productItemName);
         validateNull(promotion);
         validateNull(productMoney);
-        validateNull(promotionQuantity);
-        validateNull(productQuantity);
+        validateNull(promotionPurchaseQuantity);
+        validateNull(productPurchaseQuantity);
         validateZeroPrice(productMoney.getPrice());
     }
 

@@ -11,7 +11,7 @@ public class Quantity {
         this.quantity = quantity;
     }
 
-    public int getItemQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
@@ -25,13 +25,13 @@ public class Quantity {
     }
 
     private void isNotNegative(int quantity) {
-        if(quantity < 0) {
+        if (quantity < 0) {
             throw new IllegalArgumentException(Errors.NEGATIVE_QUANTITY.getMessage());
         }
     }
 
     private void validateSubtractionAmount(int subtractQuantity) {
-        if(subtractQuantity > quantity){
+        if (subtractQuantity > quantity) {
             throw new IllegalArgumentException(String.format(Errors.OVER_QUANTITY_SUBTRACTION.getMessage(), quantity));
         }
     }

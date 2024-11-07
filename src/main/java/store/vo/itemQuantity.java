@@ -2,11 +2,11 @@ package store.vo;
 
 import store.constants.Errors;
 
-public class ItemQuantity {
+public class itemQuantity {
 
     private int itemQuantity;
 
-    public ItemQuantity(int itemQuantity) {
+    public itemQuantity(int itemQuantity) {
         isNotNegative(itemQuantity);
         this.itemQuantity = itemQuantity;
     }

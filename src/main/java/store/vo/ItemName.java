@@ -21,13 +21,13 @@ public class ItemName {
 
     private void validateNull(String name) {
         if (Objects.isNull(name)) {
-            throw new IllegalArgumentException(Errors.NULL_NAME.getMessage());
+            throw new IllegalArgumentException(Errors.INVALID_AMOUNT_OR_NAME.getMessage());
         }
     }
 
     private void validateBlank(String itemName) {
         if (StringUtils.isBlank(itemName)) {
-            throw new IllegalArgumentException(Errors.BLANK_NAME.getMessage());
+            throw new IllegalArgumentException(Errors.INVALID_AMOUNT_OR_NAME.getMessage());
         }
     }
 

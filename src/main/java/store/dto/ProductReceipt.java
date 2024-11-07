@@ -1,6 +1,6 @@
 package store.dto;
 
-public record productReceipt(
+public record ProductReceipt(
         String productName,
         int productPrice,
         int purchasedAmount,

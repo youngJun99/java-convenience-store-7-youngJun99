@@ -39,4 +39,17 @@ public class Name {
             throw new IllegalArgumentException(String.format(Errors.LONG_NAME.getMessage(), NAME_LIMIT));
         }
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Name name1 = (Name) object;
+        return Objects.equals(name, name1.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
 }

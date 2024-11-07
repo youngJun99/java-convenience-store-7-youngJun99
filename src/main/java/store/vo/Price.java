@@ -2,11 +2,11 @@ package store.vo;
 
 import store.constants.Errors;
 
-public class ItemPrice {
+public class Price {
 
     private final int price;
 
-    public ItemPrice(int price) {
+    public Price(int price) {
         isBiggerThanZero(price);
         this.price = price;
     }

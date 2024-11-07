@@ -58,4 +58,14 @@ public class PromotionImpl implements Promotion {
 
     }
 
+    @Override
+    public int calculatePromoted(int requestAmount, int promotionInventory) {
+        int divider = buy+get;
+
+        if(requestAmount > promotionInventory) {
+            return promotionInventory/divider*get;
+        }
+        return requestAmount/divider*get;
+    }
+
 }

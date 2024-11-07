@@ -5,16 +5,13 @@ import store.constants.Errors;
 
 import java.util.Objects;
 
-public class Name {
-
-    private static final int NAME_LIMIT = 10;
+public class ItemName {
 
     private final String name;
 
-    public Name(String name) {
+    public ItemName(String name) {
         validateNull(name);
         validateBlank(name);
-        validateLimit(name);
         this.name = name;
     }
 
@@ -34,18 +31,13 @@ public class Name {
         }
     }
 
-    private void validateLimit(String itemName) {
-        if (itemName.length() > NAME_LIMIT) {
-            throw new IllegalArgumentException(String.format(Errors.LONG_NAME.getMessage(), NAME_LIMIT));
-        }
-    }
 
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        Name name1 = (Name) object;
-        return Objects.equals(name, name1.name);
+        ItemName itemName1 = (ItemName) object;
+        return Objects.equals(name, itemName1.name);
     }
 
     @Override

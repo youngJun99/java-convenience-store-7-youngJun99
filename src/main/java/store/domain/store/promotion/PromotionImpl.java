@@ -30,9 +30,7 @@ public class PromotionImpl implements Promotion {
     @Override
     public CheckSummaryDto checkRequest(String productName, int requestAmount, int promotionInventory) {
 
-        int divider = buy + get;
-
-        int promotableAmount = divider * (promotionInventory / divider);
+        int promotableAmount = calculatePromotableAmount(requestAmount,promotionInventory);
 
         //requestAmount - promotableAmount 만큼 못준다
         if (promotableAmount < requestAmount) {
@@ -42,10 +40,17 @@ public class PromotionImpl implements Promotion {
         if (promotableAmount == requestAmount) {
             return normalSummaryFrom(productName);
         }
-        return checkRestCases(productName, requestAmount, divider, promotableAmount);
+        return checkRestCases(productName, requestAmount,promotableAmount);
     }
 
-    private CheckSummaryDto checkRestCases(String productName, int requestAmount, int divider, int promotableAmount) {
+    public int calculatePromotableAmount(int requestAmount, int promotionInventory) {
+        int divider = buy+get;
+        return divider * (promotionInventory / divider);
+    }
+
+
+    private CheckSummaryDto checkRestCases(String productName, int requestAmount, int promotableAmount) {
+        int divider = buy+get;
         int leftOvers = requestAmount % divider;
         //보너스를 줄 수 있다
         if (leftOvers == buy && requestAmount + divider <= promotableAmount) {
@@ -55,4 +60,5 @@ public class PromotionImpl implements Promotion {
         return unPromotableFrom(productName, leftOvers);
 
     }
+
 }

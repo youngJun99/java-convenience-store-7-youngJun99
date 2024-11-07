@@ -9,4 +9,6 @@ public interface Promotion {
     boolean available(LocalDateTime orderedTime);
 
     CheckSummaryDto checkRequest(String productName,int requestAmount, int promotionInventory);
+
+    public int calculatePromotableAmount(int requestAmount, int promotionInventory);
 }

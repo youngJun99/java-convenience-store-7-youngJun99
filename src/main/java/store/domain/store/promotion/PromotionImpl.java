@@ -42,20 +42,17 @@ public class PromotionImpl implements Promotion {
         if (promotableAmount == requestAmount) {
             return normalSummaryFrom(productName);
         }
-        if (promotableAmount > requestAmount) {
-            return checkCases(productName, requestAmount, divider, promotableAmount);
-        }
+        return checkRestCases(productName, requestAmount, divider, promotableAmount);
     }
 
-    private CheckSummaryDto checkCases(String productName, int requestAmount, int divider, int promotableAmount) {
+    private CheckSummaryDto checkRestCases(String productName, int requestAmount, int divider, int promotableAmount) {
         int leftOvers = requestAmount % divider;
         //보너스를 줄 수 있다
         if (leftOvers == buy && requestAmount + divider <= promotableAmount) {
             return bonusReceivableFrom(productName, get);
         }
-        //leftOver 만큼 보장해 줄 수 없다
-        if (leftOvers < buy) {
-            return unPromotableFrom(productName, leftOvers);
-        }
+        //leftOver 만큼 줄 수 없다
+        return unPromotableFrom(productName, leftOvers);
+
     }
 }

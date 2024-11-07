@@ -5,25 +5,25 @@ import store.constants.Errors;
 
 import java.util.Objects;
 
-public class ItemName {
+public class Name {
 
     private static final int NAME_LIMIT = 10;
 
-    private final String itemName;
+    private final String name;
 
-    public ItemName(String itemName) {
-        validateNull(itemName);
-        validateBlank(itemName);
-        validateLimit(itemName);
-        this.itemName = itemName;
+    public Name(String name) {
+        validateNull(name);
+        validateBlank(name);
+        validateLimit(name);
+        this.name = name;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getName() {
+        return name;
     }
 
-    private void validateNull(String itemName) {
-        if (Objects.isNull(itemName)) {
+    private void validateNull(String name) {
+        if (Objects.isNull(name)) {
             throw new IllegalArgumentException(Errors.NULL_NAME.getMessage());
         }
     }

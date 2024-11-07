@@ -1,6 +1,12 @@
 package store.domain.store.promotion;
 
+import store.dto.CheckSummaryDto;
+
+import java.time.LocalDateTime;
+
 public interface Promotion {
 
-    //리턴 로직을 이놈이 가지고 있어야 한다.
+    boolean available(LocalDateTime orderedTime);
+
+    CheckSummaryDto checkRequest(int requestAmount, int promotionInventory, int normalInventory);
 }

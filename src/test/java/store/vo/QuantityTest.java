@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-class quantityTest {
+class QuantityTest {
 
     @ParameterizedTest
     @DisplayName("수량는 음수일 수 없다")

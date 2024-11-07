@@ -1,79 +1,52 @@
 package store.domain.store;
 
 import store.constants.Errors;
+import store.domain.Order;
+import store.domain.OrderSheet;
 import store.domain.store.promotion.Promotion;
-import store.dto.ProductRequestDto;
-import store.vo.ItemName;
-import store.vo.purchaseQuantity;
+import store.dto.CheckSummaryDto;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
+
+import static store.dto.CheckSummaryDto.normalSummaryFrom;
+
 
 public class Product {
 
-    private final ItemName productItemName;
+    private final String productName;
     private final Promotion promotion;
-    private final Money productMoney;
-    private final purchaseQuantity promotionPurchaseQuantity;
-    private final purchaseQuantity productPurchaseQuantity;
+    private final int price;
+    private int promotionInventory;
+    private int normalInventory;
 
-    public Product(ItemName productItemName, Promotion promotion, Money productMoney, purchaseQuantity promotionPurchaseQuantity, purchaseQuantity productPurchaseQuantity) {
-        validateInputs(productItemName, promotion, productMoney, promotionPurchaseQuantity, productPurchaseQuantity);
-        this.productItemName = productItemName;
+    public Product(String productName, Promotion promotion, int price, int promotionInventory, int normalInventory) {
+        this.productName = productName;
         this.promotion = promotion;
-        this.productMoney = productMoney;
-        this.promotionPurchaseQuantity = promotionPurchaseQuantity;
-        this.productPurchaseQuantity = productPurchaseQuantity;
+        this.price = price;
+        this.promotionInventory = promotionInventory;
+        this.normalInventory = normalInventory;
     }
 
-
-    public ProductRequestDto checkRequestOf(int requestAmount, LocalDateTime timeofOrder) {
-        if(promotion.available(timeofOrder)) {
+    public CheckSummaryDto checkRequestOf(int requestAmount, LocalDateTime orderedTime) {
+        validateRequest(requestAmount);
+        if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);
         }
-       return checkNormalRequest(requestAmount);
+        return normalSummaryFrom(productName);
     }
 
-    private ProductRequestDto checkPromotionRequest(int requestAmount) {
-        return promotion.checkRequest(requestAmount, promotionPurchaseQuantity, promotionPurchaseQuantity);
+    private CheckSummaryDto checkPromotionRequest(int requestAmount) {
+        return promotion.checkRequest(requestAmount,promotionInventory, normalInventory);
     }
 
-    private ProductRequestDto checkNormalRequest(int requestAmount) {
-        if(requestAmount <= productPurchaseQuantity.getQuantity()){
-            return
-        }
-
-    }
-
-    public void executeRequestOf(int executeAmount) {
+    public void order(OrderSheet orderSheet) {
 
     }
 
     private void validateRequest(int requestAmount) {
-        int TotalAmount = promotionPurchaseQuantity.getQuantity()+ productPurchaseQuantity.getQuantity();
-        if(TotalAmount < requestAmount){
-            throw new IllegalArgumentException(Errors.OVER_TOTAL_QUANTITY_REQUEST.getMessage());
-        }
-    }
-
-    private void validateInputs(ItemName productItemName, Promotion promotion, Money productMoney, purchaseQuantity promotionPurchaseQuantity, purchaseQuantity productPurchaseQuantity) {
-        validateNull(productItemName);
-        validateNull(promotion);
-        validateNull(productMoney);
-        validateNull(promotionPurchaseQuantity);
-        validateNull(productPurchaseQuantity);
-        validateZeroPrice(productMoney.getPrice());
-    }
-
-    private void validateZeroPrice(int price) {
-        if(price == 0) {
-            throw new IllegalArgumentException(Errors.ZERO_PRICE.getMessage());
-        }
-    }
-
-    private void validateNull(Object object) {
-        if(Objects.isNull(object)){
-            throw new IllegalArgumentException(Errors.NULL_IN_PRODUCT_CREATION.getMessage());
+        int TotalAmount = promotionInventory + normalInventory;
+        if (TotalAmount < requestAmount) {
+            throw new IllegalArgumentException(Errors.INVENTORY_SHORTAGE.getMessage());
         }
     }
 

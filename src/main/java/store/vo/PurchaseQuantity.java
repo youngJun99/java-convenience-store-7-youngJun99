@@ -1,6 +1,6 @@
 package store.vo;
 
-import store.constants.Errors;
+import store.constants.InputErrors;
 
 public class PurchaseQuantity {
 
@@ -17,7 +17,7 @@ public class PurchaseQuantity {
 
     private void isNotNegative(int quantity) {
         if (quantity < 0) {
-            throw new IllegalArgumentException(Errors.INVALID_AMOUNT_OR_NAME.getMessage());
+            throw new IllegalArgumentException(InputErrors.INVALID_AMOUNT_OR_NAME.getMessage());
         }
     }
 }

@@ -1,7 +1,7 @@
 package store.vo;
 
 import org.junit.platform.commons.util.StringUtils;
-import store.constants.Errors;
+import store.constants.InputErrors;
 
 import java.util.Objects;
 
@@ -21,13 +21,13 @@ public class ItemName {
 
     private void validateNull(String name) {
         if (Objects.isNull(name)) {
-            throw new IllegalArgumentException(Errors.INVALID_AMOUNT_OR_NAME.getMessage());
+            throw new IllegalArgumentException(InputErrors.INVALID_AMOUNT_OR_NAME.getMessage());
         }
     }
 
     private void validateBlank(String itemName) {
         if (StringUtils.isBlank(itemName)) {
-            throw new IllegalArgumentException(Errors.INVALID_AMOUNT_OR_NAME.getMessage());
+            throw new IllegalArgumentException(InputErrors.INVALID_AMOUNT_OR_NAME.getMessage());
         }
     }
 

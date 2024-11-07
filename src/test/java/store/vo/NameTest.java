@@ -14,7 +14,7 @@ class NameTest {
     void nullNameTest() {
         assertThatThrownBy(() -> new Name(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("상품의 이름으로 null값이 입력되었습니다.");
+                .hasMessageContaining("이름으로 null값이 입력되었습니다.");
     }
 
     @ParameterizedTest
@@ -23,7 +23,7 @@ class NameTest {
     void blankNameTest(String input) {
         assertThatThrownBy(() -> new Name(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("상품의 이름으로 빈칸이 입력되었습니다.");
+                .hasMessageContaining("이름으로 빈칸이 입력되었습니다.");
     }
 
     /**
@@ -34,7 +34,7 @@ class NameTest {
     void nameLimitTest() {
         assertThatThrownBy(() -> new Name("X".repeat(100)))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("상품의 이름이 10글자를 초과했습니다");
+                .hasMessageContaining("이름이 10글자를 초과했습니다");
     }
 
 }

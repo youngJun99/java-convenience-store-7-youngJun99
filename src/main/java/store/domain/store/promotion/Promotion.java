@@ -8,5 +8,5 @@ public interface Promotion {
 
     boolean available(LocalDateTime orderedTime);
 
-    CheckSummaryDto checkRequest(int requestAmount, int promotionInventory, int normalInventory);
+    CheckSummaryDto checkRequest(int requestAmount, int promotionInventory);
 }

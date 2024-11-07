@@ -35,7 +35,7 @@ public class Product {
     }
 
     private CheckSummaryDto checkPromotionRequest(int requestAmount) {
-        return promotion.checkRequest(requestAmount,promotionInventory, normalInventory);
+        return promotion.checkRequest(requestAmount,promotionInventory);
     }
 
     public void order(OrderSheet orderSheet) {

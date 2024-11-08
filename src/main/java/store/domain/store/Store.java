@@ -11,11 +11,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-public class ConvenienceStore {
+public class Store {
 
     private final List<Product> products;
 
-    public ConvenienceStore(List<Product> products) {
+    public Store(List<Product> products) {
 
         this.products = products;
     }
@@ -65,7 +65,7 @@ public class ConvenienceStore {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        ConvenienceStore that = (ConvenienceStore) object;
+        Store that = (Store) object;
         return Objects.equals(products, that.products);
     }
 

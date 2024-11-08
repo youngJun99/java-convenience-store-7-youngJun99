@@ -1,5 +1,6 @@
 package store.domain.store;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import store.constants.InputErrors;
 import store.domain.store.promotion.Promotion;
 import store.domain.Purchase;
@@ -43,23 +44,24 @@ public class Product {
     }
 
 
-    public ReceiptDto executePurchase(Purchase purchase) {
+    public ReceiptDto executePurchase(Purchase purchase, LocalDate orderTime) {
         int promotableAmount = purchase.getPromotableAmount();
         int unPromotableAmount = purchase.getUnPromotableAmount();
         int totalAmount = promotableAmount + unPromotableAmount;
         int promotionBonus = promotion.calculateBonusToGive(promotableAmount);
-        processInventory(promotableAmount, unPromotableAmount);
+        processInventory(totalAmount, orderTime);
         return new ReceiptDto(productName, price, totalAmount, promotionBonus);
     }
 
-    private void processInventory(int promotionInventoryRequest, int normalInventoryRequest) {
-        this.promotionInventory -= promotionInventoryRequest;
-        if (normalInventoryRequest > normalInventory) {
-            normalInventoryRequest -= normalInventory;
-            normalInventory = 0;
-            promotionInventory -= promotionInventoryRequest;
+    private void processInventory(int totalAmount, LocalDate orderTime) {
+        if (promotion.available(orderTime)) {
+            if (totalAmount > promotionInventory) {
+                totalAmount -= promotionInventory;
+                promotionInventory = 0;
+                normalInventory -= totalAmount;
+            }
         }
-        this.normalInventory -= normalInventoryRequest;
+        promotionInventory -= totalAmount;
     }
 
     private void validatePurchase(int requestAmount) {

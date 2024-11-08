@@ -22,19 +22,19 @@ public class Purchase {
     }
 
     public static Purchase normalPurchaseFrom(String productName, int price, int purchasedAmount) {
-        return new Purchase(productName, price,true, 0, purchasedAmount,0);
+        return new Purchase(productName, price, true, 0, purchasedAmount, 0);
     }
 
     public static Purchase fullPromotablePurchaseFrom(String productName, int price, int purchasedAmount) {
-        return new Purchase(productName, price,true, purchasedAmount,0 ,0);
+        return new Purchase(productName, price, true, purchasedAmount, 0, 0);
     }
 
-    public static Purchase bonusReceivablePurchaseFrom(String productName, int price, int purchaseAmount,int receivableBonus) {
-        return new Purchase(productName,price,false,purchaseAmount,0,receivableBonus);
+    public static Purchase bonusReceivablePurchaseFrom(String productName, int price, int purchaseAmount, int receivableBonus) {
+        return new Purchase(productName, price, false, purchaseAmount, 0, receivableBonus);
     }
 
-    public static Purchase partialPromotablePurchaseFrom(String productName,int price, int promotedAmount, int normalInventory) {
-        return new Purchase(productName,price,false,promotedAmount,normalInventory,0);
+    public static Purchase partialPromotablePurchaseFrom(String productName, int price, int promotedAmount, int normalInventory) {
+        return new Purchase(productName, price, false, promotedAmount, normalInventory, 0);
     }
 
     public String getProductName() {
@@ -58,17 +58,17 @@ public class Purchase {
     }
 
     public void processResponse(OrderApproveResponseDto response) {
-        if(response.proceedPurchase()) {
-            if(unPromotableAmount == 0) confirmBonus();
-            if(extraReceivableBonus == 0) confirmUnPromotableAmount();
+        if (response.proceedPurchase()) {
+            if (unPromotableAmount == 0) confirmBonus();
+            if (extraReceivableBonus == 0) confirmUnPromotableAmount();
         }
-        if(unPromotableAmount == 0) discardBonus();
-        if(extraReceivableBonus == 0) discardUnPromotableAmount();
+        if (unPromotableAmount == 0) discardBonus();
+        if (extraReceivableBonus == 0) discardUnPromotableAmount();
     }
 
-    private void confirmBonus(){
+    private void confirmBonus() {
         approved = true;
-        promotableAmount =+extraReceivableBonus;
+        promotableAmount = +extraReceivableBonus;
         extraReceivableBonus = 0;
     }
 
@@ -85,4 +85,6 @@ public class Purchase {
         approved = true;
         unPromotableAmount = 0;
     }
+
+
 }

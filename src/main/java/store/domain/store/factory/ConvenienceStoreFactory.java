@@ -32,13 +32,9 @@ public class ConvenienceStoreFactory {
     }
 
     private void extractProducts(Path path, List<Product> products) throws IOException {
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
-            // 첫 줄 스킵
-            reader.readLine();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                extractOneLine(line, products);
-            }
+        List<String> lines = Files.readAllLines(path);
+        for(int i=1; i<lines.size();i++) {
+            extractOneLine(lines.get(i), products);
         }
     }
 

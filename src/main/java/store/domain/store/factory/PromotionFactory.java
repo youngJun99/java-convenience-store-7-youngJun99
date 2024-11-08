@@ -15,7 +15,19 @@ import java.util.List;
 
 public class PromotionFactory {
 
-    public static List<PromotionImpl> loadPromotions(String filePath) throws IOException {
+    private static PromotionFactory instance;
+
+    private PromotionFactory() {
+    }
+
+    public static PromotionFactory getInstance() {
+        if(instance == null) {
+            instance = new PromotionFactory();
+        }
+        return instance;
+    }
+
+    public List<PromotionImpl> loadPromotions(String filePath) throws IOException {
         Path path = Paths.get(filePath);
         List<PromotionImpl> promotions = new ArrayList<>();
 
@@ -31,7 +43,7 @@ public class PromotionFactory {
         return promotions;
     }
 
-    private static void extractPromotions(String line, List<PromotionImpl> promotions) {
+    private void extractPromotions(String line, List<PromotionImpl> promotions) {
         String[] data = line.split(",");
         String name = data[0].trim();
         int buy = Integer.parseInt(data[1].trim());

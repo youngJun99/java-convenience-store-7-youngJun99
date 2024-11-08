@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ShoppingCart {
 
-    List<Purchase> purchases;
+    private final List<Purchase> purchases;
 
     public ShoppingCart(List<Purchase> purchases) {
         this.purchases = purchases;

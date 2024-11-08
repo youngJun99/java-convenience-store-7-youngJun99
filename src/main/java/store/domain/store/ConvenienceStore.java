@@ -8,6 +8,7 @@ import store.domain.ShoppingCart;
 import store.dto.ReceiptDto;
 import store.dto.ReceiptSheetDto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ConvenienceStore {
 
     public ShoppingCart putInCart(OrderSheetDto orderSheetDto) {
         validateOrderProducts(orderSheetDto);
-        LocalDateTime orderedTime = orderSheetDto.orderedTime();
+        LocalDate orderedTime = orderSheetDto.orderedTime();
         return new ShoppingCart(orderSheetDto.orderDtos().stream()
                 .map(orderDto -> {
                     return getPurchase(orderDto, orderedTime);
@@ -41,7 +42,7 @@ public class ConvenienceStore {
                 .toList();
     }
 
-    private Purchase getPurchase(OrderDto orderDto, LocalDateTime orderedTime) {
+    private Purchase getPurchase(OrderDto orderDto, LocalDate orderedTime) {
         Product matchingProduct = products.stream()
                 .filter(product -> product.getProductName().equalsIgnoreCase(orderDto.itemName().getName()))
                 .findFirst()

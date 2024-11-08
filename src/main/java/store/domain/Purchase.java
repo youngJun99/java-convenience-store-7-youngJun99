@@ -1,5 +1,7 @@
 package store.domain;
 
+import store.dto.OrderApproveRequestDto;
+
 public class Purchase {
 
     private String productName;
@@ -44,8 +46,12 @@ public class Purchase {
         return extraReceivableBonus;
     }
 
-    public Boolean isNotApproved() {
-        return !approved;
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public OrderApproveRequestDto makeRequest() {
+        return new OrderApproveRequestDto(productName, unPromotableAmount, extraReceivableBonus);
     }
 
     public void confirmBonus(){

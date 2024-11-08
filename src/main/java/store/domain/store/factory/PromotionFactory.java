@@ -6,6 +6,8 @@ import store.domain.store.promotion.PromotionImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,24 +23,19 @@ public class PromotionFactory {
     }
 
     public static PromotionFactory getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new PromotionFactory();
         }
         return instance;
     }
 
     public List<PromotionImpl> loadPromotions(String filePath) throws IOException {
-        Path path = Paths.get(filePath);
         List<PromotionImpl> promotions = new ArrayList<>();
 
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
-            // 첫 줄을 건너뜁니다.
-            reader.readLine();
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                extractPromotions(line, promotions);
-            }
+        Path path = Paths.get(filePath);
+        List<String> lines = Files.readAllLines(path);
+        for (int i = 1; i < lines.size(); i++) {
+            extractPromotions(lines.get(i), promotions);
         }
         return promotions;
     }

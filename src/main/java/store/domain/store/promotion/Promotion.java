@@ -9,5 +9,4 @@ public interface Promotion {
     boolean available(LocalDateTime orderedTime);
 
     Purchase checkRequest(String productName, int requestAmount, int promotionInventory);
-
 }

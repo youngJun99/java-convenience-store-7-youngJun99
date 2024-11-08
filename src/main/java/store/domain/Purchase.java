@@ -54,6 +54,10 @@ public class Purchase {
         extraReceivableBonus = 0;
     }
 
+    public void confirmUnPromotableAmount() {
+        approved = true;
+    }
+
     public void discardUnPromotableAmount() {
         approved = true;
         unPromotableAmount = 0;

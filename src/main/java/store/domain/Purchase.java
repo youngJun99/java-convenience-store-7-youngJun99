@@ -4,15 +4,15 @@ public class Purchase {
 
     private String productName;
     private Boolean approved;
-    private int promotionInventory;
-    private int normalInventory;
+    private int promotableAmount;
+    private int unpromotableAmount;
     private int receivableBonus;
 
-    private Purchase(String productName, Boolean approved, int promotionInventory, int normalInventory, int receivableBonus) {
+    private Purchase(String productName, Boolean approved, int promotableAmount, int unpromotableAmount, int receivableBonus) {
         this.productName = productName;
         this.approved = approved;
-        this.promotionInventory = promotionInventory;
-        this.normalInventory = normalInventory;
+        this.promotableAmount = promotableAmount;
+        this.unpromotableAmount = unpromotableAmount;
         this.receivableBonus = receivableBonus;
     }
 

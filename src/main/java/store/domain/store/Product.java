@@ -25,9 +25,7 @@ public class Product {
         this.normalInventory = normalInventory;
     }
 
-    public String getProductName() {
-        return productName;
-    }
+
 
     public Purchase makePendingPurchase(int requestAmount, LocalDateTime orderedTime) {
         validatePurchase(requestAmount);
@@ -42,11 +40,25 @@ public class Product {
     }
 
 
-    public ProductReceipt confirmPurchase(int normalInventoryRequest, int promotionInventoryRequest) {
-        this.normalInventory -= normalInventoryRequest;
+    public ProductReceipt confirmPurchase(int promotionInventoryRequest, int normalInventoryRequest) {
+        processInventory(promotionInventoryRequest, normalInventoryRequest);
+        return processReceipt(promotionInventoryRequest, normalInventoryRequest);
+    }
+
+    private ProductReceipt processReceipt(int promotionInventoryRequest, int normalInventoryRequest) {
+        int totalPurchase = normalInventoryRequest + promotionInventoryRequest;
+        int promotionalBonus = promotion.calculateBonusToGive(promotionInventoryRequest);
+        return new ProductReceipt(productName, price, totalPurchase, promotionalBonus);
+    }
+
+    private void processInventory(int promotionInventoryRequest, int normalInventoryRequest) {
         this.promotionInventory -= promotionInventoryRequest;
-        int purchaseAmount = normalInventoryRequest+promotionInventoryRequest;
-        return new ProductReceipt(productName,price,purchaseAmount,promotionInventoryRequest);
+        if(normalInventoryRequest >normalInventory) {
+            normalInventoryRequest -= normalInventory;
+            normalInventory=0;
+            promotionInventory -= promotionInventoryRequest;
+        }
+        this.normalInventory -= normalInventoryRequest;
     }
 
     private void validatePurchase(int requestAmount) {

@@ -43,18 +43,18 @@ public class ConvenienceStore {
 
     private Purchase getPurchase(OrderDto orderDto, LocalDate orderedTime) {
         Product matchingProduct = products.stream()
-                .filter(product -> product.getProductName().equalsIgnoreCase(orderDto.itemName().getName()))
+                .filter(product -> product.getProductName().equalsIgnoreCase(orderDto.productName()))
                 .findFirst()
                 .get();
 
-        return matchingProduct.makePendingPurchase(orderDto.purchaseQuantity().getQuantity(), orderedTime);
+        return matchingProduct.makePendingPurchase(orderDto.purchaseQuantity(), orderedTime);
     }
 
 
     private void validateOrderProducts(OrderSheetDto orderSheetDto) {
         boolean allItemsAvailable = orderSheetDto.orderDtos().stream()
                 .allMatch(orderDto -> products.stream()
-                        .anyMatch(product -> product.getProductName().equals(orderDto.itemName().getName()))
+                        .anyMatch(product -> product.getProductName().equals(orderDto.productName()))
                 );
         if (!allItemsAvailable) {
             throw new IllegalArgumentException(InputErrors.NO_SUCH_ITEM.getMessage());

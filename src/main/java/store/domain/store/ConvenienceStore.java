@@ -1,16 +1,13 @@
 package store.domain.store;
 
-import camp.nextstep.edu.missionutils.DateTimes;
 import store.constants.InputErrors;
 import store.dto.OrderDto;
 import store.dto.OrderSheetDto;
 import store.domain.Purchase;
 import store.domain.ShoppingCart;
 import store.dto.ReceiptDto;
-import store.dto.ReceiptSheetDto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,7 +36,7 @@ public class ConvenienceStore {
         return purchases.stream()
                 .flatMap(purchase -> products.stream()
                         .filter(product -> product.getProductName().equals(purchase.getProductName()))
-                        .map(product -> product.executePurchase(purchase,orderTime))
+                        .map(product -> product.executePurchase(purchase, orderTime))
                 )
                 .toList();
     }

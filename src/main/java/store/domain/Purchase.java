@@ -1,22 +1,35 @@
 package store.domain;
 
-public record Purchase(
-        String productName,
-        Boolean approved,
-        int unPromotableAmount,
-        int receivableBonus
-) {
+public class Purchase {
 
-    public static Purchase normalPurchaseFrom(String productName) {
-        return new Purchase(productName, true, 0, 0);
+    private String productName;
+    private Boolean approved;
+    private int PromotedAmount;
+    private int unPromotableAmount;
+    private int receivableBonus;
+
+    private Purchase(String productName, Boolean approved, int promotedAmount, int unPromotableAmount, int receivableBonus) {
+        this.productName = productName;
+        this.approved = approved;
+        PromotedAmount = promotedAmount;
+        this.unPromotableAmount = unPromotableAmount;
+        this.receivableBonus = receivableBonus;
     }
 
-    public static Purchase bonusReceivablePurchaseFrom(String productName, int receivableBonus) {
-        return new Purchase(productName,false,0,receivableBonus);
+    public static Purchase normalPurchaseFrom(String productName, int purchasedAmount) {
+        return new Purchase(productName, true, 0, purchasedAmount,0);
     }
 
-    public static Purchase unPromotablePurchaseFrom(String productName, int unPromotableAmount) {
-        return new Purchase(productName,false,unPromotableAmount,0);
+    public static Purchase promotablePurchaseFrom(String productName, int purchasedAmount) {
+        return new Purchase(productName, true, purchasedAmount,0 ,0);
+    }
+
+    public static Purchase bonusReceivablePurchaseFrom(String productName, int purchaseAmount,int receivableBonus) {
+        return new Purchase(productName,false,purchaseAmount,0,receivableBonus);
+    }
+
+    public static Purchase unPromotablePurchaseFrom(String productName, int promotedAmount,int unPromotableAmount) {
+        return new Purchase(productName,false,promotedAmount,unPromotableAmount,0);
     }
 
 }

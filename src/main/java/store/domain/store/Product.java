@@ -8,6 +8,7 @@ import store.dto.ReceiptDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static store.domain.Purchase.normalPurchaseFrom;
 
@@ -71,4 +72,16 @@ public class Product {
         }
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Product product = (Product) object;
+        return price == product.price && promotionInventory == product.promotionInventory && normalInventory == product.normalInventory && Objects.equals(productName, product.productName) && Objects.equals(promotion, product.promotion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productName, promotion, price, promotionInventory, normalInventory);
+    }
 }

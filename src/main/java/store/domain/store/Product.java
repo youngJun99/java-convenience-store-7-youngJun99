@@ -8,8 +8,6 @@ import store.dto.ProductReceipt;
 import java.time.LocalDateTime;
 
 import static store.dto.CheckSummaryDto.normalSummaryFrom;
-import static store.dto.ProductReceipt.*;
-
 
 public class Product {
 
@@ -39,36 +37,12 @@ public class Product {
         return promotion.checkRequest(productName,requestAmount,promotionInventory);
     }
 
-    //return 쏴주는거랑 재고 관리하는거랑 분리해야 겠어 그리고 calculatePromotableAmount 저거 이름도 좀 만지고 만들긴해야해.
-    public ProductReceipt order(int requestAmount, LocalDateTime orderedTime) {
-        if (promotion.available(orderedTime)) {
-            int promotedAmount = promotion.calculatePromoted(requestAmount,promotionInventory);
-            int promotableAmount = promotion.calculatePromotableAmount(requestAmount,promotionInventory);
-            if(requestAmount > promotableAmount+normalInventory) {
-                requestAmount -= normalInventory;
-                normalInventory =0;
-                promotionInventory -= requestAmount;
-            }
-            if(requestAmount > promotableAmount) {
-                requestAmount -= promotableAmount;
-                promotionInventory-= promotableAmount;
-                normalInventory -= requestAmount;
-            }
-            promotionInventory-= requestAmount;
 
-            return new ProductReceipt(productName,price,requestAmount,)
-        }
-        processNormalOrder(requestAmount);
-        return normalReceiptFrom(productName,price,requestAmount);
-    }
-
-    private void processNormalOrder(int requestAmount) {
-        if(normalInventory < requestAmount) {
-            requestAmount -= normalInventory;
-            normalInventory = 0;
-            promotionInventory -= requestAmount;
-        }
-        normalInventory -= requestAmount;
+    public ProductReceipt order(int normalInventoryRequest, int promotionInventoryRequest) {
+        this.normalInventory -= normalInventoryRequest;
+        this.promotionInventory -= promotionInventoryRequest;
+        int purchaseAmount = normalInventoryRequest+promotionInventoryRequest;
+        return new ProductReceipt(productName,price,purchaseAmount,promotionInventoryRequest);
     }
 
     private void validateRequest(int requestAmount) {

@@ -7,7 +7,6 @@ import java.util.List;
 
 public record OrderSheetDto(
         List<OrderDto> orderDtos,
-        MemberShip memberShip,
         LocalDate orderedTime
 ) {
 }

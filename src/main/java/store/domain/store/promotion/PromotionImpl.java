@@ -4,6 +4,7 @@ import store.domain.Purchase;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static store.domain.Purchase.*;
 
@@ -70,6 +71,16 @@ public class PromotionImpl implements Promotion {
 
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        PromotionImpl promotion = (PromotionImpl) object;
+        return buy == promotion.buy && get == promotion.get && Objects.equals(name, promotion.name) && Objects.equals(start, promotion.start) && Objects.equals(end, promotion.end);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, buy, get, start, end);
+    }
 }

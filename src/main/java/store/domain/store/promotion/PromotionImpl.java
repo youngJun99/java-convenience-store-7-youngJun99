@@ -28,7 +28,7 @@ public class PromotionImpl implements Promotion {
     }
 
     @Override
-    public Purchase checkRequest(String productName, int requestAmount, int promotionInventory) {
+    public Purchase checkRequest(String productName,int price, int requestAmount, int promotionInventory) {
 
         int divider = buy + get;
 
@@ -36,13 +36,13 @@ public class PromotionImpl implements Promotion {
 
         //requestAmount - promotableAmount 만큼 못준다
         if (promotableAmount < requestAmount) {
-            return partialPromotablePurchaseFrom(productName, promotableAmount,requestAmount - promotableAmount);
+            return partialPromotablePurchaseFrom(productName, price,promotableAmount,requestAmount - promotableAmount);
         }
         //프로모션을 문제없이 진행할 수 있다
         if (promotableAmount == requestAmount) {
-            return fullPromotablePurchaseFrom(productName,requestAmount);
+            return fullPromotablePurchaseFrom(productName,price,requestAmount);
         }
-        return checkRestCases(productName, requestAmount, promotableAmount, divider);
+        return checkRestCases(productName, price, requestAmount, promotableAmount, divider);
     }
 
     @Override
@@ -51,16 +51,16 @@ public class PromotionImpl implements Promotion {
     }
 
 
-    private Purchase checkRestCases(String productName, int requestAmount, int promotableAmount, int divider) {
+    private Purchase checkRestCases(String productName, int price, int requestAmount, int promotableAmount, int divider) {
 
         int leftOvers = requestAmount % divider;
 
         //보너스를 줄 수 있다
         if (leftOvers == buy && requestAmount + divider <= promotableAmount) {
-            return bonusReceivablePurchaseFrom(productName,requestAmount,get);
+            return bonusReceivablePurchaseFrom(productName, price,requestAmount,get);
         }
         //leftOver 만큼 줄 수 없다
-        return partialPromotablePurchaseFrom(productName, requestAmount, leftOvers);
+        return partialPromotablePurchaseFrom(productName,price, requestAmount, leftOvers);
 
     }
 

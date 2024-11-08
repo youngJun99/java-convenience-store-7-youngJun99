@@ -8,7 +8,7 @@ public interface Promotion {
 
     boolean available(LocalDateTime orderedTime);
 
-    Purchase checkRequest(String productName, int requestAmount, int promotionInventory);
+    Purchase checkRequest(String productName,int price, int requestAmount, int promotionInventory);
 
     int calculateBonusToGive(int buyAmount);
 }

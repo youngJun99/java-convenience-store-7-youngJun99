@@ -39,12 +39,24 @@ public class Product {
         return promotion.checkRequest(productName,requestAmount,promotionInventory);
     }
 
+    //return 쏴주는거랑 재고 관리하는거랑 분리해야 겠어 그리고 calculatePromotableAmount 저거 이름도 좀 만지고 만들긴해야해.
     public ProductReceipt order(int requestAmount, LocalDateTime orderedTime) {
-        // 항상 check가 된 주문이 들어오지만, public으로 열려 있어 검증 추가
-        validateRequest(requestAmount);
         if (promotion.available(orderedTime)) {
-            //구현 해야함
-            return
+            int promotedAmount = promotion.calculatePromoted(requestAmount,promotionInventory);
+            int promotableAmount = promotion.calculatePromotableAmount(requestAmount,promotionInventory);
+            if(requestAmount > promotableAmount+normalInventory) {
+                requestAmount -= normalInventory;
+                normalInventory =0;
+                promotionInventory -= requestAmount;
+            }
+            if(requestAmount > promotableAmount) {
+                requestAmount -= promotableAmount;
+                promotionInventory-= promotableAmount;
+                normalInventory -= requestAmount;
+            }
+            promotionInventory-= requestAmount;
+
+            return new ProductReceipt(productName,price,requestAmount,)
         }
         processNormalOrder(requestAmount);
         return normalReceiptFrom(productName,price,requestAmount);

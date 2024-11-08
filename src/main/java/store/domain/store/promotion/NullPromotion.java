@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 import static store.domain.Purchase.*;
 
-public class NullPromotion implements Promotion{
+public class NullPromotion implements Promotion {
 
     @Override
     public boolean available(LocalDateTime orderedTime) {
@@ -14,8 +14,8 @@ public class NullPromotion implements Promotion{
     }
 
     @Override
-    public Purchase checkRequest(String productName,int price, int requestAmount, int promotionInventory) {
-        return normalPurchaseFrom(productName,price, requestAmount);
+    public Purchase checkRequest(String productName, int requestAmount, int promotionInventory) {
+        return normalPurchaseFrom(productName, requestAmount);
     }
 
     @Override

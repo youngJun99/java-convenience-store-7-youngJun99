@@ -25,7 +25,7 @@ public class Product {
         this.normalInventory = normalInventory;
     }
 
-    public Purchase makePurchase(int requestAmount, LocalDateTime orderedTime) {
+    public Purchase makePendingPurchase(int requestAmount, LocalDateTime orderedTime) {
         validatePurchase(requestAmount);
         if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);
@@ -38,7 +38,7 @@ public class Product {
     }
 
 
-    public ProductReceipt order(int normalInventoryRequest, int promotionInventoryRequest) {
+    public ProductReceipt confirmPurchase(int normalInventoryRequest, int promotionInventoryRequest) {
         this.normalInventory -= normalInventoryRequest;
         this.promotionInventory -= promotionInventoryRequest;
         int purchaseAmount = normalInventoryRequest+promotionInventoryRequest;

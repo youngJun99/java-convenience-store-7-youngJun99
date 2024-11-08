@@ -40,7 +40,7 @@ public class PromotionImpl implements Promotion {
         }
         //프로모션을 문제없이 진행할 수 있다
         if (promotableAmount == requestAmount) {
-            return promotablePurchaseFrom(productName,requestAmount);
+            return fullPromotablePurchaseFrom(productName,requestAmount);
         }
         return checkRestCases(productName, requestAmount, promotableAmount, divider);
     }

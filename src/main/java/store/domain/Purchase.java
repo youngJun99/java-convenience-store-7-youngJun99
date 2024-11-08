@@ -36,10 +36,6 @@ public class Purchase {
         return productName;
     }
 
-    public int getPromotableAmount() {
-        return promotableAmount;
-    }
-
     public int getUnPromotableAmount() {
         return unPromotableAmount;
     }

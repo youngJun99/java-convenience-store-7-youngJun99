@@ -28,8 +28,10 @@ public class Purchase {
         return new Purchase(productName,false,purchaseAmount,0,receivableBonus);
     }
 
-    public static Purchase unPromotablePurchaseFrom(String productName, int promotedAmount,int unPromotableAmount) {
+    public static Purchase partialPromotablePurchaseFrom(String productName, int promotedAmount, int unPromotableAmount) {
         return new Purchase(productName,false,promotedAmount,unPromotableAmount,0);
     }
+
+
 
 }

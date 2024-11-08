@@ -36,7 +36,7 @@ public class PromotionImpl implements Promotion {
 
         //requestAmount - promotableAmount 만큼 못준다
         if (promotableAmount < requestAmount) {
-            return unPromotablePurchaseFrom(productName, promotableAmount,requestAmount - promotableAmount);
+            return partialPromotablePurchaseFrom(productName, promotableAmount,requestAmount - promotableAmount);
         }
         //프로모션을 문제없이 진행할 수 있다
         if (promotableAmount == requestAmount) {
@@ -55,7 +55,7 @@ public class PromotionImpl implements Promotion {
             return bonusReceivablePurchaseFrom(productName,requestAmount,get);
         }
         //leftOver 만큼 줄 수 없다
-        return unPromotablePurchaseFrom(productName, requestAmount, leftOvers);
+        return partialPromotablePurchaseFrom(productName, requestAmount, leftOvers);
 
     }
 

@@ -15,9 +15,9 @@ import java.util.List;
 
 public class PromotionFactory {
 
-    public static List<Promotion> loadPromotions(String filePath) throws IOException {
+    public static List<PromotionImpl> loadPromotions(String filePath) throws IOException {
         Path path = Paths.get(filePath);
-        List<Promotion> promotions = new ArrayList<>();
+        List<PromotionImpl> promotions = new ArrayList<>();
 
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             // 첫 줄을 건너뜁니다.

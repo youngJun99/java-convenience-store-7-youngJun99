@@ -1,10 +1,12 @@
-package store.domain;
+package store.dto;
+
+import store.domain.MemberShip;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record OrderSheet(
-        List<Order> orders,
+public record OrderSheetDto(
+        List<OrderDto> orderDtos,
         MemberShip memberShip,
         LocalDateTime orderedTime
 ) {

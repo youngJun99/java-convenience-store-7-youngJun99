@@ -1,8 +1,8 @@
 package store.domain.store;
 
 import store.constants.InputErrors;
-import store.domain.Order;
-import store.domain.OrderSheet;
+import store.dto.OrderDto;
+import store.dto.OrderSheetDto;
 import store.domain.Purchase;
 import store.domain.ShoppingCart;
 
@@ -18,31 +18,31 @@ public class ConvenienceStore {
         this.products = products;
     }
 
-    public ShoppingCart putInCart(OrderSheet orderSheet) {
-        validateOrderProducts(orderSheet);
-        LocalDateTime orderedTime = orderSheet.orderedTime();
-        return new ShoppingCart(orderSheet.orders().stream()
-                .map(order -> {
-                    return getPurchase(order, orderedTime);
+    public ShoppingCart putInCart(OrderSheetDto orderSheetDto) {
+        validateOrderProducts(orderSheetDto);
+        LocalDateTime orderedTime = orderSheetDto.orderedTime();
+        return new ShoppingCart(orderSheetDto.orderDtos().stream()
+                .map(orderDto -> {
+                    return getPurchase(orderDto, orderedTime);
                 })
                 .toList());
 
     }
 
-    private Purchase getPurchase(Order order, LocalDateTime orderedTime) {
+    private Purchase getPurchase(OrderDto orderDto, LocalDateTime orderedTime) {
         Product matchingProduct = products.stream()
-                .filter(product -> product.getProductName().equalsIgnoreCase(order.itemName().getName()))
+                .filter(product -> product.getProductName().equalsIgnoreCase(orderDto.itemName().getName()))
                 .findFirst()
                 .get();
 
-        return matchingProduct.makePendingPurchase(order.purchaseQuantity().getQuantity(), orderedTime);
+        return matchingProduct.makePendingPurchase(orderDto.purchaseQuantity().getQuantity(), orderedTime);
     }
 
 
-    private void validateOrderProducts(OrderSheet orderSheet) {
-        boolean allItemsAvailable = orderSheet.orders().stream()
-                .allMatch(order -> products.stream()
-                        .anyMatch(product -> product.getProductName().equals(order.itemName().getName()))
+    private void validateOrderProducts(OrderSheetDto orderSheetDto) {
+        boolean allItemsAvailable = orderSheetDto.orderDtos().stream()
+                .allMatch(orderDto -> products.stream()
+                        .anyMatch(product -> product.getProductName().equals(orderDto.itemName().getName()))
                 );
         if (!allItemsAvailable) {
             throw new IllegalArgumentException(InputErrors.NO_SUCH_ITEM.getMessage());

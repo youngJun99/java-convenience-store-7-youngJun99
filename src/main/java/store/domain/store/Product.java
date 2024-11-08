@@ -2,12 +2,12 @@ package store.domain.store;
 
 import store.constants.InputErrors;
 import store.domain.store.promotion.Promotion;
-import store.dto.Purchase;
+import store.domain.Purchase;
 import store.dto.ProductReceipt;
 
 import java.time.LocalDateTime;
 
-import static store.dto.Purchase.normalSummaryFrom;
+import static store.domain.Purchase.normalPurchaseFrom;
 
 public class Product {
 
@@ -25,12 +25,12 @@ public class Product {
         this.normalInventory = normalInventory;
     }
 
-    public Purchase checkRequestOf(int requestAmount, LocalDateTime orderedTime) {
-        validateRequest(requestAmount);
+    public Purchase makePurchase(int requestAmount, LocalDateTime orderedTime) {
+        validatePurchase(requestAmount);
         if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);
         }
-        return normalSummaryFrom(productName);
+        return normalPurchaseFrom(productName);
     }
 
     private Purchase checkPromotionRequest(int requestAmount) {
@@ -45,7 +45,7 @@ public class Product {
         return new ProductReceipt(productName,price,purchaseAmount,promotionInventoryRequest);
     }
 
-    private void validateRequest(int requestAmount) {
+    private void validatePurchase(int requestAmount) {
         int TotalAmount = promotionInventory + normalInventory;
         if (TotalAmount < requestAmount) {
             throw new IllegalArgumentException(InputErrors.INVENTORY_SHORTAGE.getMessage());

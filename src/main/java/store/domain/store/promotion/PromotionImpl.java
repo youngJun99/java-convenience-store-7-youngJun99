@@ -1,10 +1,10 @@
 package store.domain.store.promotion;
 
-import store.dto.Purchase;
+import store.domain.Purchase;
 
 import java.time.LocalDateTime;
 
-import static store.dto.Purchase.*;
+import static store.domain.Purchase.*;
 
 public class PromotionImpl implements Promotion {
 
@@ -36,11 +36,11 @@ public class PromotionImpl implements Promotion {
 
         //requestAmount - promotableAmount 만큼 못준다
         if (promotableAmount < requestAmount) {
-            return unPromotableFrom(productName, requestAmount - promotableAmount);
+            return unPromotablePurchaseFrom(productName, requestAmount - promotableAmount);
         }
         //프로모션을 문제없이 진행할 수 있다
         if (promotableAmount == requestAmount) {
-            return normalSummaryFrom(productName);
+            return normalPurchaseFrom(productName);
         }
         return checkRestCases(productName, requestAmount, promotableAmount, divider);
     }
@@ -51,10 +51,10 @@ public class PromotionImpl implements Promotion {
         int leftOvers = requestAmount % divider;
         //보너스를 줄 수 있다
         if (leftOvers == buy && requestAmount + divider <= promotableAmount) {
-            return bonusReceivableFrom(productName, get);
+            return bonusReceivablePurchaseFrom(productName, get);
         }
         //leftOver 만큼 줄 수 없다
-        return unPromotableFrom(productName, leftOvers);
+        return unPromotablePurchaseFrom(productName, leftOvers);
 
     }
 

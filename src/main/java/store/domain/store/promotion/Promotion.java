@@ -1,6 +1,6 @@
 package store.domain.store.promotion;
 
-import store.dto.Purchase;
+import store.domain.Purchase;
 
 import java.time.LocalDateTime;
 

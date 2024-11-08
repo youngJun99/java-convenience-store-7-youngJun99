@@ -1,6 +1,6 @@
 package store.dto;
 
-public record OrderConfirmResponseDto(
+public record OrderApproveResponseDto(
         String productName,
         boolean proceedPurchase
 ) {

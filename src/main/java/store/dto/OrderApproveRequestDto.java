@@ -1,6 +1,6 @@
 package store.dto;
 
-public record OrderConfirmRequestDto(
+public record OrderApproveRequestDto(
         String productName,
         int unPromotableAmount,
         int extraReceivableBonus

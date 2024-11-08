@@ -48,9 +48,14 @@ public class Purchase {
         return !approved;
     }
 
-    public void getBonus(){
+    public void confirmBonus(){
         approved = true;
         promotableAmount =+extraReceivableBonus;
+        extraReceivableBonus = 0;
+    }
+
+    public void discardBonus() {
+        approved = true;
         extraReceivableBonus = 0;
     }
 

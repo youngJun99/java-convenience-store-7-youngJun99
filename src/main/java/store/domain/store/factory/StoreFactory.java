@@ -1,6 +1,6 @@
 package store.domain.store.factory;
 
-import store.domain.store.ConvenienceStore;
+import store.domain.store.Store;
 import store.domain.store.Product;
 import store.domain.store.promotion.NullPromotion;
 import store.domain.store.promotion.Promotion;
@@ -15,21 +15,21 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
-public class ConvenienceStoreFactory {
+public class StoreFactory {
 
     private static final String productsPath = "src/main/resources/products.md";
 
     private final List<PromotionImpl> promotions;
 
-    public ConvenienceStoreFactory(List<PromotionImpl> promotions) {
+    public StoreFactory(List<PromotionImpl> promotions) {
         this.promotions = promotions;
     }
 
-    public ConvenienceStore createStore() throws IOException {
+    public Store createStore() throws IOException {
         List<Product> products = new ArrayList<>();
         Path path = Paths.get(productsPath);
         extractProducts(path, products);
-        return new ConvenienceStore(products);
+        return new Store(products);
     }
 
     private void extractProducts(Path path, List<Product> products) throws IOException {

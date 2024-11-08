@@ -3,7 +3,7 @@ package store.domain.store.factory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import store.domain.store.ConvenienceStore;
+import store.domain.store.Store;
 import store.domain.store.Product;
 import store.domain.store.promotion.NullPromotion;
 import store.domain.store.promotion.PromotionImpl;
@@ -15,10 +15,10 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class ConvenienceStoreFactoryTest {
+class StoreFactoryTest {
 
 
-    private static ConvenienceStore answer;
+    private static Store answer;
 
     @BeforeAll
     static void setUp() {
@@ -39,17 +39,17 @@ class ConvenienceStoreFactoryTest {
         products.add(new Product("정식도시락", NullPromotion.getInstance(), 6400, 0, 8));
         products.add(new Product("컵라면", promotion2, 1700, 1, 10));
 
-        answer = new ConvenienceStore(products);
+        answer = new Store(products);
     }
 
 
     @Test
-    @DisplayName("ConvenienceStoreFactory 기능 테스트")
+    @DisplayName("StoreFactory 기능 테스트")
     void ConvenienceStoreFactoryFunctionTest() throws IOException {
         PromotionFactory promotionFactory = PromotionFactory.getInstance();
-        ConvenienceStoreFactory convenienceStoreFactory = new ConvenienceStoreFactory(promotionFactory.loadPromotions());
-        ConvenienceStore convenienceStore = convenienceStoreFactory.createStore();
-        assertThat(convenienceStore).isEqualTo(answer);
+        StoreFactory storeFactory = new StoreFactory(promotionFactory.loadPromotions());
+        Store store = storeFactory.createStore();
+        assertThat(store).isEqualTo(answer);
     }
 
 }

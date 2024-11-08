@@ -5,6 +5,8 @@ import store.dto.OrderDto;
 import store.dto.OrderSheetDto;
 import store.domain.Purchase;
 import store.domain.ShoppingCart;
+import store.dto.ReceiptDto;
+import store.dto.ReceiptSheetDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,6 +29,16 @@ public class ConvenienceStore {
                 })
                 .toList());
 
+    }
+
+    public List<ReceiptDto> executeOrder(ShoppingCart shoppingCart) {
+        List<Purchase> purchases = shoppingCart.getPurchases();
+        return purchases.stream()
+                .flatMap(purchase -> products.stream()
+                        .filter(product -> product.getProductName().equals(purchase.getProductName()))
+                        .map(product -> product.executePurchase(purchase))
+                )
+                .toList();
     }
 
     private Purchase getPurchase(OrderDto orderDto, LocalDateTime orderedTime) {

@@ -1,13 +1,8 @@
 package store.domain.store.factory;
 
-import store.domain.store.promotion.NullPromotion;
-import store.domain.store.promotion.Promotion;
 import store.domain.store.promotion.PromotionImpl;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PromotionFactory {
+
+    private static final String promotionPath = "src/main/resources/promotions.md";
 
     private static PromotionFactory instance;
 
@@ -29,10 +26,10 @@ public class PromotionFactory {
         return instance;
     }
 
-    public List<PromotionImpl> loadPromotions(String filePath) throws IOException {
+    public List<PromotionImpl> loadPromotions() throws IOException {
         List<PromotionImpl> promotions = new ArrayList<>();
 
-        Path path = Paths.get(filePath);
+        Path path = Paths.get(promotionPath);
         List<String> lines = Files.readAllLines(path);
         for (int i = 1; i < lines.size(); i++) {
             extractPromotions(lines.get(i), promotions);

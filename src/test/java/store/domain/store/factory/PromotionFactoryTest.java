@@ -28,7 +28,7 @@ class PromotionFactoryTest {
     @DisplayName("PromotionFactory 기능 테스트")
     void promotionFactoryFunctionTest() throws IOException {
         PromotionFactory promotionFactory = PromotionFactory.getInstance();
-        List<PromotionImpl> promotions = promotionFactory.loadPromotions("src/main/resources/promotions.md");
+        List<PromotionImpl> promotions = promotionFactory.loadPromotions();
         assertThat(promotions).isEqualTo(answer);
     }
 

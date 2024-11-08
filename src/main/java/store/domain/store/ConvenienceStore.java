@@ -1,5 +1,6 @@
 package store.domain.store;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import store.constants.InputErrors;
 import store.dto.OrderDto;
 import store.dto.OrderSheetDto;
@@ -32,12 +33,12 @@ public class ConvenienceStore {
 
     }
 
-    public List<ReceiptDto> executeOrder(ShoppingCart shoppingCart) {
+    public List<ReceiptDto> executeOrder(ShoppingCart shoppingCart, LocalDate orderTime) {
         List<Purchase> purchases = shoppingCart.getPurchases();
         return purchases.stream()
                 .flatMap(purchase -> products.stream()
                         .filter(product -> product.getProductName().equals(purchase.getProductName()))
-                        .map(product -> product.executePurchase(purchase))
+                        .map(product -> product.executePurchase(purchase,orderTime))
                 )
                 .toList();
     }

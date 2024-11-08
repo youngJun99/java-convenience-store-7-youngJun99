@@ -3,7 +3,6 @@ package store.domain.store;
 import store.constants.InputErrors;
 import store.domain.store.promotion.Promotion;
 import store.domain.Purchase;
-import store.dto.ProductReceipt;
 
 import java.time.LocalDateTime;
 
@@ -40,15 +39,8 @@ public class Product {
     }
 
 
-    public ProductReceipt confirmPurchase(int promotionInventoryRequest, int normalInventoryRequest) {
+    public void confirmPurchase(int promotionInventoryRequest, int normalInventoryRequest) {
         processInventory(promotionInventoryRequest, normalInventoryRequest);
-        return processReceipt(promotionInventoryRequest, normalInventoryRequest);
-    }
-
-    private ProductReceipt processReceipt(int promotionInventoryRequest, int normalInventoryRequest) {
-        int totalPurchase = normalInventoryRequest + promotionInventoryRequest;
-        int promotionalBonus = promotion.calculateBonusToGive(promotionInventoryRequest);
-        return new ProductReceipt(productName, price, totalPurchase, promotionalBonus);
     }
 
     private void processInventory(int promotionInventoryRequest, int normalInventoryRequest) {

@@ -1,10 +1,10 @@
 package store.domain.store.promotion;
 
-import store.dto.CheckSummaryDto;
+import store.dto.Purchase;
 
 import java.time.LocalDateTime;
 
-import static store.dto.CheckSummaryDto.*;
+import static store.dto.Purchase.*;
 
 public class PromotionImpl implements Promotion {
 
@@ -28,7 +28,7 @@ public class PromotionImpl implements Promotion {
     }
 
     @Override
-    public CheckSummaryDto checkRequest(String productName, int requestAmount, int promotionInventory) {
+    public Purchase checkRequest(String productName, int requestAmount, int promotionInventory) {
 
         int divider = buy + get;
 
@@ -46,7 +46,7 @@ public class PromotionImpl implements Promotion {
     }
 
 
-    private CheckSummaryDto checkRestCases(String productName, int requestAmount, int promotableAmount, int divider) {
+    private Purchase checkRestCases(String productName, int requestAmount, int promotableAmount, int divider) {
 
         int leftOvers = requestAmount % divider;
         //보너스를 줄 수 있다

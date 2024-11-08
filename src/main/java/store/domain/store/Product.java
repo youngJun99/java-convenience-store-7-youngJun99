@@ -2,12 +2,12 @@ package store.domain.store;
 
 import store.constants.InputErrors;
 import store.domain.store.promotion.Promotion;
-import store.dto.CheckSummaryDto;
+import store.dto.Purchase;
 import store.dto.ProductReceipt;
 
 import java.time.LocalDateTime;
 
-import static store.dto.CheckSummaryDto.normalSummaryFrom;
+import static store.dto.Purchase.normalSummaryFrom;
 
 public class Product {
 
@@ -25,7 +25,7 @@ public class Product {
         this.normalInventory = normalInventory;
     }
 
-    public CheckSummaryDto checkRequestOf(int requestAmount, LocalDateTime orderedTime) {
+    public Purchase checkRequestOf(int requestAmount, LocalDateTime orderedTime) {
         validateRequest(requestAmount);
         if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);
@@ -33,7 +33,7 @@ public class Product {
         return normalSummaryFrom(productName);
     }
 
-    private CheckSummaryDto checkPromotionRequest(int requestAmount) {
+    private Purchase checkPromotionRequest(int requestAmount) {
         return promotion.checkRequest(productName,requestAmount,promotionInventory);
     }
 

@@ -6,5 +6,8 @@ public class ConvenienceStore {
 
     List<Product> products;
 
+    public ConvenienceStore(List<Product> products) {
+        this.products = products;
+    }
 
 }

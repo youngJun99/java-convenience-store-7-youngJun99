@@ -3,6 +3,7 @@ package store.domain.store;
 import store.constants.InputErrors;
 import store.domain.store.promotion.Promotion;
 import store.domain.Purchase;
+import store.dto.ReceiptDto;
 
 import java.time.LocalDateTime;
 
@@ -33,7 +34,7 @@ public class Product {
         if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);
         }
-        return normalPurchaseFrom(productName,requestAmount);
+        return normalPurchaseFrom(productName, requestAmount);
     }
 
     private Purchase checkPromotionRequest(int requestAmount) {
@@ -41,8 +42,13 @@ public class Product {
     }
 
 
-    public void confirmPurchase(int promotionInventoryRequest, int normalInventoryRequest) {
-        processInventory(promotionInventoryRequest, normalInventoryRequest);
+    public ReceiptDto executePurchase(Purchase purchase) {
+        int promotableAmount = purchase.getPromotableAmount();
+        int unPromotableAmount = purchase.getUnPromotableAmount();
+        int totalAmount = promotableAmount + unPromotableAmount;
+        int promotionBonus = promotion.calculateBonusToGive(promotableAmount);
+        processInventory(promotableAmount, unPromotableAmount);
+        return new ReceiptDto(productName, price, totalAmount, promotionBonus);
     }
 
     private void processInventory(int promotionInventoryRequest, int normalInventoryRequest) {

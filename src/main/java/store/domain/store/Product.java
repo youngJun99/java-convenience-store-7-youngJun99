@@ -25,6 +25,10 @@ public class Product {
         this.normalInventory = normalInventory;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
     public Purchase makePendingPurchase(int requestAmount, LocalDateTime orderedTime) {
         validatePurchase(requestAmount);
         if (promotion.available(orderedTime)) {

@@ -19,7 +19,7 @@ public class NullPromotion implements Promotion{
     }
 
     @Override
-    public int promotionBonusCalculate(int buyAmount) {
+    public int calculateBonusToGive(int buyAmount) {
         return 0;
     }
 }

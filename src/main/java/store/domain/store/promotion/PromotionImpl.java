@@ -46,7 +46,7 @@ public class PromotionImpl implements Promotion {
     }
 
     @Override
-    public int promotionBonusCalculate(int buyAmount) {
+    public int calculateBonusToGive(int buyAmount) {
         return buyAmount/(buy+get)*get;
     }
 

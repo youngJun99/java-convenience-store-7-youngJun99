@@ -10,5 +10,5 @@ public interface Promotion {
 
     Purchase checkRequest(String productName, int requestAmount, int promotionInventory);
 
-    int promotionBonusCalculate(int buyAmount);
+    int calculateBonusToGive(int buyAmount);
 }

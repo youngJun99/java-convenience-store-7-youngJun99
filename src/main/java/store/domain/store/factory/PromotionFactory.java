@@ -25,17 +25,21 @@ public class PromotionFactory {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                String name = data[0].trim();
-                int buy = Integer.parseInt(data[1].trim());
-                int get = Integer.parseInt(data[2].trim());
-                LocalDate startDate = LocalDate.parse(data[3].trim());
-                LocalDate endDate = LocalDate.parse(data[4].trim());
-
-                promotions.add(new PromotionImpl(name, buy, get, startDate, endDate));
+                extractPromotions(line, promotions);
             }
         }
         return promotions;
+    }
+
+    private static void extractPromotions(String line, List<PromotionImpl> promotions) {
+        String[] data = line.split(",");
+        String name = data[0].trim();
+        int buy = Integer.parseInt(data[1].trim());
+        int get = Integer.parseInt(data[2].trim());
+        LocalDate startDate = LocalDate.parse(data[3].trim());
+        LocalDate endDate = LocalDate.parse(data[4].trim());
+
+        promotions.add(new PromotionImpl(name, buy, get, startDate, endDate));
     }
 }
 

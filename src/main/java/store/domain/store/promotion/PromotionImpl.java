@@ -45,6 +45,11 @@ public class PromotionImpl implements Promotion {
         return checkRestCases(productName, requestAmount, promotableAmount, divider);
     }
 
+    @Override
+    public int promotionBonusCalculate(int buyAmount) {
+        return buyAmount/(buy+get)*get;
+    }
+
 
     private Purchase checkRestCases(String productName, int requestAmount, int promotableAmount, int divider) {
 
@@ -58,5 +63,7 @@ public class PromotionImpl implements Promotion {
         return partialPromotablePurchaseFrom(productName, requestAmount, leftOvers);
 
     }
+
+
 
 }

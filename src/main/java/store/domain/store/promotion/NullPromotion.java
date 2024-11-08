@@ -17,4 +17,9 @@ public class NullPromotion implements Promotion{
     public Purchase checkRequest(String productName, int requestAmount, int promotionInventory) {
         return normalPurchaseFrom(productName,requestAmount);
     }
+
+    @Override
+    public int promotionBonusCalculate(int buyAmount) {
+        return 0;
+    }
 }

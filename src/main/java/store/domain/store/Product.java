@@ -24,18 +24,20 @@ public class Product {
         this.normalInventory = normalInventory;
     }
 
-
+    public String getProductName() {
+        return productName;
+    }
 
     public Purchase makePendingPurchase(int requestAmount, LocalDateTime orderedTime) {
         validatePurchase(requestAmount);
         if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);
         }
-        return normalPurchaseFrom(productName,requestAmount);
+        return normalPurchaseFrom(productName, requestAmount);
     }
 
     private Purchase checkPromotionRequest(int requestAmount) {
-        return promotion.checkRequest(productName,requestAmount,promotionInventory);
+        return promotion.checkRequest(productName, requestAmount, promotionInventory);
     }
 
 
@@ -45,9 +47,9 @@ public class Product {
 
     private void processInventory(int promotionInventoryRequest, int normalInventoryRequest) {
         this.promotionInventory -= promotionInventoryRequest;
-        if(normalInventoryRequest >normalInventory) {
+        if (normalInventoryRequest > normalInventory) {
             normalInventoryRequest -= normalInventory;
-            normalInventory=0;
+            normalInventory = 0;
             promotionInventory -= promotionInventoryRequest;
         }
         this.normalInventory -= normalInventoryRequest;

@@ -30,7 +30,7 @@ public class Product {
         if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);
         }
-        return normalPurchaseFrom(productName);
+        return normalPurchaseFrom(productName,requestAmount);
     }
 
     private Purchase checkPromotionRequest(int requestAmount) {

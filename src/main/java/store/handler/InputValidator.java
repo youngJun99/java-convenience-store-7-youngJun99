@@ -7,6 +7,18 @@ public class InputValidator {
     private static final String REGEX_OF_PRODUCT_ORDER = "^\\[(\\w+)-\\d+\\](,\\[(\\w+)-\\d+\\])*$";
     private static final String REGEX_OF_CUSTOMER_RESPONSE = "^[YN]$\n";
 
+    private static InputValidator instance;
+
+    private InputValidator() {
+    }
+
+    public static InputValidator getInstance() {
+        if (instance == null) {
+            instance = new InputValidator();
+        }
+        return instance;
+    }
+
     public void validateProductOrder(String input) {
         if (DoesNotMatchOrderRegex(input)) {
             throw new IllegalArgumentException(InputErrors.INVALID_AMOUNT_OR_NAME.getMessage());

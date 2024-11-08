@@ -12,6 +12,7 @@ import store.dto.ReceiptSheetDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class ConvenienceStore {
 
@@ -63,5 +64,16 @@ public class ConvenienceStore {
         }
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ConvenienceStore that = (ConvenienceStore) object;
+        return Objects.equals(products, that.products);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(products);
+    }
 }

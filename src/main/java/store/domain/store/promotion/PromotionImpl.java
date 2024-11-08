@@ -23,6 +23,10 @@ public class PromotionImpl implements Promotion {
         this.end = end;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean available(LocalDate orderedTime) {
         return orderedTime.isAfter(start) && orderedTime.isBefore(end);
@@ -50,6 +54,7 @@ public class PromotionImpl implements Promotion {
     public int calculateBonusToGive(int buyAmount) {
         return buyAmount/(buy+get)*get;
     }
+
 
 
     private Purchase checkRestCases(String productName,int requestAmount, int promotableAmount, int divider) {

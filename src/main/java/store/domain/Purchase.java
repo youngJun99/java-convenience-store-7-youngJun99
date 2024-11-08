@@ -1,6 +1,7 @@
 package store.domain;
 
 import store.dto.OrderApproveRequestDto;
+import store.dto.OrderApproveResponseDto;
 
 public class Purchase {
 
@@ -54,22 +55,31 @@ public class Purchase {
         return new OrderApproveRequestDto(productName, unPromotableAmount, extraReceivableBonus);
     }
 
-    public void confirmBonus(){
+    public void processResponse(OrderApproveResponseDto response) {
+        if(response.proceedPurchase()) {
+            if(unPromotableAmount == 0) confirmBonus();
+            if(extraReceivableBonus == 0) confirmUnPromotableAmount();
+        }
+        if(unPromotableAmount == 0) discardBonus();
+        if(extraReceivableBonus == 0) discardUnPromotableAmount();
+    }
+
+    private void confirmBonus(){
         approved = true;
         promotableAmount =+extraReceivableBonus;
         extraReceivableBonus = 0;
     }
 
-    public void discardBonus() {
+    private void discardBonus() {
         approved = true;
         extraReceivableBonus = 0;
     }
 
-    public void confirmUnPromotableAmount() {
+    private void confirmUnPromotableAmount() {
         approved = true;
     }
 
-    public void discardUnPromotableAmount() {
+    private void discardUnPromotableAmount() {
         approved = true;
         unPromotableAmount = 0;
     }

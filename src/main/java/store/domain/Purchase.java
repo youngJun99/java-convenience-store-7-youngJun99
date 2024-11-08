@@ -5,7 +5,7 @@ import store.dto.OrderApproveResponseDto;
 
 public class Purchase {
 
-    private String productName;
+    private final String productName;
     private Boolean approved;
     private int promotableAmount;
     private int unPromotableAmount;
@@ -37,6 +37,10 @@ public class Purchase {
 
     public String getProductName() {
         return productName;
+    }
+
+    public int getPromotableAmount() {
+        return promotableAmount;
     }
 
     public int getUnPromotableAmount() {

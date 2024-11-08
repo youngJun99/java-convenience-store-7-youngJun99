@@ -35,7 +35,6 @@ public class PromotionFactory {
                 promotions.add(new PromotionImpl(name, buy, get, startDate, endDate));
             }
         }
-        promotions.add(new NullPromotion());
         return promotions;
     }
 }

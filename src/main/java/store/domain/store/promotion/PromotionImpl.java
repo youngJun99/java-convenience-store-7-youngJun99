@@ -2,6 +2,7 @@ package store.domain.store.promotion;
 
 import store.domain.Purchase;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static store.domain.Purchase.*;
@@ -11,10 +12,10 @@ public class PromotionImpl implements Promotion {
     private final String name;
     private final int buy;
     private final int get;
-    private final LocalDateTime start;
-    private final LocalDateTime end;
+    private final LocalDate start;
+    private final LocalDate end;
 
-    public PromotionImpl(String name, int buy, int get, LocalDateTime start, LocalDateTime end) {
+    public PromotionImpl(String name, int buy, int get, LocalDate start, LocalDate end) {
         this.name = name;
         this.buy = buy;
         this.get = get;
@@ -23,7 +24,7 @@ public class PromotionImpl implements Promotion {
     }
 
     @Override
-    public boolean available(LocalDateTime orderedTime) {
+    public boolean available(LocalDate orderedTime) {
         return orderedTime.isAfter(start) && orderedTime.isBefore(end);
     }
 

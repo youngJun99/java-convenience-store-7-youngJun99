@@ -5,6 +5,7 @@ import store.domain.store.promotion.Promotion;
 import store.domain.Purchase;
 import store.dto.ReceiptDto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static store.domain.Purchase.normalPurchaseFrom;
@@ -29,7 +30,7 @@ public class Product {
         return productName;
     }
 
-    public Purchase makePendingPurchase(int requestAmount, LocalDateTime orderedTime) {
+    public Purchase makePendingPurchase(int requestAmount, LocalDate orderedTime) {
         validatePurchase(requestAmount);
         if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);

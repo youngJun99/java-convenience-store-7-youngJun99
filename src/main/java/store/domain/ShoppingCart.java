@@ -3,6 +3,7 @@ package store.domain;
 import store.dto.OrderApproveRequestDto;
 import store.dto.OrderApproveResponseDto;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,5 +34,9 @@ public class ShoppingCart {
                         .findFirst()
                         .ifPresent(purchase -> purchase.processResponse(response))
         );
+    }
+
+    public List<Purchase> getPurchases() {
+        return Collections.unmodifiableList(purchases);
     }
 }

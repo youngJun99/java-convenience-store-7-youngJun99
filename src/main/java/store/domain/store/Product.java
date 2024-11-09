@@ -36,7 +36,7 @@ public class Product {
     }
 
     public Purchase makePendingPurchase(int requestAmount, LocalDate orderedTime) {
-        validatePurchase(requestAmount);
+        isNotOverInventory(requestAmount);
         if (promotion.available(orderedTime)) {
             return checkPromotionRequest(requestAmount);
         }
@@ -67,7 +67,7 @@ public class Product {
         promotionInventory -= totalAmount;
     }
 
-    private void validatePurchase(int requestAmount) {
+    private void isNotOverInventory(int requestAmount) {
         int TotalAmount = promotionInventory + normalInventory;
         if (TotalAmount < requestAmount) {
             throw new IllegalArgumentException(InputErrors.INVENTORY_SHORTAGE.getMessage());

@@ -3,6 +3,7 @@ package store.domain.store.factory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import store.domain.store.promotion.Promotion;
 import store.domain.store.promotion.PromotionImpl;
 import store.factory.PromotionFactoryImpl;
 
@@ -28,8 +29,8 @@ class PromotionFactoryImplTest {
     @Test
     @DisplayName("PromotionFactoryImpl 기능 테스트")
     void promotionFactoryFunctionTest() throws IOException {
-        PromotionFactoryImpl promotionFactoryImpl = PromotionFactoryImpl.getInstance();
-        List<PromotionImpl> promotions = promotionFactoryImpl.loadPromotions();
+        PromotionFactoryImpl promotionFactoryImpl = new PromotionFactoryImpl();
+        List<Promotion> promotions = promotionFactoryImpl.loadPromotions();
         assertThat(promotions).isEqualTo(answer);
     }
 

@@ -48,8 +48,8 @@ class StoreFactoryImplTest {
     @Test
     @DisplayName("StoreFactoryImpl 기능 테스트")
     void ConvenienceStoreFactoryFunctionTest() throws IOException {
-        PromotionFactoryImpl promotionFactoryImpl = PromotionFactoryImpl.getInstance();
-        StoreFactoryImpl storeFactoryImpl = new StoreFactoryImpl(promotionFactoryImpl.loadPromotions());
+        PromotionFactoryImpl promotionFactoryImpl = new PromotionFactoryImpl();
+        StoreFactoryImpl storeFactoryImpl = new StoreFactoryImpl(promotionFactoryImpl);
         Store store = storeFactoryImpl.createStore();
         assertThat(store).isEqualTo(answer);
     }

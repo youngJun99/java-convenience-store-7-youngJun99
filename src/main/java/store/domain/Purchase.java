@@ -72,7 +72,7 @@ public class Purchase {
 
     private void confirmBonus() {
         approved = true;
-        promotableAmount = +extraReceivableBonus;
+        promotableAmount += extraReceivableBonus;
         extraReceivableBonus = 0;
     }
 

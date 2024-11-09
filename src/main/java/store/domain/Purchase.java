@@ -57,7 +57,7 @@ public class Purchase {
         return approved;
     }
 
-    public OrderApproveRequestDto makeRequest() {
+    public OrderApproveRequestDto makeConfirmRequest() {
         return new OrderApproveRequestDto(productName, unPromotableAmount, extraReceivableBonus);
     }
 

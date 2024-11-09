@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromotionFactory {
+public class PromotionFactoryImpl {
 
     private static final String promotionPath = "src/main/resources/promotions.md";
 

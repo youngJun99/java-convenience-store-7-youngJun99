@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import store.domain.store.promotion.PromotionImpl;
-import store.factory.PromotionFactory;
+import store.factory.PromotionFactoryImpl;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -13,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
-class PromotionFactoryTest {
+class PromotionFactoryImplTest {
 
     private static List<PromotionImpl> answer;
 
@@ -26,10 +26,10 @@ class PromotionFactoryTest {
     }
 
     @Test
-    @DisplayName("PromotionFactory 기능 테스트")
+    @DisplayName("PromotionFactoryImpl 기능 테스트")
     void promotionFactoryFunctionTest() throws IOException {
-        PromotionFactory promotionFactory = PromotionFactory.getInstance();
-        List<PromotionImpl> promotions = promotionFactory.loadPromotions();
+        PromotionFactoryImpl promotionFactoryImpl = PromotionFactoryImpl.getInstance();
+        List<PromotionImpl> promotions = promotionFactoryImpl.loadPromotions();
         assertThat(promotions).isEqualTo(answer);
     }
 

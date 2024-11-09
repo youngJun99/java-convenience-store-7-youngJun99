@@ -15,13 +15,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
-public class StoreFactory {
+public class StoreFactoryImpl {
 
     private static final String productsPath = "src/main/resources/products.md";
 
     private final List<PromotionImpl> promotions;
 
-    public StoreFactory(List<PromotionImpl> promotions) {
+    public StoreFactoryImpl(List<PromotionImpl> promotions) {
         this.promotions = promotions;
     }
 

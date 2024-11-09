@@ -7,8 +7,8 @@ import store.domain.store.Store;
 import store.domain.store.Product;
 import store.domain.store.promotion.NullPromotion;
 import store.domain.store.promotion.PromotionImpl;
-import store.factory.PromotionFactory;
-import store.factory.StoreFactory;
+import store.factory.PromotionFactoryImpl;
+import store.factory.StoreFactoryImpl;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class StoreFactoryTest {
+class StoreFactoryImplTest {
 
 
     private static Store answer;
@@ -46,11 +46,11 @@ class StoreFactoryTest {
 
 
     @Test
-    @DisplayName("StoreFactory 기능 테스트")
+    @DisplayName("StoreFactoryImpl 기능 테스트")
     void ConvenienceStoreFactoryFunctionTest() throws IOException {
-        PromotionFactory promotionFactory = PromotionFactory.getInstance();
-        StoreFactory storeFactory = new StoreFactory(promotionFactory.loadPromotions());
-        Store store = storeFactory.createStore();
+        PromotionFactoryImpl promotionFactoryImpl = PromotionFactoryImpl.getInstance();
+        StoreFactoryImpl storeFactoryImpl = new StoreFactoryImpl(promotionFactoryImpl.loadPromotions());
+        Store store = storeFactoryImpl.createStore();
         assertThat(store).isEqualTo(answer);
     }
 

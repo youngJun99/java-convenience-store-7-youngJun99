@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class InputHandler {
 
-    private static final Pattern orderPattern = Pattern.compile("\\[(\\w+)-(\\d+)]");
+    private static final Pattern orderPattern = Pattern.compile("\\[([\\p{L}]+)-(\\d+)]");
 
     private InputValidator inputValidator;
     private InputView inputView;

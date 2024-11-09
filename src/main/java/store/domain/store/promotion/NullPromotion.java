@@ -3,7 +3,6 @@ package store.domain.store.promotion;
 import store.domain.Purchase;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static store.domain.Purchase.*;
 
@@ -15,7 +14,7 @@ public class NullPromotion implements Promotion {
     }
 
     public static NullPromotion getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new NullPromotion();
         }
         return instance;

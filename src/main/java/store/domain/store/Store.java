@@ -5,11 +5,13 @@ import store.dto.OrderDto;
 import store.dto.OrderSheetDto;
 import store.domain.Purchase;
 import store.domain.ShoppingCart;
+import store.dto.ProductInventoryDto;
 import store.dto.ReceiptDto;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Store {
 
@@ -18,6 +20,12 @@ public class Store {
     public Store(List<Product> products) {
 
         this.products = products;
+    }
+
+    public List<ProductInventoryDto> showStoreInventory() {
+        return products.stream()
+                .map(Product::showInventory)
+                .toList();
     }
 
     public ShoppingCart putInCart(OrderSheetDto orderSheetDto) {

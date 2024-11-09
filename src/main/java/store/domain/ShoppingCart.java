@@ -20,7 +20,7 @@ public class ShoppingCart {
                 .allMatch(Purchase::getApproved);
     }
 
-    public List<OrderApproveRequestDto> printUnApprovedPurchases() {
+    public List<OrderApproveRequestDto> getUnApprovedPurchases() {
         return purchases.stream()
                 .filter(purchase -> !purchase.getApproved()) // 승인되지 않은 Purchase만 필터링
                 .map(purchase -> purchase.makeConfirmRequest()) // 각 Purchase에서 makeRequest() 호출하여 OrderApproveRequestDto 생성

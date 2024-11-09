@@ -63,7 +63,7 @@ public class Product {
     private void processInventory(int totalAmount, LocalDate orderTime) {
         if (promotion.available(orderTime)) {
             processUnderPromotion(totalAmount);
-        }else {
+        } else {
             processUnderNoPromotion(totalAmount);
         }
     }

@@ -1,5 +1,6 @@
 package store.handler;
 
+import store.dto.OrderApproveResponseDto;
 import store.dto.OrderDto;
 import store.dto.OrderSheetDto;
 import store.view.InputView;
@@ -34,14 +35,16 @@ public class InputHandler {
         return new OrderSheetDto(orders, orderTime);
     }
 
-    public boolean requestWhetherToReceiveBonus(String productName, int receivableBonus) {
+    public OrderApproveResponseDto requestWhetherToReceiveBonus(String productName, int receivableBonus) {
         String inputAnswer = inputView.printExtraBonusReceiveRequest(productName, receivableBonus);
-        return handleCustomerResponse(inputAnswer);
+        boolean answer = handleCustomerResponse(inputAnswer);
+        return new OrderApproveResponseDto(productName,answer);
     }
 
-    public boolean requestToConfirmUnPromotable(String productName, int unPromotable) {
+    public OrderApproveResponseDto requestToConfirmUnPromotable(String productName, int unPromotable) {
         String inputAnswer = inputView.printUnPromotableConditionRequest(productName, unPromotable);
-        return handleCustomerResponse(inputAnswer);
+        boolean answer= handleCustomerResponse(inputAnswer);
+        return new OrderApproveResponseDto(productName,answer);
     }
 
     public boolean requestMemberShipDiscount() {

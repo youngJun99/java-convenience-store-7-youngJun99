@@ -1,4 +1,4 @@
-package store.domain.store.factory;
+package store.factory;
 
 import store.domain.store.Store;
 import store.domain.store.Product;

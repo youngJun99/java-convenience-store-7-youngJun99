@@ -7,6 +7,8 @@ import store.domain.store.Store;
 import store.domain.store.Product;
 import store.domain.store.promotion.NullPromotion;
 import store.domain.store.promotion.PromotionImpl;
+import store.factory.PromotionFactory;
+import store.factory.StoreFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;

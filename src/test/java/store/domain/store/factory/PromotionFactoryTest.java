@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import store.domain.store.promotion.PromotionImpl;
+import store.factory.PromotionFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;

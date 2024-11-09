@@ -1,13 +1,14 @@
 package store.service;
 
 import store.domain.store.Store;
-import store.domain.store.factory.StoreFactory;
+import store.factory.StoreFactory;
 
 import java.io.IOException;
 
 public class StoreGenerateService {
 
     private final StoreFactory storeFactory;
+    private
 
     public StoreGenerateService(StoreFactory storeFactory) {
         this.storeFactory = storeFactory;

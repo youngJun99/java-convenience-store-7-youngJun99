@@ -60,6 +60,11 @@ public class PromotionImpl implements Promotion {
     private Purchase checkBonusGivable(String productName, int requestAmount, int promotableAmount, int divider) {
 
         int leftOvers = requestAmount % divider;
+
+        //프로모션을 문제없이 진행할 수 있다
+        if(leftOvers ==0){
+            return fullPromotablePurchaseFrom(productName,requestAmount);
+        }
         //보너스를 줄 수 있다
         if (leftOvers == buy && requestAmount + get <= promotableAmount) {
             return bonusReceivablePurchaseFrom(productName,requestAmount,get);

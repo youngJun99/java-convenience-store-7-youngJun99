@@ -1,6 +1,8 @@
 ## 🔧 기능 구현 목록
 
-## TODO: 기본 기능들 전부다 테스트 해보고, 잘된다는 확인후에 바로 Output Handler 로직 구현
+## TODO: InputHandler 마지막 테스트 하고 입력 형식에 대한 문제부터 해결해
+
+Output Handler 로직 구현
 > 그 후에는 Config로 중복 부름 없이 쫙 연결해주고 돌리면 끝...
 
 > Purchase 내부 리펙토링 대상

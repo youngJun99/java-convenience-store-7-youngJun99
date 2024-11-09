@@ -32,7 +32,7 @@ public class Product {
     }
 
     public ProductInventoryDto showInventory() {
-        return new ProductInventoryDto(productName,price,promotionInventory,normalInventory,promotion.getName());
+        return new ProductInventoryDto(productName, price, promotionInventory, normalInventory, promotion.getName());
     }
 
     public Purchase makePendingPurchase(int requestAmount, LocalDate orderedTime) {
@@ -47,8 +47,12 @@ public class Product {
         int promotableAmount = purchase.getPromotableAmount();
         int unPromotableAmount = purchase.getUnPromotableAmount();
         int totalAmount = promotableAmount + unPromotableAmount;
-        int promotionBonus = promotion.calculateBonusToGive(promotableAmount);
+
+        isNotOverInventory(totalAmount);
         processInventory(totalAmount, orderTime);
+
+        int promotionBonus = promotion.calculateBonusToGive(promotableAmount);
+
         return new ReceiptDto(productName, price, totalAmount, promotionBonus);
     }
 

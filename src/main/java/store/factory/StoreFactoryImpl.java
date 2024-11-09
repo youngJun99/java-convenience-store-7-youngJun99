@@ -3,7 +3,7 @@ package store.factory;
 import store.domain.store.Store;
 import store.domain.store.Product;
 import store.domain.store.promotion.NullPromotion;
-import store.domain.store.promotion.PromotionImpl;
+import store.domain.store.promotion.Promotion;
 
 import java.util.List;
 
@@ -14,17 +14,20 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
-public class StoreFactoryImpl {
+public class StoreFactoryImpl implements StoreFactory {
 
     private static final String productsPath = "src/main/resources/products.md";
 
-    private final List<PromotionImpl> promotions;
+    private final PromotionFactory promotionFactory;
 
-    public StoreFactoryImpl(List<PromotionImpl> promotions) {
-        this.promotions = promotions;
+    private List<Promotion> promotions;
+
+    public StoreFactoryImpl(PromotionFactory promotionFactory) {
+        this.promotionFactory = promotionFactory;
     }
 
     public Store createStore() throws IOException {
+        promotions = promotionFactory.loadPromotions();
         List<Product> products = new ArrayList<>();
         Path path = Paths.get(productsPath);
         extractProducts(path, products);
@@ -51,7 +54,7 @@ public class StoreFactoryImpl {
         products.add(new Product(productName, promotion, price, promotionInventory, normalInventory));
     }
 
-    private PromotionImpl getPromotionByName(String name) {
+    private Promotion getPromotionByName(String name) {
         return promotions.stream()
                 .filter(promotion -> promotion.getName().equals(name))
                 .findFirst().get();

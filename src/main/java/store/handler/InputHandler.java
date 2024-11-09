@@ -33,20 +33,26 @@ public class InputHandler {
         return extractOrders(inputOrder);
     }
 
-    public OrderApproveResponseDto requestWhetherToReceiveBonus(OrderApproveRequestDto orderApproveRequestDto) {
+    public OrderApproveResponseDto requestApproval(OrderApproveRequestDto orderApproveRequestDto) {
         String productName = orderApproveRequestDto.productName();
-        int receivableBonus = orderApproveRequestDto.extraReceivableBonus();
-        String inputAnswer = inputView.printExtraBonusReceiveRequest(productName, receivableBonus);
-        boolean answer = handleCustomerResponse(inputAnswer);
-        return new OrderApproveResponseDto(productName,answer);
+        if(orderApproveRequestDto.extraReceivableBonus() != 0){
+            return bonusReceiveResponse(orderApproveRequestDto, productName);
+        }
+        return unPromotableConfirmResponse(orderApproveRequestDto, productName);
     }
 
-    public OrderApproveResponseDto requestToConfirmUnPromotable(OrderApproveRequestDto orderApproveRequestDto) {
-        String productName = orderApproveRequestDto.productName();
+    private OrderApproveResponseDto unPromotableConfirmResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
         int unPromotable = orderApproveRequestDto.unPromotableAmount();
         String inputAnswer = inputView.printUnPromotableConditionRequest(productName, unPromotable);
         boolean answer= handleCustomerResponse(inputAnswer);
-        return new OrderApproveResponseDto(productName,answer);
+        return new OrderApproveResponseDto(productName, answer);
+    }
+
+    private OrderApproveResponseDto bonusReceiveResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
+        int receivableBonus = orderApproveRequestDto.extraReceivableBonus();
+        String inputAnswer = inputView.printExtraBonusReceiveRequest(productName, receivableBonus);
+        boolean answer = handleCustomerResponse(inputAnswer);
+        return new OrderApproveResponseDto(productName, answer);
     }
 
     public boolean requestMemberShipDiscount() {

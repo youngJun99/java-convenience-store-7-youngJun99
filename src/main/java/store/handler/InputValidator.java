@@ -4,8 +4,8 @@ import store.constants.InputErrors;
 
 public class InputValidator {
 
-    private static final String REGEX_OF_PRODUCT_ORDER = "^\\[(\\w+)-\\d+\\](,\\[(\\w+)-\\d+\\])*$";
-    private static final String REGEX_OF_CUSTOMER_RESPONSE = "^[YN]$\n";
+    private static final String REGEX_OF_PRODUCT_ORDER = "^\\[(.+)-\\d+\\](,\\[(.+)-\\d+\\])*$";
+    private static final String REGEX_OF_CUSTOMER_RESPONSE = "^[YN]$";
 
     public void validateProductOrder(String input) {
         if (input == null || DoesNotMatchOrderRegex(input)) {

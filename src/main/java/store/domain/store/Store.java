@@ -2,7 +2,6 @@ package store.domain.store;
 
 import store.constants.InputErrors;
 import store.dto.OrderDto;
-import store.dto.OrderSheetDto;
 import store.domain.Purchase;
 import store.domain.ShoppingCart;
 import store.dto.ProductInventoryDto;
@@ -11,7 +10,6 @@ import store.dto.ReceiptDto;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Store {
 
@@ -28,10 +26,9 @@ public class Store {
                 .toList();
     }
 
-    public ShoppingCart putInCart(OrderSheetDto orderSheetDto) {
-        validateOrderProducts(orderSheetDto);
-        LocalDate orderedTime = orderSheetDto.orderedTime();
-        return new ShoppingCart(orderSheetDto.orderDtos().stream()
+    public ShoppingCart putInCart(List<OrderDto> orders, LocalDate orderedTime) {
+        validateOrderProducts(orders);
+        return new ShoppingCart(orders.stream()
                 .map(orderDto -> {
                     return getPurchase(orderDto, orderedTime);
                 })
@@ -59,8 +56,8 @@ public class Store {
     }
 
 
-    private void validateOrderProducts(OrderSheetDto orderSheetDto) {
-        boolean allItemsAvailable = orderSheetDto.orderDtos().stream()
+    private void validateOrderProducts(List<OrderDto> orders) {
+        boolean allItemsAvailable = orders.stream()
                 .allMatch(orderDto -> products.stream()
                         .anyMatch(product -> product.getProductName().equals(orderDto.productName()))
                 );

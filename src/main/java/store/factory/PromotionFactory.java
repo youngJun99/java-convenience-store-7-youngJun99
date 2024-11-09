@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PromotionFactory {
 
-    List<Promotion> loadPromotions() throws IOException;
+    List<Promotion> loadPromotions(String promotionPath) throws IOException;
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class StoreFactoryImpl implements StoreFactory {
 
-    private static final String productsPath = "src/main/resources/products.md";
+
 
     private final PromotionFactory promotionFactory;
 
@@ -26,8 +26,8 @@ public class StoreFactoryImpl implements StoreFactory {
         this.promotionFactory = promotionFactory;
     }
 
-    public Store createStore() throws IOException {
-        promotions = promotionFactory.loadPromotions();
+    public Store createStore(String productsPath, String promotionPath) throws IOException {
+        promotions = promotionFactory.loadPromotions(promotionPath);
         List<Product> products = new ArrayList<>();
         Path path = Paths.get(productsPath);
         extractProducts(path, products);

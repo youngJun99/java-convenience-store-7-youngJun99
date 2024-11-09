@@ -13,4 +13,6 @@ public interface Promotion {
 
     int calculateBonusToGive(int buyAmount);
 
+    String getName();
+
 }

@@ -35,4 +35,10 @@ public class NullPromotion implements Promotion {
     public int calculateBonusToGive(int buyAmount) {
         return 0;
     }
+
+    @Override
+    public String getName() {
+        return "";
+    }
+
 }

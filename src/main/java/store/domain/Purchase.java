@@ -65,9 +65,10 @@ public class Purchase {
         if (response.proceedPurchase()) {
             if (unPromotableAmount == 0) confirmBonus();
             if (extraReceivableBonus == 0) confirmUnPromotableAmount();
+        } else {
+            if (unPromotableAmount == 0) discardBonus();
+            if (extraReceivableBonus == 0) discardUnPromotableAmount();
         }
-        if (unPromotableAmount == 0) discardBonus();
-        if (extraReceivableBonus == 0) discardUnPromotableAmount();
     }
 
     private void confirmBonus() {

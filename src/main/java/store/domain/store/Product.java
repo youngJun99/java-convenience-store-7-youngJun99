@@ -30,6 +30,7 @@ public class Product {
         return productName;
     }
 
+
     public Purchase makePendingPurchase(int requestAmount, LocalDate orderedTime) {
         validatePurchase(requestAmount);
         if (promotion.available(orderedTime)) {
@@ -38,11 +39,6 @@ public class Product {
         return normalPurchaseFrom(productName, requestAmount);
     }
 
-    private Purchase checkPromotionRequest(int requestAmount) {
-        return promotion.checkRequest(productName, requestAmount, promotionInventory);
-    }
-
-
     public ReceiptDto executePurchase(Purchase purchase, LocalDate orderTime) {
         int promotableAmount = purchase.getPromotableAmount();
         int unPromotableAmount = purchase.getUnPromotableAmount();
@@ -50,6 +46,10 @@ public class Product {
         int promotionBonus = promotion.calculateBonusToGive(promotableAmount);
         processInventory(totalAmount, orderTime);
         return new ReceiptDto(productName, price, totalAmount, promotionBonus);
+    }
+
+    private Purchase checkPromotionRequest(int requestAmount) {
+        return promotion.checkRequest(productName, requestAmount, promotionInventory);
     }
 
     private void processInventory(int totalAmount, LocalDate orderTime) {

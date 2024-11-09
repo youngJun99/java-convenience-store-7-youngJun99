@@ -43,6 +43,10 @@ public class Product {
         return normalPurchaseFrom(productName, requestAmount);
     }
 
+    private Purchase checkPromotionRequest(int requestAmount) {
+        return promotion.checkRequest(productName, requestAmount, promotionInventory);
+    }
+
     public ReceiptDto executePurchase(Purchase purchase, LocalDate orderTime) {
         int promotableAmount = purchase.getPromotableAmount();
         int unPromotableAmount = purchase.getUnPromotableAmount();
@@ -56,17 +60,27 @@ public class Product {
         return new ReceiptDto(productName, price, totalAmount, promotionBonus);
     }
 
-    private Purchase checkPromotionRequest(int requestAmount) {
-        return promotion.checkRequest(productName, requestAmount, promotionInventory);
-    }
-
     private void processInventory(int totalAmount, LocalDate orderTime) {
         if (promotion.available(orderTime)) {
-            if (totalAmount > promotionInventory) {
-                totalAmount -= promotionInventory;
-                promotionInventory = 0;
-                normalInventory -= totalAmount;
-            }
+            processUnderPromotion(totalAmount);
+        }
+        processUnderNoPromotion(totalAmount);
+    }
+
+    private void processUnderNoPromotion(int totalAmount) {
+        if (totalAmount > normalInventory) {
+            totalAmount -= normalInventory;
+            normalInventory = 0;
+            promotionInventory -= totalAmount;
+        }
+        normalInventory -= totalAmount;
+    }
+
+    private void processUnderPromotion(int totalAmount) {
+        if (totalAmount > promotionInventory) {
+            totalAmount -= promotionInventory;
+            promotionInventory = 0;
+            normalInventory -= totalAmount;
         }
         promotionInventory -= totalAmount;
     }

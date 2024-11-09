@@ -8,13 +8,13 @@ public class InputValidator {
     private static final String REGEX_OF_CUSTOMER_RESPONSE = "^[YN]$\n";
 
     public void validateProductOrder(String input) {
-        if (DoesNotMatchOrderRegex(input)) {
+        if (input == null || DoesNotMatchOrderRegex(input)) {
             throw new IllegalArgumentException(InputErrors.INVALID_AMOUNT_OR_NAME.getMessage());
         }
     }
 
     public void validateCustomerResponse(String input) {
-        if (DoesNotMatchResponseRegex(input)) {
+        if (input == null || DoesNotMatchResponseRegex(input)) {
             throw new IllegalArgumentException(InputErrors.WRONG_INPUT.getMessage());
         }
     }

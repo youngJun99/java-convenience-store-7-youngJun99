@@ -1,5 +1,6 @@
 package store.factory;
 
+import store.domain.store.promotion.Promotion;
 import store.domain.store.promotion.PromotionImpl;
 
 import java.io.IOException;
@@ -14,8 +15,8 @@ public class PromotionFactoryImpl {
 
     private static final String promotionPath = "src/main/resources/promotions.md";
 
-    public List<PromotionImpl> loadPromotions() throws IOException {
-        List<PromotionImpl> promotions = new ArrayList<>();
+    public List<Promotion> loadPromotions() throws IOException {
+        List<Promotion> promotions = new ArrayList<>();
 
         Path path = Paths.get(promotionPath);
         List<String> lines = Files.readAllLines(path);
@@ -25,7 +26,7 @@ public class PromotionFactoryImpl {
         return promotions;
     }
 
-    private void extractPromotions(String line, List<PromotionImpl> promotions) {
+    private void extractPromotions(String line, List<Promotion> promotions) {
         String[] data = line.split(",");
         String name = data[0].trim();
         int buy = Integer.parseInt(data[1].trim());

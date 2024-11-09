@@ -3,7 +3,6 @@ package store.factory;
 import store.domain.store.Store;
 import store.domain.store.Product;
 import store.domain.store.promotion.NullPromotion;
-import store.domain.store.promotion.Promotion;
 import store.domain.store.promotion.PromotionImpl;
 
 import java.util.List;

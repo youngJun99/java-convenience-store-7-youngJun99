@@ -3,6 +3,7 @@ package store.domain.store;
 import store.constants.InputErrors;
 import store.domain.store.promotion.Promotion;
 import store.domain.Purchase;
+import store.dto.ProductInventoryDto;
 import store.dto.ReceiptDto;
 
 import java.time.LocalDate;
@@ -30,6 +31,9 @@ public class Product {
         return productName;
     }
 
+    public ProductInventoryDto showInventory() {
+        return new ProductInventoryDto(productName,price,promotionInventory,normalInventory,promotion.getName());
+    }
 
     public Purchase makePendingPurchase(int requestAmount, LocalDate orderedTime) {
         validatePurchase(requestAmount);

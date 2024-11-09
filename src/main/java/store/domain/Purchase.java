@@ -3,6 +3,8 @@ package store.domain;
 import store.dto.OrderApproveRequestDto;
 import store.dto.OrderApproveResponseDto;
 
+import java.util.Objects;
+
 public class Purchase {
 
     private final String productName;
@@ -88,5 +90,16 @@ public class Purchase {
         unPromotableAmount = 0;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Purchase purchase = (Purchase) object;
+        return promotableAmount == purchase.promotableAmount && unPromotableAmount == purchase.unPromotableAmount && extraReceivableBonus == purchase.extraReceivableBonus && Objects.equals(productName, purchase.productName) && Objects.equals(approved, purchase.approved);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(productName, approved, promotableAmount, unPromotableAmount, extraReceivableBonus);
+    }
 }

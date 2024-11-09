@@ -14,18 +14,6 @@ public class PromotionFactory {
 
     private static final String promotionPath = "src/main/resources/promotions.md";
 
-    private static PromotionFactory instance;
-
-    private PromotionFactory() {
-    }
-
-    public static PromotionFactory getInstance() {
-        if (instance == null) {
-            instance = new PromotionFactory();
-        }
-        return instance;
-    }
-
     public List<PromotionImpl> loadPromotions() throws IOException {
         List<PromotionImpl> promotions = new ArrayList<>();
 

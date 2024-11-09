@@ -65,7 +65,7 @@ public class PromotionImpl implements Promotion {
             return bonusReceivablePurchaseFrom(productName,requestAmount,get);
         }
         //leftOver 만큼 줄 수 없다
-        return partialPromotablePurchaseFrom(productName,requestAmount, leftOvers);
+        return partialPromotablePurchaseFrom(productName,requestAmount-leftOvers, leftOvers);
 
     }
 

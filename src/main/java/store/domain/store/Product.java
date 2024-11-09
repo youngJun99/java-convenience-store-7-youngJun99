@@ -63,8 +63,9 @@ public class Product {
     private void processInventory(int totalAmount, LocalDate orderTime) {
         if (promotion.available(orderTime)) {
             processUnderPromotion(totalAmount);
+        }else {
+            processUnderNoPromotion(totalAmount);
         }
-        processUnderNoPromotion(totalAmount);
     }
 
     private void processUnderNoPromotion(int totalAmount) {
@@ -72,8 +73,9 @@ public class Product {
             totalAmount -= normalInventory;
             normalInventory = 0;
             promotionInventory -= totalAmount;
+        } else {
+            normalInventory -= totalAmount;
         }
-        normalInventory -= totalAmount;
     }
 
     private void processUnderPromotion(int totalAmount) {
@@ -81,8 +83,9 @@ public class Product {
             totalAmount -= promotionInventory;
             promotionInventory = 0;
             normalInventory -= totalAmount;
+        } else {
+            promotionInventory -= totalAmount;
         }
-        promotionInventory -= totalAmount;
     }
 
     private void isNotOverInventory(int requestAmount) {

@@ -11,10 +11,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromotionFactoryImpl {
+public class PromotionFactoryImpl implements PromotionFactory{
 
     private static final String promotionPath = "src/main/resources/promotions.md";
 
+    @Override
     public List<Promotion> loadPromotions() throws IOException {
         List<Promotion> promotions = new ArrayList<>();
 

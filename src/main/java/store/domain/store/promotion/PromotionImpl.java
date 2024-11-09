@@ -3,7 +3,6 @@ package store.domain.store.promotion;
 import store.domain.Purchase;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static store.domain.Purchase.*;

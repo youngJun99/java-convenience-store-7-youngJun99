@@ -47,7 +47,7 @@ public class PromotionImpl implements Promotion {
         if (promotableAmount == requestAmount) {
             return fullPromotablePurchaseFrom(productName,requestAmount);
         }
-        return checkRestCases(productName,requestAmount, promotableAmount, divider);
+        return checkBonusGivable(productName,requestAmount, promotableAmount, divider);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class PromotionImpl implements Promotion {
 
 
 
-    private Purchase checkRestCases(String productName,int requestAmount, int promotableAmount, int divider) {
+    private Purchase checkBonusGivable(String productName, int requestAmount, int promotableAmount, int divider) {
 
         int leftOvers = requestAmount % divider;
 

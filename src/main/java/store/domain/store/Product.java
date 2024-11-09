@@ -52,7 +52,6 @@ public class Product {
         int unPromotableAmount = purchase.getUnPromotableAmount();
         int totalAmount = promotableAmount + unPromotableAmount;
 
-        isNotOverInventory(totalAmount);
         processInventory(totalAmount, orderTime);
 
         int promotionBonus = promotion.calculateBonusToGive(promotableAmount);

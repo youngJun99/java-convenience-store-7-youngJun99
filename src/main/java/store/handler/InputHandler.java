@@ -22,7 +22,7 @@ public class InputHandler {
     public OrderSheetDto handleOrder(String inputOrder) {
         inputValidator.validateProductOrder(inputOrder);
 
-        //promotion.md의 형태에 따라 우테코 라이브러리를 사용하지 않았습니다.
+        //promotion.md의 형태에 따라 우테코 라이브러리의 LocalTimes.now 를 사용하지 않았습니다.
         LocalDate orderTime = LocalDate.now();
 
         List<OrderDto> orders = extractOrders(inputOrder);

@@ -2,7 +2,6 @@ package store.handler;
 
 import store.dto.OrderApproveResponseDto;
 import store.dto.OrderDto;
-import store.dto.OrderSheetDto;
 import store.view.InputView;
 
 import java.time.LocalDate;
@@ -23,16 +22,14 @@ public class InputHandler {
         this.inputView = inputView;
     }
 
-    public OrderSheetDto requestInputOrder() {
+    public List<OrderDto> requestInputOrder() {
         String inputOrder = inputView.printOrderRequest();
         inputValidator.validateProductOrder(inputOrder);
 
         //promotion.md의 형태에 따라 우테코 라이브러리의 LocalTimes.now 를 사용하지 않았습니다.
         LocalDate orderTime = LocalDate.now();
 
-        List<OrderDto> orders = extractOrders(inputOrder);
-
-        return new OrderSheetDto(orders, orderTime);
+        return extractOrders(inputOrder);
     }
 
     public OrderApproveResponseDto requestWhetherToReceiveBonus(String productName, int receivableBonus) {

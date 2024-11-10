@@ -11,6 +11,7 @@ import java.util.List;
 public class OutputHandler {
 
     private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("#,###");
+    private static final DecimalFormat INVENTORY_FORMAT = new DecimalFormat("#개");
 
     private final OutputView outputView;
 
@@ -22,26 +23,33 @@ public class OutputHandler {
 
         List<String> inventoryList = new ArrayList<>();
 
-        for(ProductInventoryDto inventory:inventoryStatus){
-            if(!inventory.promotionName().isBlank()) {
+        for (ProductInventoryDto inventory : inventoryStatus) {
+            if (!inventory.promotionName().isBlank()) {
                 String productName = inventory.productName();
                 String price = MONEY_FORMAT.format(inventory.price());
-                int promotionInventory = inventory.promotionInventory();
-                int normalInventory =inventory.normalInventory();
-                inventoryList.add(formatInventoryInterface(productName,price,promotionInventory,inventory.promotionName()));
-                inventoryList.add(formatInventoryInterface(productName,price,normalInventory,""));
+                String promotionInventory = formatInventory(inventory.promotionInventory());
+                String normalInventory = formatInventory(inventory.normalInventory());
+                inventoryList.add(formatInventoryInterface(productName, price, promotionInventory, inventory.promotionName()));
+                inventoryList.add(formatInventoryInterface(productName, price, normalInventory, ""));
                 continue;
             }
             String productName = inventory.productName();
             String price = MONEY_FORMAT.format(inventory.price());
-            int normalInventory = inventory.normalInventory();
-            inventoryList.add(formatInventoryInterface(productName,price,normalInventory,""));
+            String normalInventory = formatInventory(inventory.normalInventory());
+            inventoryList.add(formatInventoryInterface(productName, price, normalInventory, ""));
         }
         outputView.printInventory(inventoryList);
     }
 
-    private String formatInventoryInterface(String productName, String price, int inventory, String promotionName){
-        return String.format("%s %s원 %d개 %s",productName,price,inventory,promotionName);
+    private String formatInventory(int inventory) {
+        if (inventory == 0){
+            return "재고 없음";
+        }
+        return INVENTORY_FORMAT.format(inventory);
+    }
+
+    private String formatInventoryInterface(String productName, String price, String inventory, String promotionName) {
+        return String.format("%s %s원 %s %s", productName, price, inventory, promotionName);
     }
 
     public void printReceipt(List<ReceiptDto> receipts, int memberShipDiscount) {
@@ -53,38 +61,38 @@ public class OutputHandler {
         int discountPrice = 0;
 
 
-        for(ReceiptDto receipt:receipts) {
+        for (ReceiptDto receipt : receipts) {
             String productName = receipt.productName();
             int price = receipt.price();
-            if(receipt.promotionBonus() != 0){
+            if (receipt.promotionBonus() != 0) {
                 int bonusAmount = receipt.promotionBonus();
-                discountPrice += bonusAmount*price;
-                bonusReceived.add(formatBonusReceived(productName,bonusAmount));
+                discountPrice += bonusAmount * price;
+                bonusReceived.add(formatBonusReceived(productName, bonusAmount));
             }
             int boughtAmount = receipt.buyAmount();
-            int boughtPrice = boughtAmount*price;
-            totalBoughtInventory+=boughtAmount;
+            int boughtPrice = boughtAmount * price;
+            totalBoughtInventory += boughtAmount;
             totalPrice += boughtPrice;
             String boughtTotal = MONEY_FORMAT.format(boughtPrice);
-            purchasedInventory.add(formatBoughtInventory(productName,boughtAmount,boughtTotal));
+            purchasedInventory.add(formatBoughtInventory(productName, boughtAmount, boughtTotal));
         }
 
-        int finalPayment = totalPrice-discountPrice-memberShipDiscount;
+        int finalPayment = totalPrice - discountPrice - memberShipDiscount;
 
         outputView.printBoughtInventory(purchasedInventory);
         outputView.printBonusAmount(bonusReceived);
-        outputView.printTotalPrice(totalBoughtInventory,totalPrice);
+        outputView.printTotalPrice(totalBoughtInventory, totalPrice);
         outputView.printPromotionDiscount(discountPrice);
         outputView.printMemberShipDiscount(memberShipDiscount);
         outputView.printFinalPayAmount(finalPayment);
     }
 
     private String formatBoughtInventory(String productName, int boughtInventory, String boughtPrice) {
-        return String.format("%s        %d  %s",productName,boughtInventory,boughtPrice);
+        return String.format("%-19s%d\t\t%s", productName, boughtInventory, boughtPrice);
     }
 
     private String formatBonusReceived(String productName, int bonusReceived) {
-        return String.format("%s            %d",productName,bonusReceived);
+        return String.format("%s                 %d", productName, bonusReceived);
     }
 
 

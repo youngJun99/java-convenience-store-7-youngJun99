@@ -7,7 +7,7 @@ public class DefaultMembership implements Membership {
 
 
     @Override
-    public int processDiscount(int input) {
+    public int calculateDiscount(int input) {
         int discount = (int) (input * MEMBERSHIP_DISCOUNT);
         if (discount > MAXIMUM_MEMBERSHIP_DISCOUNT) {
             return MAXIMUM_MEMBERSHIP_DISCOUNT;

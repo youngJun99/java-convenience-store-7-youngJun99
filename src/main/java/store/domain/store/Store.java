@@ -57,13 +57,17 @@ public class Store {
 
 
     private void validateOrderProducts(List<OrderDto> orders) {
-        boolean allItemsAvailable = orders.stream()
+        boolean notAllItemIsAvailable = !orders.stream()
                 .allMatch(orderDto -> products.stream()
                         .anyMatch(product -> product.getProductName().equals(orderDto.productName()))
                 );
-        if (!allItemsAvailable) {
+        if (notAllItemIsAvailable) {
             throw new IllegalArgumentException(InputErrors.NO_SUCH_ITEM.getMessage());
         }
+    }
+
+    private static boolean isNot(boolean allItemsAvailable) {
+        return !allItemsAvailable;
     }
 
     @Override

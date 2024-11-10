@@ -27,7 +27,7 @@ class PurchaseTest {
         OrderApproveRequestDto answer = new OrderApproveRequestDto("콜라", 0, 1);
 
         //when
-        OrderApproveRequestDto orderApproveRequestDto = bonusReceivablePurchase.makeConfirmRequest();
+        OrderApproveRequestDto orderApproveRequestDto = bonusReceivablePurchase.makeApproveRequest();
 
         //then
         assertThat(orderApproveRequestDto).isEqualTo(answer);

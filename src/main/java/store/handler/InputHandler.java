@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 public class InputHandler {
 
     private static final Pattern orderPattern = Pattern.compile("\\[([\\p{L}]+)-(\\d+)]");
+    public static final int MAX_RETRIES = 10;
 
     private final InputValidator inputValidator;
     private final InputView inputView;
@@ -79,27 +80,37 @@ public class InputHandler {
 
 
     private String orderRetryHandler(Supplier<String> inputSupplier) {
-        while (true) {
+        int retries = 0;
+
+        while (retries < MAX_RETRIES) {
             String inputOrder = inputSupplier.get();
             try {
                 inputValidator.validateProductOrder(inputOrder);
                 return inputOrder;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
+                retries++;
             }
         }
+        System.exit(1);
+        return null;
     }
 
     private String responseRetryHandler(Supplier<String> inputSupplier) {
-        while (true) {
+        int retries = 0;
+
+        while (retries < MAX_RETRIES) {
             String inputResponse = inputSupplier.get();
             try {
                 inputValidator.validateCustomerResponse(inputResponse);
                 return inputResponse;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
+                retries++;
             }
         }
+        System.exit(1);
+        return null;
     }
 
 }

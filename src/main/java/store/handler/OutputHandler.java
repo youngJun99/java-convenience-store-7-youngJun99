@@ -25,20 +25,28 @@ public class OutputHandler {
 
         for (ProductInventoryDto inventory : inventoryStatus) {
             if (!inventory.promotionName().isBlank()) {
-                String productName = inventory.productName();
-                String price = MONEY_FORMAT.format(inventory.price());
-                String promotionInventory = formatInventory(inventory.promotionInventory());
-                String normalInventory = formatInventory(inventory.normalInventory());
-                inventoryList.add(formatInventoryInterface(productName, price, promotionInventory, inventory.promotionName()));
-                inventoryList.add(formatInventoryInterface(productName, price, normalInventory, ""));
+                handlePromotableInventory(inventory, inventoryList);
                 continue;
             }
-            String productName = inventory.productName();
-            String price = MONEY_FORMAT.format(inventory.price());
-            String normalInventory = formatInventory(inventory.normalInventory());
-            inventoryList.add(formatInventoryInterface(productName, price, normalInventory, ""));
+            handleUnPromotableInventory(inventory, inventoryList);
         }
         outputView.printInventory(inventoryList);
+    }
+
+    private void handleUnPromotableInventory(ProductInventoryDto inventory, List<String> inventoryList) {
+        String productName = inventory.productName();
+        String price = MONEY_FORMAT.format(inventory.price());
+        String normalInventory = formatInventory(inventory.normalInventory());
+        inventoryList.add(formatInventoryInterface(productName, price, normalInventory, ""));
+    }
+
+    private void handlePromotableInventory(ProductInventoryDto inventory, List<String> inventoryList) {
+        String productName = inventory.productName();
+        String price = MONEY_FORMAT.format(inventory.price());
+        String promotionInventory = formatInventory(inventory.promotionInventory());
+        String normalInventory = formatInventory(inventory.normalInventory());
+        inventoryList.add(formatInventoryInterface(productName, price, promotionInventory, inventory.promotionName()));
+        inventoryList.add(formatInventoryInterface(productName, price, normalInventory, ""));
     }
 
     private String formatInventory(int inventory) {
@@ -59,19 +67,27 @@ public class OutputHandler {
 
         for (ProductReceiptDto receipt : receipts) {
             String productName = receipt.productName();
-            int price = receipt.price();
-            if (receipt.promotionBonus() != 0) {
-                int bonusAmount = receipt.promotionBonus();
-                bonusReceived.add(formatBonusReceived(productName, bonusAmount));
-            }
-            int boughtAmount = receipt.buyAmount();
-            int boughtPrice = boughtAmount * price;
-            String boughtTotal = MONEY_FORMAT.format(boughtPrice);
-            purchasedInventory.add(formatBoughtInventory(productName, boughtAmount, boughtTotal));
+            addPurchasedInventory(receipt, purchasedInventory, productName);
+            addBonuseReceid(receipt, bonusReceived, productName);
         }
 
         outputView.printBoughtInventory(purchasedInventory);
         outputView.printBonusAmount(bonusReceived);
+    }
+
+    private void addBonuseReceid(ProductReceiptDto receipt, List<String> bonusReceived, String productName) {
+        if (receipt.promotionBonus() != 0) {
+            int bonusAmount = receipt.promotionBonus();
+            bonusReceived.add(formatBonusReceived(productName, bonusAmount));
+        }
+    }
+
+    private void addPurchasedInventory(ProductReceiptDto receipt, List<String> purchasedInventory, String productName) {
+        int price = receipt.price();
+        int boughtAmount = receipt.buyAmount();
+        int boughtPrice = boughtAmount * price;
+        String boughtTotal = MONEY_FORMAT.format(boughtPrice);
+        purchasedInventory.add(formatBoughtInventory(productName, boughtAmount, boughtTotal));
     }
 
     public void printMoneyReceipt(int totalBuy, int totalPrice, int promotionDiscount, int memberShipDiscount) {

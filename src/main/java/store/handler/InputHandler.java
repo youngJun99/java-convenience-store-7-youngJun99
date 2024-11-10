@@ -15,8 +15,8 @@ public class InputHandler {
 
     private static final Pattern orderPattern = Pattern.compile("\\[([\\p{L}]+)-(\\d+)]");
 
-    private InputValidator inputValidator;
-    private InputView inputView;
+    private final InputValidator inputValidator;
+    private final InputView inputView;
 
     public InputHandler(InputValidator inputValidator, InputView inputView) {
         this.inputValidator = inputValidator;
@@ -35,7 +35,7 @@ public class InputHandler {
 
     public OrderApproveResponseDto requestApproval(OrderApproveRequestDto orderApproveRequestDto) {
         String productName = orderApproveRequestDto.productName();
-        if(orderApproveRequestDto.extraReceivableBonus() != 0){
+        if (orderApproveRequestDto.extraReceivableBonus() != 0) {
             return bonusReceiveResponse(orderApproveRequestDto, productName);
         }
         return unPromotableConfirmResponse(orderApproveRequestDto, productName);
@@ -44,7 +44,7 @@ public class InputHandler {
     private OrderApproveResponseDto unPromotableConfirmResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
         int unPromotable = orderApproveRequestDto.unPromotableAmount();
         String inputAnswer = inputView.printUnPromotableConditionRequest(productName, unPromotable);
-        boolean answer= handleCustomerResponse(inputAnswer);
+        boolean answer = handleCustomerResponse(inputAnswer);
         return new OrderApproveResponseDto(productName, answer);
     }
 

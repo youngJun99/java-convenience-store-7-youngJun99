@@ -24,8 +24,8 @@ class ShoppingCartTest {
 
     @Test
     @DisplayName("장바구니는 모든 주문이 승인되었는지 확인할 수 있다.")
-    void isAllApprovedTest() {
-        assertThat(shoppingCart.isAllApproved()).isFalse();
+    void isNotApprovedTest() {
+        assertThat(shoppingCart.isNotApproved()).isFalse();
     }
 
     @Test

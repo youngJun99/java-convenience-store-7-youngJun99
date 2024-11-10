@@ -15,8 +15,8 @@ public class ShoppingCart {
         this.purchases = purchases;
     }
 
-    public boolean isAllApproved() {
-        return purchases.stream()
+    public boolean isNotApproved() {
+        return !purchases.stream()
                 .allMatch(Purchase::getApproved);
     }
 

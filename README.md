@@ -1,15 +1,11 @@
 ## 🔧 기능 구현 목록
 
-## TODO: Output Handler 로직 구현
+## TODO: StoreFactoryImpl을 줄일 계획을 세우자.
 
-LocalDate.now 도 리펙토링이 필요해
-else도 쓰지 않을 수 있나..?
 
-> Purchase 내부 리펙토링 대상
-> 
 >Outputview도 많은 리펙토링이 필요하다. 시험은 application에서 테스트하자.
+>
 > 
-> 펙토리 내부 리펙토링 대상
 ### 서비스 
 - 주문 서비스 ( 최종 주문을 만들어주기까지 해주면됌) input output 다필요하지만.
 - 영수증 서비스 ( 최종 주문을 받아서 영수증을 발행해줌) 여긴 output만 있어도 괜찮을거 같다.

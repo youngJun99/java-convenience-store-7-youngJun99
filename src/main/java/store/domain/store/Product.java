@@ -1,7 +1,7 @@
 package store.domain.store;
 
 import store.constants.InputErrors;
-import store.domain.store.promotion.Promotion;
+import store.domain.promotion.Promotion;
 import store.domain.Purchase;
 import store.dto.ProductInventoryDto;
 import store.dto.ReceiptDto;

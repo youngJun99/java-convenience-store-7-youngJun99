@@ -1,4 +1,4 @@
-package store.domain.store.promotion;
+package store.domain.promotion;
 
 import store.domain.Purchase;
 

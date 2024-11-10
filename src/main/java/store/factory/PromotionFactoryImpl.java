@@ -1,7 +1,7 @@
 package store.factory;
 
-import store.domain.store.promotion.Promotion;
-import store.domain.store.promotion.PromotionImpl;
+import store.domain.promotion.Promotion;
+import store.domain.promotion.PromotionImpl;
 
 import java.io.IOException;
 import java.nio.file.Files;

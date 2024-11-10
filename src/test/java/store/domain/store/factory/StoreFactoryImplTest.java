@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import store.domain.store.Store;
 import store.domain.store.Product;
-import store.domain.store.promotion.NullPromotion;
-import store.domain.store.promotion.PromotionImpl;
+import store.domain.promotion.NullPromotion;
+import store.domain.promotion.PromotionImpl;
 import store.factory.PromotionFactoryImpl;
 import store.factory.StoreFactoryImpl;
 

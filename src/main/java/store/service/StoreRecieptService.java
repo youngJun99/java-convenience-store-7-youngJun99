@@ -1,6 +1,6 @@
 package store.service;
 
-import store.domain.store.membership.Membership;
+import store.domain.membership.Membership;
 import store.dto.ReceiptDto;
 import store.handler.InputHandler;
 import store.handler.OutputHandler;

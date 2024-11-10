@@ -7,8 +7,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import store.constants.InputErrors;
 import store.domain.Purchase;
-import store.domain.store.promotion.Promotion;
-import store.domain.store.promotion.PromotionImpl;
+import store.domain.promotion.Promotion;
+import store.domain.promotion.PromotionImpl;
 import store.dto.ProductInventoryDto;
 import store.dto.ReceiptDto;
 

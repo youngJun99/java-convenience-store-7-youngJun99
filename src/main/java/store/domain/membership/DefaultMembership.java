@@ -1,4 +1,4 @@
-package store.domain.store.membership;
+package store.domain.membership;
 
 public class DefaultMembership implements Membership {
 

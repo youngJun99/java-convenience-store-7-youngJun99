@@ -3,8 +3,8 @@ package store.domain.store.factory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import store.domain.store.promotion.Promotion;
-import store.domain.store.promotion.PromotionImpl;
+import store.domain.promotion.Promotion;
+import store.domain.promotion.PromotionImpl;
 import store.factory.PromotionFactoryImpl;
 
 import java.io.IOException;

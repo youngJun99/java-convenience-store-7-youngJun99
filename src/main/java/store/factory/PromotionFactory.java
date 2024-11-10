@@ -1,6 +1,6 @@
 package store.factory;
 
-import store.domain.store.promotion.Promotion;
+import store.domain.promotion.Promotion;
 
 import java.io.IOException;
 import java.util.List;

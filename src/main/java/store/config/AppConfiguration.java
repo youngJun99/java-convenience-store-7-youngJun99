@@ -1,7 +1,7 @@
 package store.config;
 
 import store.controller.StoreController;
-import store.domain.store.membership.DefaultMembership;
+import store.domain.membership.DefaultMembership;
 import store.factory.PromotionFactoryImpl;
 import store.factory.StoreFactoryImpl;
 import store.handler.InputHandler;

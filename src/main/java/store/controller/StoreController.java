@@ -1,15 +1,11 @@
 package store.controller;
 
-import camp.nextstep.edu.missionutils.DateTimes;
-import store.domain.Purchase;
 import store.domain.store.Store;
 import store.dto.ReceiptDto;
 import store.service.StoreGenerateService;
 import store.service.StoreOrderService;
 import store.service.StoreRecieptService;
 
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class StoreController {
@@ -27,7 +23,7 @@ public class StoreController {
     public void run() {
         Store store = storeGenerateService.generateStore();
         boolean keepBuying = true;
-        while (keepBuying){
+        while (keepBuying) {
             List<ReceiptDto> receiptDtos = storeOrderService.takeOrderFrom(store);
             storeRecieptService.printReceipt(receiptDtos);
             keepBuying = storeOrderService.keepShopping();

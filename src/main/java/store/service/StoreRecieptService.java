@@ -20,7 +20,7 @@ public class StoreRecieptService {
     }
 
     public void printReceipt(List<ReceiptDto> receipts) {
-        boolean memberShipDiscount = inputHandler.requestMemberShipDiscount();
+        boolean memberShipDiscountResponse = inputHandler.requestMemberShipDiscount();
         outputHandler.printInventoryReceipt(receipts);
 
         int totalBuy = receipts.stream()
@@ -35,7 +35,10 @@ public class StoreRecieptService {
                 .mapToInt(receipt -> receipt.price() * receipt.promotionBonus())
                 .sum();
 
-        int membershipDiscount = memberShip.processDiscount(totalPrice - promotionDiscount);
+        int membershipDiscount =0;
+        if(memberShipDiscountResponse){
+            membershipDiscount = memberShip.processDiscount(totalPrice - promotionDiscount);
+        }
 
         outputHandler.printMoneyReceipt(totalBuy, totalPrice, promotionDiscount, membershipDiscount);
     }

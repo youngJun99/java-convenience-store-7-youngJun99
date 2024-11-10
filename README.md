@@ -3,6 +3,7 @@
 ## TODO: Output Handler 로직 구현
 
 LocalDate.now 도 리펙토링이 필요해
+else도 쓰지 않을 수 있나..?
 
 > Purchase 내부 리펙토링 대상
 > 

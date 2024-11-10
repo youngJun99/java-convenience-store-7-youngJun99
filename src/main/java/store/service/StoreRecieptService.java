@@ -37,7 +37,7 @@ public class StoreRecieptService {
 
         int membershipDiscount =0;
         if(memberShipDiscountResponse){
-            membershipDiscount = memberShip.processDiscount(totalPrice - promotionDiscount);
+            membershipDiscount = memberShip.calculateDiscount(totalPrice - promotionDiscount);
         }
 
         outputHandler.printMoneyReceipt(totalBuy, totalPrice, promotionDiscount, membershipDiscount);

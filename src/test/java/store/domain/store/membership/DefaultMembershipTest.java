@@ -22,7 +22,7 @@ class DefaultMembershipTest {
     @DisplayName("26666원의 30%는 8000원 입니다. 이 이상의 값이 입력되면 8000원을 반환합니다.")
     @ValueSource(ints = {27000, 30000, 50000})
     void overDiscountMaximumTest(int input) {
-        assertThat(defaultMemberShip.processDiscount(input)).isEqualTo(8000);
+        assertThat(defaultMemberShip.calculateDiscount(input)).isEqualTo(8000);
     }
 
     @ParameterizedTest
@@ -33,6 +33,6 @@ class DefaultMembershipTest {
             "15000, 4500"
     })
     void test(int input, int expect) {
-        assertThat(defaultMemberShip.processDiscount(input)).isEqualTo(expect);
+        assertThat(defaultMemberShip.calculateDiscount(input)).isEqualTo(expect);
     }
 }

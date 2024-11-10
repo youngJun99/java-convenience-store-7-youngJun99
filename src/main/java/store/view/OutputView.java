@@ -33,7 +33,7 @@ public class OutputView {
         System.out.printf("행사할인\t\t\t\t\t\t-%s%n", discount);
     }
 
-    public void printMemberShipDiscount(String discount) {
+    public void printMembershipDiscount(String discount) {
         System.out.printf("멤버십할인\t\t\t\t\t\t-%s%n", discount);
     }
 

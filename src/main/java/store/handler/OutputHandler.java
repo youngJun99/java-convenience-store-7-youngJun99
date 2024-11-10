@@ -96,7 +96,7 @@ public class OutputHandler {
 
         outputView.printTotalPrice(totalBuy, MONEY_FORMAT.format(totalPrice));
         outputView.printPromotionDiscount(MONEY_FORMAT.format(promotionDiscount));
-        outputView.printMemberShipDiscount(MONEY_FORMAT.format(memberShipDiscount));
+        outputView.printMembershipDiscount(MONEY_FORMAT.format(memberShipDiscount));
         outputView.printFinalPayAmount(MONEY_FORMAT.format(finalPayment));
     }
 

@@ -21,20 +21,23 @@ public class StoreOrderService {
     }
 
 
-   public List<ReceiptDto> takeOrderFrom(Store store) {
+    public List<ReceiptDto> takeOrderFrom(Store store) {
         List<ProductInventoryDto> currentInventory = store.showStoreInventory();
         outputHandler.printInventoryStatus(currentInventory);
         List<OrderDto> customerOrder = inputHandler.requestInputOrder();
         LocalDate orderedTime = LocalDate.now();
-        ShoppingCart purchases = store.putInCart(customerOrder,orderedTime);
-        if(purchases.isNotApproved()) {
+        ShoppingCart purchases = store.putInCart(customerOrder, orderedTime);
+        if (purchases.isNotApproved()) {
             List<OrderApproveRequestDto> unapproved = purchases.getUnApprovedPurchases();
             List<OrderApproveResponseDto> response = unapproved.stream()
                     .map(inputHandler::requestApproval)
                     .toList();
             purchases.processResponses(response);
         }
-        return store.executeOrder(purchases,orderedTime);
-   }
+        return store.executeOrder(purchases, orderedTime);
+    }
 
+    public boolean keepShopping() {
+        return inputHandler.requestContinueShopping();
+    }
 }

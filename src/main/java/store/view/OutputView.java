@@ -14,7 +14,7 @@ public class OutputView {
         System.out.println();
     }
 
-    public void print(List<String> buyAmount) {
+    public void printBoughtInventory(List<String> buyAmount) {
         System.out.println("==============W 편의점================");
         System.out.println("상품명\t\t수량\t금액");
         buyAmount.forEach(System.out::println);

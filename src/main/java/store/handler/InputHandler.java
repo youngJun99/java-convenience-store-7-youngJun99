@@ -6,7 +6,6 @@ import store.dto.OrderApproveResponseDto;
 import store.dto.OrderDto;
 import store.view.InputView;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -54,7 +53,7 @@ public class InputHandler {
     }
 
     public boolean requestMemberShipDiscount() {
-        String inputAnswer = responseRetryHandler(inputView::printMemberShipDiscountRequest);
+        String inputAnswer = responseRetryHandler(inputView::printMembershipDiscountRequest);
         return inputAnswer.equals("Y");
     }
 

@@ -2,7 +2,6 @@ package store.config;
 
 import store.controller.StoreController;
 import store.domain.store.membership.DefaultMembership;
-import store.domain.store.membership.Membership;
 import store.factory.PromotionFactoryImpl;
 import store.factory.StoreFactoryImpl;
 import store.handler.InputHandler;
@@ -16,6 +15,9 @@ import store.view.OutputView;
 
 public class AppConfiguration {
 
+    /**
+     * 이번에는 Config를 사용해서 필요하지 않다면 별도의 싱글톤 설계를 하지 않았습니다.
+     */
     public StoreController storeController() {
         InputHandler inputHandler = new InputHandler(new InputValidator(), new InputView());
         OutputHandler outputHandler = new OutputHandler(new OutputView());
@@ -23,23 +25,9 @@ public class AppConfiguration {
     }
 
     private StoreController storeController(InputHandler inputHandler, OutputHandler outputHandler) {
-        StoreGenerateService storeGenerateService = storeGenerateService();
-        StoreOrderService storeOrderService = storeOrderService(inputHandler, outputHandler);
-        StoreRecieptService storeRecieptService = storeRecieptService(inputHandler, outputHandler, new DefaultMembership());
+        StoreGenerateService storeGenerateService = new StoreGenerateService(new StoreFactoryImpl(new PromotionFactoryImpl()));
+        StoreOrderService storeOrderService = new StoreOrderService(inputHandler, outputHandler);
+        StoreRecieptService storeRecieptService = new StoreRecieptService(inputHandler, outputHandler, new DefaultMembership());
         return new StoreController(storeGenerateService, storeOrderService, storeRecieptService);
     }
-
-    private StoreGenerateService storeGenerateService() {
-        return new StoreGenerateService(new StoreFactoryImpl(new PromotionFactoryImpl()));
-    }
-
-    private StoreOrderService storeOrderService(InputHandler inputHandler, OutputHandler outputHandler) {
-        return new StoreOrderService(inputHandler, outputHandler);
-    }
-
-    private StoreRecieptService storeRecieptService(InputHandler inputHandler, OutputHandler outputHandler, Membership memberShip) {
-        return new StoreRecieptService(inputHandler, outputHandler,memberShip);
-    }
-
-
 }

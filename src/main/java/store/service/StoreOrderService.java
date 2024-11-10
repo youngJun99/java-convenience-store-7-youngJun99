@@ -1,6 +1,7 @@
 package store.service;
 
 import camp.nextstep.edu.missionutils.DateTimes;
+import store.constants.InputErrors;
 import store.domain.shoppingcart.ShoppingCart;
 import store.domain.store.Store;
 import store.dto.*;
@@ -12,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static store.handler.InputHandler.MAX_RETRIES;
-
 
 public class StoreOrderService {
 
@@ -34,13 +34,17 @@ public class StoreOrderService {
         LocalDate orderedDate = orderedDateTime.toLocalDate();
 
         if (purchases.isNotApproved()) {
-            List<OrderApproveRequestDto> unapproved = purchases.getUnApprovedPurchases();
-            List<OrderApproveResponseDto> response = unapproved.stream()
-                    .map(inputHandler::requestApproval)
-                    .toList();
-            purchases.processResponses(response);
+            requestAndProcessResponse(purchases);
         }
         return store.executeOrder(purchases, orderedDate);
+    }
+
+    private void requestAndProcessResponse(ShoppingCart purchases) {
+        List<OrderApproveRequestDto> unapproved = purchases.getUnApprovedPurchases();
+        List<OrderApproveResponseDto> response = unapproved.stream()
+                .map(inputHandler::requestApproval)
+                .toList();
+        purchases.processResponses(response);
     }
 
     public boolean keepShopping() {
@@ -52,17 +56,21 @@ public class StoreOrderService {
 
         while (retryCount < MAX_RETRIES) {
             try {
-                List<OrderDto> customerOrder = inputHandler.requestInputOrder();
-                LocalDateTime orderedDateTime = DateTimes.now();
-                LocalDate orderedTime = orderedDateTime.toLocalDate();
-                return store.putInCart(customerOrder, orderedTime);
-            } catch (IllegalArgumentException e) {  // 예외 타입을 구체적으로 설정
+                return getShoppingCart(store);
+            } catch (IllegalArgumentException e) {
                 retryCount++;
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("최대 재시도 횟수에 도달했습니다. 애플리케이션을 종료합니다.");
+        System.err.println(InputErrors.EXCEED_MAX_RETRY_LIMIT);
         System.exit(1);
         return null;
+    }
+
+    private ShoppingCart getShoppingCart(Store store) {
+        List<OrderDto> customerOrder = inputHandler.requestInputOrder();
+        LocalDateTime orderedDateTime = DateTimes.now();
+        LocalDate orderedTime = orderedDateTime.toLocalDate();
+        return store.putInCart(customerOrder, orderedTime);
     }
 }

@@ -5,7 +5,7 @@ import store.dto.OrderDto;
 import store.domain.shoppingcart.Purchase;
 import store.domain.shoppingcart.ShoppingCart;
 import store.dto.ProductInventoryDto;
-import store.dto.ReceiptDto;
+import store.dto.ProductReceiptDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,7 +36,7 @@ public class Store {
 
     }
 
-    public List<ReceiptDto> executeOrder(ShoppingCart shoppingCart, LocalDate orderTime) {
+    public List<ProductReceiptDto> executeOrder(ShoppingCart shoppingCart, LocalDate orderTime) {
         List<Purchase> purchases = shoppingCart.getPurchases();
         return purchases.stream()
                 .flatMap(purchase -> products.stream()

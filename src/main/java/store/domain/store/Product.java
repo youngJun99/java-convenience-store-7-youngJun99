@@ -4,7 +4,7 @@ import store.constants.InputErrors;
 import store.domain.promotion.Promotion;
 import store.domain.shoppingcart.Purchase;
 import store.dto.ProductInventoryDto;
-import store.dto.ReceiptDto;
+import store.dto.ProductReceiptDto;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -43,7 +43,7 @@ public class Product {
         return unPromotablePurchaseFrom(productName, requestAmount);
     }
 
-    public ReceiptDto executePurchase(Purchase purchase, LocalDate orderTime) {
+    public ProductReceiptDto executePurchase(Purchase purchase, LocalDate orderTime) {
         int promotableAmount = purchase.getPromotableAmount();
         int unPromotableAmount = purchase.getUnPromotableAmount();
         int totalAmount = promotableAmount + unPromotableAmount;
@@ -52,7 +52,7 @@ public class Product {
 
         int promotionBonus = promotion.calculateBonusToGive(promotableAmount);
 
-        return new ReceiptDto(productName, price, totalAmount, promotionBonus);
+        return new ProductReceiptDto(productName, price, totalAmount, promotionBonus);
     }
 
     private void processInventory(int totalAmount, LocalDate orderTime) {

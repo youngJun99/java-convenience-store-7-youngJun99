@@ -25,7 +25,7 @@ public class StoreOrderService {
     }
 
 
-    public List<ReceiptDto> takeOrderFrom(Store store) {
+    public List<ProductReceiptDto> takeOrderFrom(Store store) {
         List<ProductInventoryDto> currentInventory = store.showStoreInventory();
         outputHandler.printInventoryStatus(currentInventory);
 

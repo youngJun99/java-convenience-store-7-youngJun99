@@ -8,7 +8,7 @@ import store.domain.shoppingcart.Purchase;
 import store.domain.shoppingcart.ShoppingCart;
 import store.dto.OrderDto;
 import store.dto.ProductInventoryDto;
-import store.dto.ReceiptDto;
+import store.dto.ProductReceiptDto;
 import store.factory.PromotionFactoryImpl;
 import store.factory.StoreFactory;
 import store.factory.StoreFactoryImpl;
@@ -92,13 +92,13 @@ class StoreTest {
     @DisplayName("Store는 확정된 장바구니를 넣으면 영수증을 반환한다")
     void executeOrder() {
         //given
-        ReceiptDto cokeReceipt = new ReceiptDto("콜라",1000,3,1);
-        ReceiptDto orangeJuiceReceipt = new ReceiptDto("오렌지주스",1800,2,1);
-        List<ReceiptDto> answer = List.of(cokeReceipt,orangeJuiceReceipt);
+        ProductReceiptDto cokeReceipt = new ProductReceiptDto("콜라",1000,3,1);
+        ProductReceiptDto orangeJuiceReceipt = new ProductReceiptDto("오렌지주스",1800,2,1);
+        List<ProductReceiptDto> answer = List.of(cokeReceipt,orangeJuiceReceipt);
         LocalDate promotable = LocalDate.of(2024,3,3);
 
         //when
-        List<ReceiptDto> receipt = testStore.executeOrder(testShoppingCart,promotable);
+        List<ProductReceiptDto> receipt = testStore.executeOrder(testShoppingCart,promotable);
 
         //then
         assertThat(receipt).isEqualTo(answer);

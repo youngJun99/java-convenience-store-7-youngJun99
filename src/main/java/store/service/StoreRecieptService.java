@@ -1,7 +1,7 @@
 package store.service;
 
 import store.domain.membership.Membership;
-import store.dto.ReceiptDto;
+import store.dto.ProductReceiptDto;
 import store.handler.InputHandler;
 import store.handler.OutputHandler;
 
@@ -19,12 +19,12 @@ public class StoreRecieptService {
         this.memberShip = memberShip;
     }
 
-    public void printReceipt(List<ReceiptDto> receipts) {
+    public void printReceipt(List<ProductReceiptDto> receipts) {
         boolean memberShipDiscountResponse = inputHandler.requestMemberShipDiscount();
         outputHandler.printInventoryReceipt(receipts);
 
         int totalBuy = receipts.stream()
-                .mapToInt(ReceiptDto::buyAmount)
+                .mapToInt(ProductReceiptDto::buyAmount)
                 .sum();
 
         int totalPrice = receipts.stream()

@@ -1,7 +1,7 @@
 package store.handler;
 
 import store.dto.ProductInventoryDto;
-import store.dto.ReceiptDto;
+import store.dto.ProductReceiptDto;
 import store.view.OutputView;
 
 import java.text.DecimalFormat;
@@ -52,12 +52,12 @@ public class OutputHandler {
         return String.format("%s %s원 %s %s", productName, price, inventory, promotionName);
     }
 
-    public void printInventoryReceipt(List<ReceiptDto> receipts) {
+    public void printInventoryReceipt(List<ProductReceiptDto> receipts) {
 
         List<String> purchasedInventory = new ArrayList<>();
         List<String> bonusReceived = new ArrayList<>();
 
-        for (ReceiptDto receipt : receipts) {
+        for (ProductReceiptDto receipt : receipts) {
             String productName = receipt.productName();
             int price = receipt.price();
             if (receipt.promotionBonus() != 0) {

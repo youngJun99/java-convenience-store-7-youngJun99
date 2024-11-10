@@ -1,7 +1,7 @@
 package store.controller;
 
 import store.domain.store.Store;
-import store.dto.ReceiptDto;
+import store.dto.ProductReceiptDto;
 import store.service.StoreGenerateService;
 import store.service.StoreOrderService;
 import store.service.StoreRecieptService;
@@ -24,8 +24,8 @@ public class StoreController {
         Store store = storeGenerateService.generateStore();
         boolean keepBuying = true;
         while (keepBuying) {
-            List<ReceiptDto> receiptDtos = storeOrderService.takeOrderFrom(store);
-            storeRecieptService.printReceipt(receiptDtos);
+            List<ProductReceiptDto> productReceiptDtos = storeOrderService.takeOrderFrom(store);
+            storeRecieptService.printReceipt(productReceiptDtos);
             keepBuying = storeOrderService.keepShopping();
         }
     }

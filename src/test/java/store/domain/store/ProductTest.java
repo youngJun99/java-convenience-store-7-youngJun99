@@ -10,7 +10,7 @@ import store.domain.shoppingcart.Purchase;
 import store.domain.promotion.Promotion;
 import store.domain.promotion.PromotionImpl;
 import store.dto.ProductInventoryDto;
-import store.dto.ReceiptDto;
+import store.dto.ProductReceiptDto;
 
 import java.time.LocalDate;
 
@@ -119,10 +119,10 @@ class ProductTest {
         Purchase purchase = new Purchase("콜라",true,6,2,0);
 
         //when
-        ReceiptDto receiptDto = coke.executePurchase(purchase,promotableDate);
+        ProductReceiptDto productReceiptDto = coke.executePurchase(purchase,promotableDate);
         //then
-        ReceiptDto answer = new ReceiptDto("콜라",1000,8,2);
-        assertThat(receiptDto).isEqualTo(answer);
+        ProductReceiptDto answer = new ProductReceiptDto("콜라",1000,8,2);
+        assertThat(productReceiptDto).isEqualTo(answer);
     }
 
     @Test
@@ -131,10 +131,10 @@ class ProductTest {
         Purchase purchase = new Purchase("콜라",true,0,3,0);
 
         //when
-        ReceiptDto receiptDto = coke.executePurchase(purchase,promotableDate);
+        ProductReceiptDto productReceiptDto = coke.executePurchase(purchase,promotableDate);
         //then
-        ReceiptDto answer = new ReceiptDto("콜라",1000,3,0);
-        assertThat(receiptDto).isEqualTo(answer);
+        ProductReceiptDto answer = new ProductReceiptDto("콜라",1000,3,0);
+        assertThat(productReceiptDto).isEqualTo(answer);
     }
 
 }

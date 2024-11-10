@@ -1,6 +1,5 @@
 package store;
 
-
 import store.config.AppConfiguration;
 import store.controller.StoreController;
 

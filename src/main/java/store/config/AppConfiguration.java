@@ -23,7 +23,7 @@ public class AppConfiguration {
     private StoreController storeController(InputHandler inputHandler, OutputHandler outputHandler) {
         StoreGenerateService storeGenerateService = storeGenerateService();
         StoreOrderService storeOrderService = storeOrderService(inputHandler, outputHandler);
-        StoreRecieptService storeRecieptService = storeRecieptService(outputHandler);
+        StoreRecieptService storeRecieptService = storeRecieptService(inputHandler, outputHandler);
         return new StoreController(storeGenerateService, storeOrderService, storeRecieptService);
     }
 
@@ -35,8 +35,8 @@ public class AppConfiguration {
         return new StoreOrderService(inputHandler, outputHandler);
     }
 
-    private StoreRecieptService storeRecieptService(OutputHandler outputHandler) {
-        return new StoreRecieptService(outputHandler);
+    private StoreRecieptService storeRecieptService(InputHandler inputHandler, OutputHandler outputHandler) {
+        return new StoreRecieptService(inputHandler, outputHandler);
     }
 
 

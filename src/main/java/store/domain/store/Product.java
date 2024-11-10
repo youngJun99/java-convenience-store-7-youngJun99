@@ -44,7 +44,7 @@ public class Product {
     }
 
     private Purchase checkPromotionRequest(int requestAmount) {
-        return promotion.makePendingPromotionPurchase(productName, requestAmount, promotionInventory);
+        return promotion.makePendingPromotablePurchase(productName, requestAmount, promotionInventory);
     }
 
     public ReceiptDto executePurchase(Purchase purchase, LocalDate orderTime) {

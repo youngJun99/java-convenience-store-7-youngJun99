@@ -42,7 +42,7 @@ class NullPromotionTest {
     @DisplayName("NullPromotion은 Promotion 주문이 들어와도 unPromotable 주문으로 인식하고 purchase를 만든다")
     void returnNormalPurchase() {
         Purchase dummyPurchase = new Purchase("콜라", true, 0, 10, 0);
-        Purchase normalPurchase = nullPromotion.makePendingPromotionPurchase("콜라", 10, 10);
+        Purchase normalPurchase = nullPromotion.makePendingPromotablePurchase("콜라", 10, 10);
         assertThat(dummyPurchase).isEqualTo(normalPurchase);
     }
 

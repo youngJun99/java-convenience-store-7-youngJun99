@@ -8,7 +8,7 @@ public interface Promotion {
 
     boolean available(LocalDate orderedTime);
 
-    Purchase makePendingPromotionPurchase(String productName, int requestAmount, int promotionInventory);
+    Purchase makePendingPromotablePurchase(String productName, int requestAmount, int promotionInventory);
 
     int calculateBonusToGive(int buyAmount);
 

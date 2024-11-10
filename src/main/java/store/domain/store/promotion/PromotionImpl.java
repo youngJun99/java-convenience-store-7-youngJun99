@@ -33,7 +33,7 @@ public class PromotionImpl implements Promotion {
     }
 
     @Override
-    public Purchase makePendingPromotionPurchase(String productName, int requestAmount, int promotionInventory) {
+    public Purchase makePendingPromotablePurchase(String productName, int requestAmount, int promotionInventory) {
 
         int divider = buy + get;
 

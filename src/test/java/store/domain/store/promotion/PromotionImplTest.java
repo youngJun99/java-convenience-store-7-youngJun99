@@ -75,7 +75,7 @@ class PromotionImplTest {
     @DisplayName("7개의 프로모션 재고 보유중 10개 주문이 들어오면 6개만 프로모션 가능합니다. 이는 승인되지 않은 주문입니다")
     void promotionLogicTest1() {
         Purchase answer = new Purchase("콜라", false, 6, 4, 0);
-        Purchase purchase = promotionTwoPlusOne.makePendingPromotionPurchase("콜라", 10, 7);
+        Purchase purchase = promotionTwoPlusOne.makePendingPromotablePurchase("콜라", 10, 7);
         assertThat(purchase).isEqualTo(answer);
     }
 
@@ -83,7 +83,7 @@ class PromotionImplTest {
     @DisplayName("6개의 프로모션 재고 보유중 6개 주문이 들어오면 전부 프로모션 대상입니다. 이는 승인된 주문입니다.")
     void promotionLogicTest2() {
         Purchase answer = new Purchase("콜라", true, 6, 0, 0);
-        Purchase purchase = promotionTwoPlusOne.makePendingPromotionPurchase("콜라", 6, 6);
+        Purchase purchase = promotionTwoPlusOne.makePendingPromotablePurchase("콜라", 6, 6);
         assertThat(purchase).isEqualTo(answer);
     }
 
@@ -91,7 +91,7 @@ class PromotionImplTest {
     @DisplayName("6개의 프로모션 재고 보유중 5개 주문이 들어오면 보너스 지급이 가능할수도 있다. 이는 승인되지 않은 주문입니다.")
     void promotionLogicTest3() {
         Purchase answer = new Purchase("콜라", false, 5, 0, 1);
-        Purchase purchase = promotionTwoPlusOne.makePendingPromotionPurchase("콜라", 5, 6);
+        Purchase purchase = promotionTwoPlusOne.makePendingPromotablePurchase("콜라", 5, 6);
         assertThat(purchase).isEqualTo(answer);
     }
 
@@ -99,7 +99,7 @@ class PromotionImplTest {
     @DisplayName("6개의 프로모션 재고 보유중 4개 주문이 들어오면 1개는 프로모션을 받지 못한다. 이는 승인되지 않은 주문입니다.")
     void promotionLogicTest4() {
         Purchase answer = new Purchase("콜라", false, 3, 1, 0);
-        Purchase purchase = promotionTwoPlusOne.makePendingPromotionPurchase("콜라", 4, 6);
+        Purchase purchase = promotionTwoPlusOne.makePendingPromotablePurchase("콜라", 4, 6);
         assertThat(purchase).isEqualTo(answer);
     }
 
@@ -111,7 +111,7 @@ class PromotionImplTest {
     @DisplayName("6개의 프로모션 재고 보유중 5개 주문이 들어오면 보너스 지급이 가능할수도 있다. 이는 승인되지 않은 주문입니다.")
     void promotionLogicTest5() {
         Purchase answer = new Purchase("콜라", false, 5, 0, 1);
-        Purchase purchase = promotionOnePlusOne.makePendingPromotionPurchase("콜라", 5, 6);
+        Purchase purchase = promotionOnePlusOne.makePendingPromotablePurchase("콜라", 5, 6);
         assertThat(purchase).isEqualTo(answer);
     }
 
@@ -119,7 +119,7 @@ class PromotionImplTest {
     @DisplayName("6개의 프로모션 재고 보유중 6개 주문이 들어오면 전부 프로모션 대상입니다. 이는 승인된 주문입니다.")
     void promotionLogicTest6() {
         Purchase answer = new Purchase("콜라", true, 6, 0, 0);
-        Purchase purchase = promotionOnePlusOne.makePendingPromotionPurchase("콜라", 6, 6);
+        Purchase purchase = promotionOnePlusOne.makePendingPromotablePurchase("콜라", 6, 6);
         assertThat(purchase).isEqualTo(answer);
     }
 

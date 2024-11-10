@@ -14,7 +14,7 @@ import java.util.List;
 public class PromotionFactoryImpl implements PromotionFactory {
 
     @Override
-    public List<Promotion> loadPromotions(String promotionPath) throws IOException {
+    public List<Promotion> createPromotions(String promotionPath) throws IOException {
         List<Promotion> promotions = new ArrayList<>();
 
         Path path = Paths.get(promotionPath);

@@ -26,7 +26,7 @@ public class StoreFactoryImpl implements StoreFactory {
     }
 
     public Store createStore(String productsPath, String promotionPath) throws IOException {
-        promotions = promotionFactory.loadPromotions(promotionPath);
+        promotions = promotionFactory.createPromotions(promotionPath);
         List<Product> products = new ArrayList<>();
         Path path = Paths.get(productsPath);
         extractProducts(path, products);

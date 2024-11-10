@@ -30,7 +30,7 @@ class PromotionFactoryImplTest {
     @DisplayName("PromotionFactoryImpl 기능 테스트")
     void promotionFactoryFunctionTest() throws IOException {
         PromotionFactoryImpl promotionFactoryImpl = new PromotionFactoryImpl();
-        List<Promotion> promotions = promotionFactoryImpl.loadPromotions("src/main/resources/promotions.md");
+        List<Promotion> promotions = promotionFactoryImpl.createPromotions("src/main/resources/promotions.md");
         assertThat(promotions).isEqualTo(answer);
     }
 

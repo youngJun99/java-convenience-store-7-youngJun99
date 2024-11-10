@@ -1,8 +1,8 @@
 package store.config;
 
 import store.controller.StoreController;
-import store.domain.store.membership.DefaultMemberShip;
-import store.domain.store.membership.MemberShip;
+import store.domain.store.membership.DefaultMembership;
+import store.domain.store.membership.Membership;
 import store.factory.PromotionFactoryImpl;
 import store.factory.StoreFactoryImpl;
 import store.handler.InputHandler;
@@ -25,7 +25,7 @@ public class AppConfiguration {
     private StoreController storeController(InputHandler inputHandler, OutputHandler outputHandler) {
         StoreGenerateService storeGenerateService = storeGenerateService();
         StoreOrderService storeOrderService = storeOrderService(inputHandler, outputHandler);
-        StoreRecieptService storeRecieptService = storeRecieptService(inputHandler, outputHandler, new DefaultMemberShip());
+        StoreRecieptService storeRecieptService = storeRecieptService(inputHandler, outputHandler, new DefaultMembership());
         return new StoreController(storeGenerateService, storeOrderService, storeRecieptService);
     }
 
@@ -37,7 +37,7 @@ public class AppConfiguration {
         return new StoreOrderService(inputHandler, outputHandler);
     }
 
-    private StoreRecieptService storeRecieptService(InputHandler inputHandler, OutputHandler outputHandler, MemberShip memberShip) {
+    private StoreRecieptService storeRecieptService(InputHandler inputHandler, OutputHandler outputHandler, Membership memberShip) {
         return new StoreRecieptService(inputHandler, outputHandler,memberShip);
     }
 

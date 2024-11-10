@@ -1,6 +1,5 @@
 package store.domain.store.membership;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,15 +7,14 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-class DefaultMemberShipTest {
+class DefaultMembershipTest {
 
-    private static DefaultMemberShip defaultMemberShip;
+    private static DefaultMembership defaultMemberShip;
 
     @BeforeAll
     static void setUp() {
-        defaultMemberShip = new DefaultMemberShip();
+        defaultMemberShip = new DefaultMembership();
     }
 
     @ParameterizedTest

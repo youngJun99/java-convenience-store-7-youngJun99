@@ -1,6 +1,6 @@
 package store.domain.store.membership;
 
-public class DefaultMemberShip implements MemberShip {
+public class DefaultMembership implements Membership {
 
     private static final double MEMBERSHIP_DISCOUNT = 0.3;
     private static final int MAXIMUM_MEMBERSHIP_DISCOUNT = 8000;

@@ -39,14 +39,15 @@ public class PromotionImpl implements Promotion {
 
         int promotableAmount = divider * (promotionInventory / divider);
 
-        //requestAmount - promotableAmount 만큼 못준다
+        //requestAmount - promotableAmount 만큼 프로모션 혜택을 받지 못합니다.
         if (promotableAmount < requestAmount) {
             return partialPromotablePurchaseFrom(productName, promotableAmount, requestAmount - promotableAmount);
         }
-        //프로모션을 문제없이 진행할 수 있다
+        //Full Promotion
         if (promotableAmount == requestAmount) {
             return fullPromotablePurchaseFrom(productName, requestAmount);
         }
+        // 프로모션 가능한 재고보다 적은 만큼의 요청이 들어왔다면 보너스를 지급할 가능성이 있습니다.
         return checkBonusGivable(productName, requestAmount, promotableAmount, divider);
     }
 
@@ -55,20 +56,17 @@ public class PromotionImpl implements Promotion {
         return buyAmount / (buy + get) * get;
     }
 
-
     private Purchase checkBonusGivable(String productName, int requestAmount, int promotableAmount, int divider) {
 
         int leftOvers = requestAmount % divider;
 
-        //프로모션을 문제없이 진행할 수 있다
         if (leftOvers == 0) {
             return fullPromotablePurchaseFrom(productName, requestAmount);
         }
-        //보너스를 줄 수 있다
         if (leftOvers == buy && requestAmount + get <= promotableAmount) {
             return bonusReceivablePurchaseFrom(productName, requestAmount, get);
         }
-        //leftOver 만큼 줄 수 없다
+        //leftOver 만큼 프로모션 불가
         return partialPromotablePurchaseFrom(productName, requestAmount - leftOvers, leftOvers);
 
     }

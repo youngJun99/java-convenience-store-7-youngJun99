@@ -14,7 +14,7 @@ public enum InputErrors {
     private String message;
 
     InputErrors(String message) {
-        this.message = ERROR_PREFIX+message;
+        this.message = ERROR_PREFIX + message;
     }
 
     public String getMessage() {

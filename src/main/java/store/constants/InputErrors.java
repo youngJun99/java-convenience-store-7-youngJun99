@@ -7,8 +7,7 @@ public enum InputErrors {
     INVENTORY_SHORTAGE("재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요."),
     WRONG_INPUT("잘못된 입력입니다. 다시 입력해 주세요."),
 
-    PROMOTION_READ_ERROR("프로모션 입력과정에서 에러가 발생했습니다."),
-    PRODUCT_READ_ERROR("재고 입력과정에서 에러가 발생했습니다.");
+    STORE_BUILDING_ERROR("재고와 프로모션을 읽어오는 과정에서 에러가 발생했습니다.");
 
     private static final String ERROR_PREFIX = "[ERROR] ";
 

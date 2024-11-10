@@ -9,7 +9,7 @@ import store.handler.InputValidator;
 import store.handler.OutputHandler;
 import store.service.StoreGenerateService;
 import store.service.StoreOrderService;
-import store.service.StoreRecieptService;
+import store.service.StoreReceiptService;
 import store.view.InputView;
 import store.view.OutputView;
 
@@ -24,7 +24,7 @@ public class AppConfiguration {
     private StoreController storeController(InputHandler inputHandler, OutputHandler outputHandler) {
         StoreGenerateService storeGenerateService = new StoreGenerateService(new StoreFactoryImpl(new PromotionFactoryImpl()));
         StoreOrderService storeOrderService = new StoreOrderService(inputHandler, outputHandler);
-        StoreRecieptService storeRecieptService = new StoreRecieptService(inputHandler, outputHandler, new DefaultMembership());
-        return new StoreController(storeGenerateService, storeOrderService, storeRecieptService);
+        StoreReceiptService storeReceiptService = new StoreReceiptService(inputHandler, outputHandler, new DefaultMembership());
+        return new StoreController(storeGenerateService, storeOrderService, storeReceiptService);
     }
 }

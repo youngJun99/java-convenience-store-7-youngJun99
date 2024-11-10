@@ -9,7 +9,7 @@ import store.dto.ReceiptDto;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static store.domain.shoppingcart.Purchase.normalPurchaseFrom;
+import static store.domain.shoppingcart.Purchase.unPromotablePurchaseFrom;
 
 public class Product {
 
@@ -38,13 +38,9 @@ public class Product {
     public Purchase makePendingPurchase(int requestAmount, LocalDate orderedTime) {
         isNotOverInventory(requestAmount);
         if (promotion.available(orderedTime)) {
-            return checkPromotionRequest(requestAmount);
+            return promotion.makePendingPromotablePurchase(productName, requestAmount, promotionInventory);
         }
-        return normalPurchaseFrom(productName, requestAmount);
-    }
-
-    private Purchase checkPromotionRequest(int requestAmount) {
-        return promotion.makePendingPromotablePurchase(productName, requestAmount, promotionInventory);
+        return unPromotablePurchaseFrom(productName, requestAmount);
     }
 
     public ReceiptDto executePurchase(Purchase purchase, LocalDate orderTime) {

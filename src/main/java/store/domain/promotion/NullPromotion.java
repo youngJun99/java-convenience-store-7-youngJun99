@@ -27,7 +27,7 @@ public class NullPromotion implements Promotion {
 
     @Override
     public Purchase makePendingPromotablePurchase(String productName, int requestAmount, int promotionInventory) {
-        return normalPurchaseFrom(productName, requestAmount);
+        return unPromotablePurchaseFrom(productName, requestAmount);
     }
 
     @Override

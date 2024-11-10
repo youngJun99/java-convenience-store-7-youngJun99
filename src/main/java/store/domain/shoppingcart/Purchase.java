@@ -21,7 +21,7 @@ public class Purchase {
         this.extraReceivableBonus = extraReceivableBonus;
     }
 
-    public static Purchase normalPurchaseFrom(String productName, int purchasedAmount) {
+    public static Purchase unPromotablePurchaseFrom(String productName, int purchasedAmount) {
         return new Purchase(productName, true, 0, purchasedAmount, 0);
     }
 

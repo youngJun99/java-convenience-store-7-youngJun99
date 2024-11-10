@@ -7,7 +7,7 @@ import store.controller.StoreController;
 import java.io.IOException;
 
 public class Application {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         AppConfiguration appConfig = new AppConfiguration();
 
         StoreController controller = appConfig.storeController();

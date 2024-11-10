@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromotionFactoryImpl implements PromotionFactory{
+public class PromotionFactoryImpl implements PromotionFactory {
 
     @Override
     public List<Promotion> loadPromotions(String promotionPath) throws IOException {

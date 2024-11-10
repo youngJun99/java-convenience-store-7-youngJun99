@@ -8,6 +8,7 @@ import store.view.InputView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,8 +25,7 @@ public class InputHandler {
     }
 
     public List<OrderDto> requestInputOrder() {
-        String inputOrder = inputView.printOrderRequest();
-        inputValidator.validateProductOrder(inputOrder);
+        String inputOrder = orderRetryHandler(inputView::printOrderRequest);
 
         //promotion.md의 형태에 따라 우테코 라이브러리의 LocalTimes.now 를 사용하지 않았습니다.
         LocalDate orderTime = LocalDate.now();
@@ -43,32 +43,28 @@ public class InputHandler {
 
     private OrderApproveResponseDto unPromotableConfirmResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
         int unPromotable = orderApproveRequestDto.unPromotableAmount();
-        String inputAnswer = inputView.printUnPromotableConditionRequest(productName, unPromotable);
-        boolean answer = handleCustomerResponse(inputAnswer);
+        String inputAnswer = responseRetryHandler(() -> inputView.printUnPromotableConditionRequest(productName, unPromotable));
+        boolean answer = inputAnswer.equals("Y");
         return new OrderApproveResponseDto(productName, answer);
     }
 
     private OrderApproveResponseDto bonusReceiveResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
         int receivableBonus = orderApproveRequestDto.extraReceivableBonus();
-        String inputAnswer = inputView.printExtraBonusReceiveRequest(productName, receivableBonus);
-        boolean answer = handleCustomerResponse(inputAnswer);
+        String inputAnswer = responseRetryHandler(() -> inputView.printExtraBonusReceiveRequest(productName, receivableBonus));
+        boolean answer = inputAnswer.equals("Y");
         return new OrderApproveResponseDto(productName, answer);
     }
 
     public boolean requestMemberShipDiscount() {
-        String inputAnswer = inputView.printMemberShipDiscountRequest();
-        return handleCustomerResponse(inputAnswer);
+        String inputAnswer = responseRetryHandler(inputView::printMemberShipDiscountRequest);
+        return inputAnswer.equals("Y");
     }
 
     public boolean requestContinueShopping() {
-        String inputAnswer = inputView.printExtraBuyRequest();
-        return handleCustomerResponse(inputAnswer);
+        String inputAnswer = responseRetryHandler(inputView::printExtraBuyRequest);
+        return inputAnswer.equals("Y");
     }
 
-    private boolean handleCustomerResponse(String inputResponse) {
-        inputValidator.validateCustomerResponse(inputResponse);
-        return inputResponse.equals("Y");
-    }
 
     private List<OrderDto> extractOrders(String inputOrder) {
         List<OrderDto> orders = new ArrayList<>();
@@ -79,6 +75,31 @@ public class InputHandler {
             orders.add(new OrderDto(productName, quantity));
         }
         return orders;
+    }
+
+
+    private String orderRetryHandler(Supplier<String> inputSupplier) {
+        while (true) {
+            String inputOrder = inputSupplier.get();
+            try {
+                inputValidator.validateProductOrder(inputOrder);
+                return inputOrder;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private String responseRetryHandler(Supplier<String> inputSupplier) {
+        while (true) {
+            String inputResponse = inputSupplier.get();
+            try {
+                inputValidator.validateCustomerResponse(inputResponse);
+                return inputResponse;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 }

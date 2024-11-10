@@ -2,10 +2,7 @@
 
 ## TODO: Output Handler 로직 구현
 
-
-> 그 후에는 Config로 중복 부름 없이 쫙 연결해주고 돌리면 끝...
-
-
+LocalDate.now 도 리펙토링이 필요해
 
 > Purchase 내부 리펙토링 대상
 > 

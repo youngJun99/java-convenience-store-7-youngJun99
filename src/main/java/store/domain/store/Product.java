@@ -55,6 +55,7 @@ public class Product {
         return new ReceiptDto(productName, price, totalAmount, promotionBonus);
     }
 
+    //내부 필드에 접근하는 로직이기 때문에 early return을 만드는 것보다 한번의 if-else가 더 가독성이 좋다고 판단했습니다.
     private void processInventory(int totalAmount, LocalDate orderTime) {
         if (promotion.available(orderTime)) {
             processUnderPromotion(totalAmount);

@@ -15,9 +15,6 @@ import store.view.OutputView;
 
 public class AppConfiguration {
 
-    /**
-     * 이번에는 Config를 사용해서 필요하지 않다면 별도의 싱글톤 설계를 하지 않았습니다.
-     */
     public StoreController storeController() {
         InputHandler inputHandler = new InputHandler(new InputValidator(), new InputView());
         OutputHandler outputHandler = new OutputHandler(new OutputView());

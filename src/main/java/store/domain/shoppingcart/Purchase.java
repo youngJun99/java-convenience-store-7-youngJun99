@@ -62,33 +62,14 @@ public class Purchase {
     }
 
     public void processResponse(OrderApproveResponseDto response) {
+        approved = true;
         if (response.proceedPurchase()) {
-            if (unPromotableAmount == 0) confirmBonus();
-            if (extraReceivableBonus == 0) confirmUnPromotableAmount();
-        } else {
-            if (unPromotableAmount == 0) discardBonus();
-            if (extraReceivableBonus == 0) discardUnPromotableAmount();
+            promotableAmount += extraReceivableBonus;
+            extraReceivableBonus = 0;
+            return;
         }
-    }
-
-    private void confirmBonus() {
-        approved = true;
-        promotableAmount += extraReceivableBonus;
-        extraReceivableBonus = 0;
-    }
-
-    private void discardBonus() {
-        approved = true;
-        extraReceivableBonus = 0;
-    }
-
-    private void confirmUnPromotableAmount() {
-        approved = true;
-    }
-
-    private void discardUnPromotableAmount() {
-        approved = true;
         unPromotableAmount = 0;
+        extraReceivableBonus = 0;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package store.service;
 
-import store.domain.store.membership.MemberShip;
+import store.domain.store.membership.Membership;
 import store.dto.ReceiptDto;
 import store.handler.InputHandler;
 import store.handler.OutputHandler;
@@ -11,17 +11,32 @@ public class StoreRecieptService {
 
     private final InputHandler inputHandler;
     private final OutputHandler outputHandler;
-    private final MemberShip memberShip;
+    private final Membership memberShip;
 
-    public StoreRecieptService(InputHandler inputHandler, OutputHandler outputHandler, MemberShip memberShip) {
+    public StoreRecieptService(InputHandler inputHandler, OutputHandler outputHandler, Membership memberShip) {
         this.inputHandler = inputHandler;
         this.outputHandler = outputHandler;
         this.memberShip = memberShip;
     }
 
-    public boolean printReceiptAndProceed(List<ReceiptDto> receipts) {
+    public void printReceipt(List<ReceiptDto> receipts) {
         boolean memberShipDiscount = inputHandler.requestMemberShipDiscount();
+        outputHandler.printInventoryReceipt(receipts);
 
-        outputHandler.printReceipt();
+        int totalBuy = receipts.stream()
+                .mapToInt(ReceiptDto::buyAmount)
+                .sum();
+
+        int totalPrice = receipts.stream()
+                .mapToInt(receipt -> receipt.price() * receipt.buyAmount())
+                .sum();
+
+        int promotionDiscount = receipts.stream()
+                .mapToInt(receipt -> receipt.price() * receipt.promotionBonus())
+                .sum();
+
+        int membershipDiscount = memberShip.processDiscount(totalPrice - promotionDiscount);
+
+        outputHandler.printMoneyReceipt(totalBuy, totalPrice, promotionDiscount, membershipDiscount);
     }
 }

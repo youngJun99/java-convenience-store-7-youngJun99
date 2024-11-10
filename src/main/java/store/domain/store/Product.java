@@ -64,23 +64,15 @@ public class Product {
     }
 
     private void processUnderNoPromotion(int totalAmount) {
-        if (totalAmount > normalInventory) {
-            totalAmount -= normalInventory;
-            normalInventory = 0;
-            promotionInventory -= totalAmount;
-        } else {
-            normalInventory -= totalAmount;
-        }
+        int remainingAmount = Math.max(totalAmount - normalInventory, 0);
+        normalInventory = Math.max(normalInventory - totalAmount, 0);
+        promotionInventory -= remainingAmount;
     }
 
     private void processUnderPromotion(int totalAmount) {
-        if (totalAmount > promotionInventory) {
-            totalAmount -= promotionInventory;
-            promotionInventory = 0;
-            normalInventory -= totalAmount;
-        } else {
-            promotionInventory -= totalAmount;
-        }
+        int remainingAmount = Math.max(totalAmount - promotionInventory, 0);
+        promotionInventory = Math.max(promotionInventory - totalAmount, 0);
+        normalInventory -= remainingAmount;
     }
 
     private void isNotOverInventory(int requestAmount) {

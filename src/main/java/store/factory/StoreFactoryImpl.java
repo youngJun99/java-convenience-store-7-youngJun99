@@ -44,7 +44,7 @@ public class StoreFactoryImpl implements StoreFactory {
             if (data[3].trim().equals("null")) {
                 int normalInventory = Integer.parseInt(data[2].trim());
                 Promotion noPromotion = NullPromotion.getInstance();
-                products.add(new Product(productName,noPromotion,price,0,normalInventory));
+                products.add(new Product(productName, noPromotion, price, 0, normalInventory));
                 continue;
             }
             int promotionInventory = Integer.parseInt(data[2].trim());

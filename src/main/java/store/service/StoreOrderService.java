@@ -9,6 +9,8 @@ import store.handler.OutputHandler;
 import java.time.LocalDate;
 import java.util.List;
 
+import static store.handler.InputHandler.MAX_RETRIES;
+
 
 public class StoreOrderService {
 
@@ -24,9 +26,10 @@ public class StoreOrderService {
     public List<ReceiptDto> takeOrderFrom(Store store) {
         List<ProductInventoryDto> currentInventory = store.showStoreInventory();
         outputHandler.printInventoryStatus(currentInventory);
-        List<OrderDto> customerOrder = inputHandler.requestInputOrder();
+
+        ShoppingCart purchases = validateOverInventoryOrder(store);
         LocalDate orderedTime = LocalDate.now();
-        ShoppingCart purchases = store.putInCart(customerOrder, orderedTime);
+
         if (purchases.isNotApproved()) {
             List<OrderApproveRequestDto> unapproved = purchases.getUnApprovedPurchases();
             List<OrderApproveResponseDto> response = unapproved.stream()
@@ -39,5 +42,23 @@ public class StoreOrderService {
 
     public boolean keepShopping() {
         return inputHandler.requestContinueShopping();
+    }
+
+    private ShoppingCart validateOverInventoryOrder(Store store) {
+        int retryCount = 0;
+
+        while (retryCount < MAX_RETRIES) {
+            try {
+                List<OrderDto> customerOrder = inputHandler.requestInputOrder();
+                LocalDate orderedTime = LocalDate.now();
+                return store.putInCart(customerOrder, orderedTime);
+            } catch (IllegalArgumentException e) {  // 예외 타입을 구체적으로 설정
+                retryCount++;
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("최대 재시도 횟수에 도달했습니다. 애플리케이션을 종료합니다.");
+        System.exit(1);
+        return null;
     }
 }

@@ -66,10 +66,6 @@ public class Store {
         }
     }
 
-    private static boolean isNot(boolean allItemsAvailable) {
-        return !allItemsAvailable;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;

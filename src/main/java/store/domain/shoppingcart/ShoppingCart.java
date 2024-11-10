@@ -22,9 +22,9 @@ public class ShoppingCart {
 
     public List<OrderApproveRequestDto> getUnApprovedPurchases() {
         return purchases.stream()
-                .filter(purchase -> !purchase.getApproved()) // 승인되지 않은 Purchase만 필터링
-                .map(purchase -> purchase.makeApproveRequest()) // 각 Purchase에서 makeRequest() 호출하여 OrderApproveRequestDto 생성
-                .collect(Collectors.toList()); // 결과를 리스트로 반환
+                .filter(purchase -> !purchase.getApproved())
+                .map(Purchase::makeApproveRequest)
+                .collect(Collectors.toList());
     }
 
     public void processResponses(List<OrderApproveResponseDto> responses) {

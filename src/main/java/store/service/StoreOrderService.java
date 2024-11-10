@@ -1,5 +1,6 @@
 package store.service;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import store.domain.ShoppingCart;
 import store.domain.store.Store;
 import store.dto.*;
@@ -7,6 +8,7 @@ import store.handler.InputHandler;
 import store.handler.OutputHandler;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static store.handler.InputHandler.MAX_RETRIES;
@@ -28,7 +30,8 @@ public class StoreOrderService {
         outputHandler.printInventoryStatus(currentInventory);
 
         ShoppingCart purchases = validateOverInventoryOrder(store);
-        LocalDate orderedTime = LocalDate.now();
+        LocalDateTime orderedDateTime = DateTimes.now();
+        LocalDate orderedDate = orderedDateTime.toLocalDate();
 
         if (purchases.isNotApproved()) {
             List<OrderApproveRequestDto> unapproved = purchases.getUnApprovedPurchases();
@@ -37,7 +40,7 @@ public class StoreOrderService {
                     .toList();
             purchases.processResponses(response);
         }
-        return store.executeOrder(purchases, orderedTime);
+        return store.executeOrder(purchases, orderedDate);
     }
 
     public boolean keepShopping() {
@@ -50,7 +53,8 @@ public class StoreOrderService {
         while (retryCount < MAX_RETRIES) {
             try {
                 List<OrderDto> customerOrder = inputHandler.requestInputOrder();
-                LocalDate orderedTime = LocalDate.now();
+                LocalDateTime orderedDateTime = DateTimes.now();
+                LocalDate orderedTime = orderedDateTime.toLocalDate();
                 return store.putInCart(customerOrder, orderedTime);
             } catch (IllegalArgumentException e) {  // 예외 타입을 구체적으로 설정
                 retryCount++;

@@ -42,7 +42,7 @@ public class OutputHandler {
     }
 
     private String formatInventory(int inventory) {
-        if (inventory == 0){
+        if (inventory == 0) {
             return "재고 없음";
         }
         return INVENTORY_FORMAT.format(inventory);
@@ -52,39 +52,36 @@ public class OutputHandler {
         return String.format("%s %s원 %s %s", productName, price, inventory, promotionName);
     }
 
-    public void printReceipt(List<ReceiptDto> receipts, int memberShipDiscount) {
+    public void printInventoryReceipt(List<ReceiptDto> receipts) {
 
         List<String> purchasedInventory = new ArrayList<>();
         List<String> bonusReceived = new ArrayList<>();
-        int totalBoughtInventory = 0;
-        int totalPrice = 0;
-        int discountPrice = 0;
-
 
         for (ReceiptDto receipt : receipts) {
             String productName = receipt.productName();
             int price = receipt.price();
             if (receipt.promotionBonus() != 0) {
                 int bonusAmount = receipt.promotionBonus();
-                discountPrice += bonusAmount * price;
                 bonusReceived.add(formatBonusReceived(productName, bonusAmount));
             }
             int boughtAmount = receipt.buyAmount();
             int boughtPrice = boughtAmount * price;
-            totalBoughtInventory += boughtAmount;
-            totalPrice += boughtPrice;
             String boughtTotal = MONEY_FORMAT.format(boughtPrice);
             purchasedInventory.add(formatBoughtInventory(productName, boughtAmount, boughtTotal));
         }
 
-        int finalPayment = totalPrice - discountPrice - memberShipDiscount;
-
         outputView.printBoughtInventory(purchasedInventory);
         outputView.printBonusAmount(bonusReceived);
-        outputView.printTotalPrice(totalBoughtInventory, totalPrice);
-        outputView.printPromotionDiscount(discountPrice);
-        outputView.printMemberShipDiscount(memberShipDiscount);
-        outputView.printFinalPayAmount(finalPayment);
+    }
+
+    public void printMoneyReceipt(int totalBuy, int totalPrice, int promotionDiscount, int memberShipDiscount) {
+
+        int finalPayment = totalPrice - promotionDiscount - memberShipDiscount;
+
+        outputView.printTotalPrice(totalBuy, MONEY_FORMAT.format(totalPrice));
+        outputView.printPromotionDiscount(MONEY_FORMAT.format(promotionDiscount));
+        outputView.printMemberShipDiscount(MONEY_FORMAT.format(memberShipDiscount));
+        outputView.printFinalPayAmount(MONEY_FORMAT.format(finalPayment));
     }
 
     private String formatBoughtInventory(String productName, int boughtInventory, String boughtPrice) {

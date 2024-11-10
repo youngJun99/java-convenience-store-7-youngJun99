@@ -26,20 +26,20 @@ public class OutputView {
         System.out.println("====================================");
     }
 
-    public void printTotalPrice(int totalAmount, int totalPrice) {
-        System.out.printf("총구매액\t\t\t\t%d\t\t%d%n",totalAmount,totalPrice);
+        public void printTotalPrice(int totalAmount, String totalPrice) {
+        System.out.printf("총구매액\t\t\t\t%d\t\t%s%n",totalAmount,totalPrice);
     }
 
-    public void printPromotionDiscount(int discount) {
-        System.out.printf("행사할인\t\t\t\t\t\t-%d%n",discount);
+    public void printPromotionDiscount(String discount) {
+        System.out.printf("행사할인\t\t\t\t\t\t-%s%n",discount);
     }
 
-    public void printMemberShipDiscount(int discount) {
-        System.out.printf("멤버십할인\t\t\t\t\t\t-%d%n",discount);
+    public void printMemberShipDiscount(String discount) {
+        System.out.printf("멤버십할인\t\t\t\t\t\t-%s%n",discount);
     }
 
-    public void printFinalPayAmount(int total) {
-        System.out.printf("내실돈\t\t\t\t\t\t %d%n",total);
+    public void printFinalPayAmount(String total) {
+        System.out.printf("내실돈\t\t\t\t\t\t %s%n",total);
         System.out.println();
     }
 

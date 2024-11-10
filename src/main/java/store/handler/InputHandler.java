@@ -1,5 +1,6 @@
 package store.handler;
 
+import store.constants.InputErrors;
 import store.dto.OrderApproveRequestDto;
 import store.dto.OrderApproveResponseDto;
 import store.dto.OrderDto;
@@ -27,10 +28,6 @@ public class InputHandler {
 
     public List<OrderDto> requestInputOrder() {
         String inputOrder = orderRetryHandler(inputView::printOrderRequest);
-
-        //promotion.md의 형태에 따라 우테코 라이브러리의 LocalTimes.now 를 사용하지 않았습니다.
-        LocalDate orderTime = LocalDate.now();
-
         return extractOrders(inputOrder);
     }
 
@@ -92,6 +89,7 @@ public class InputHandler {
                 retries++;
             }
         }
+        System.out.println(InputErrors.EXCEED_MAX_RETRY_LIMIT.getMessage());
         System.exit(1);
         return null;
     }
@@ -109,6 +107,7 @@ public class InputHandler {
                 retries++;
             }
         }
+        System.out.println(InputErrors.EXCEED_MAX_RETRY_LIMIT.getMessage());
         System.exit(1);
         return null;
     }

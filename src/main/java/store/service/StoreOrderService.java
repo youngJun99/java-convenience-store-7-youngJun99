@@ -2,10 +2,7 @@ package store.service;
 
 import store.domain.ShoppingCart;
 import store.domain.store.Store;
-import store.dto.OrderApproveRequestDto;
-import store.dto.OrderApproveResponseDto;
-import store.dto.OrderDto;
-import store.dto.ReceiptDto;
+import store.dto.*;
 import store.handler.InputHandler;
 import store.handler.OutputHandler;
 
@@ -25,6 +22,8 @@ public class StoreOrderService {
 
 
    public List<ReceiptDto> takeOrderFrom(Store store) {
+        List<ProductInventoryDto> currentInventory = store.showStoreInventory();
+        outputHandler.printInventoryStatus(currentInventory);
         List<OrderDto> customerOrder = inputHandler.requestInputOrder();
         LocalDate orderedTime = LocalDate.now();
         ShoppingCart purchases = store.putInCart(customerOrder,orderedTime);

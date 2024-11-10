@@ -89,7 +89,7 @@ public class InputHandler {
                 retries++;
             }
         }
-        System.out.println(InputErrors.EXCEED_MAX_RETRY_LIMIT.getMessage());
+        System.err.println(InputErrors.EXCEED_MAX_RETRY_LIMIT);
         System.exit(1);
         return null;
     }
@@ -107,7 +107,7 @@ public class InputHandler {
                 retries++;
             }
         }
-        System.out.println(InputErrors.EXCEED_MAX_RETRY_LIMIT.getMessage());
+        System.err.println(InputErrors.EXCEED_MAX_RETRY_LIMIT);
         System.exit(1);
         return null;
     }

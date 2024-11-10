@@ -2,14 +2,14 @@ package store.domain.store;
 
 import store.constants.InputErrors;
 import store.domain.promotion.Promotion;
-import store.domain.Purchase;
+import store.domain.shoppingcart.Purchase;
 import store.dto.ProductInventoryDto;
 import store.dto.ReceiptDto;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static store.domain.Purchase.normalPurchaseFrom;
+import static store.domain.shoppingcart.Purchase.normalPurchaseFrom;
 
 public class Product {
 

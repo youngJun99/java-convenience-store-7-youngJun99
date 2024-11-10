@@ -3,6 +3,8 @@ package store.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import store.domain.shoppingcart.Purchase;
+import store.domain.shoppingcart.ShoppingCart;
 import store.dto.OrderApproveRequestDto;
 import store.dto.OrderApproveResponseDto;
 

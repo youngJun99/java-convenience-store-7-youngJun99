@@ -2,8 +2,8 @@ package store.domain.store;
 
 import store.constants.InputErrors;
 import store.dto.OrderDto;
-import store.domain.Purchase;
-import store.domain.ShoppingCart;
+import store.domain.shoppingcart.Purchase;
+import store.domain.shoppingcart.ShoppingCart;
 import store.dto.ProductInventoryDto;
 import store.dto.ReceiptDto;
 

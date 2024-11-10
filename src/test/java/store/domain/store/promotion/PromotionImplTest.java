@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import store.domain.Purchase;
+import store.domain.shoppingcart.Purchase;
 import store.domain.promotion.PromotionImpl;
 
 import java.time.LocalDate;

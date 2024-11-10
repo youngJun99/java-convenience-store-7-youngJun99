@@ -1,6 +1,6 @@
 package store.domain.promotion;
 
-import store.domain.Purchase;
+import store.domain.shoppingcart.Purchase;
 
 import java.time.LocalDate;
 

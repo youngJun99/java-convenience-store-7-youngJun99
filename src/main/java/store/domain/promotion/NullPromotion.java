@@ -1,10 +1,10 @@
 package store.domain.promotion;
 
-import store.domain.Purchase;
+import store.domain.shoppingcart.Purchase;
 
 import java.time.LocalDate;
 
-import static store.domain.Purchase.*;
+import static store.domain.shoppingcart.Purchase.*;
 
 public class NullPromotion implements Promotion {
 

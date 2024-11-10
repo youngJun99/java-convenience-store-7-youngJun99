@@ -1,4 +1,4 @@
-package store.domain;
+package store.domain.shoppingcart;
 
 import store.dto.OrderApproveRequestDto;
 import store.dto.OrderApproveResponseDto;

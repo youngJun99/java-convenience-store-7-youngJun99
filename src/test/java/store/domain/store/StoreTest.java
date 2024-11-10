@@ -27,8 +27,9 @@ class StoreTest {
 
     /**
      * 테스트 스토어 구성요소
-     * 콜라,1000,10,10,탄산2+1
-     * 오렌지주스,1800,9,0,MD추천상품
+     * 콜라,1000,10,탄산2+1
+     * 콜라,1000,10,null
+     * 오렌지주스,1800,9,MD추천상품
      */
     @BeforeEach
     void setStore() throws IOException {

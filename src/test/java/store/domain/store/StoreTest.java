@@ -41,18 +41,18 @@ class StoreTest {
 
     @BeforeEach
     void setShoppingCart() {
-        Purchase cokePurchase = new Purchase("콜라",true,3,0,0);
-        Purchase orangeJuicePurchase = new Purchase("오렌지주스",true,2,0,0);
-        testShoppingCart = new ShoppingCart(List.of(cokePurchase,orangeJuicePurchase));
+        Purchase cokePurchase = new Purchase("콜라", true, 3, 0, 0);
+        Purchase orangeJuicePurchase = new Purchase("오렌지주스", true, 2, 0, 0);
+        testShoppingCart = new ShoppingCart(List.of(cokePurchase, orangeJuicePurchase));
     }
 
     @Test
     @DisplayName("Store는 요청에 따라 재고의 정보를 담고 있는 Dto를 반환한다")
     void showStoreTest() {
         //given
-        ProductInventoryDto coke = new ProductInventoryDto("콜라",1000,10,10,"탄산2+1");
-        ProductInventoryDto orangeJuice = new ProductInventoryDto("오렌지주스",1800,9,0,"MD추천상품");
-        List<ProductInventoryDto> answer = List.of(coke,orangeJuice);
+        ProductInventoryDto coke = new ProductInventoryDto("콜라", 1000, 10, 10, "탄산2+1");
+        ProductInventoryDto orangeJuice = new ProductInventoryDto("오렌지주스", 1800, 9, 0, "MD추천상품");
+        List<ProductInventoryDto> answer = List.of(coke, orangeJuice);
 
         //when
         List<ProductInventoryDto> shownInventory = testStore.showStoreInventory();
@@ -65,9 +65,9 @@ class StoreTest {
     @DisplayName("Store는 보유하지 않는 재고에 대해서 주문이 들어오면 에러가 난다.")
     void noSuchInventoryTest() {
         //given
-        List<OrderDto> orderDtos = List.of( new OrderDto("감자칩",2));
+        List<OrderDto> orderDtos = List.of(new OrderDto("감자칩", 2));
 
-        assertThatThrownBy(()->{
+        assertThatThrownBy(() -> {
             testStore.putInCart(orderDtos, LocalDate.now());
         }).hasMessageContaining(InputErrors.NO_SUCH_ITEM.getMessage());
     }
@@ -76,13 +76,13 @@ class StoreTest {
     @DisplayName("Store는 주문 요청에 대해서 장바구니를 만들어서 반환한다")
     void putInCartTest() {
         //given
-        OrderDto cokeOrder = new OrderDto("콜라",3);
-        OrderDto orangeJuiceOrder = new OrderDto("오렌지주스",2);
-        List<OrderDto> order = List.of(cokeOrder,orangeJuiceOrder);
-        LocalDate promotable = LocalDate.of(2024,3,3);
+        OrderDto cokeOrder = new OrderDto("콜라", 3);
+        OrderDto orangeJuiceOrder = new OrderDto("오렌지주스", 2);
+        List<OrderDto> order = List.of(cokeOrder, orangeJuiceOrder);
+        LocalDate promotable = LocalDate.of(2024, 3, 3);
 
         //when
-        ShoppingCart shoppingCart = testStore.putInCart(order,promotable);
+        ShoppingCart shoppingCart = testStore.putInCart(order, promotable);
 
         //then
         assertThat(shoppingCart.getPurchases()).isEqualTo(testShoppingCart.getPurchases());
@@ -92,13 +92,13 @@ class StoreTest {
     @DisplayName("Store는 확정된 장바구니를 넣으면 영수증을 반환한다")
     void executeOrder() {
         //given
-        ProductReceiptDto cokeReceipt = new ProductReceiptDto("콜라",1000,3,1);
-        ProductReceiptDto orangeJuiceReceipt = new ProductReceiptDto("오렌지주스",1800,2,1);
-        List<ProductReceiptDto> answer = List.of(cokeReceipt,orangeJuiceReceipt);
-        LocalDate promotable = LocalDate.of(2024,3,3);
+        ProductReceiptDto cokeReceipt = new ProductReceiptDto("콜라", 1000, 3, 1);
+        ProductReceiptDto orangeJuiceReceipt = new ProductReceiptDto("오렌지주스", 1800, 2, 1);
+        List<ProductReceiptDto> answer = List.of(cokeReceipt, orangeJuiceReceipt);
+        LocalDate promotable = LocalDate.of(2024, 3, 3);
 
         //when
-        List<ProductReceiptDto> receipt = testStore.executeOrder(testShoppingCart,promotable);
+        List<ProductReceiptDto> receipt = testStore.executeOrder(testShoppingCart, promotable);
 
         //then
         assertThat(receipt).isEqualTo(answer);

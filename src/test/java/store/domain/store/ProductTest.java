@@ -48,9 +48,9 @@ class ProductTest {
 
     /**
      * 쟤고 소진 테스트
-     *
+     * <p>
      * 서비스단을 통해서 승인되고 정제된 주문만 받게됩니다.
-     *
+     * <p>
      * 현재 테스트 대상은,
      * {상품명: 콜라} ,{프로모션: 탄산2+1}, {가격: 1000}, {프로모션 재고:6}, {일반 재고:3} 입니다.
      */
@@ -58,13 +58,13 @@ class ProductTest {
     @DisplayName("5개의 프로모션 주문 요청이 들어온 경우")
     void promotionOrderLogicTest1() {
         //given
-        Purchase purchase = new Purchase("콜라",true,5,0,0);
+        Purchase purchase = new Purchase("콜라", true, 5, 0, 0);
 
         //when
-        coke.executePurchase(purchase,promotableDate);
+        coke.executePurchase(purchase, promotableDate);
 
         //then
-        ProductInventoryDto answer = new ProductInventoryDto("콜라",1000,1,3,"탄산2+1");
+        ProductInventoryDto answer = new ProductInventoryDto("콜라", 1000, 1, 3, "탄산2+1");
         assertThat(coke.showInventory()).isEqualTo(answer);
     }
 
@@ -72,13 +72,13 @@ class ProductTest {
     @DisplayName("7개의 프로모션 주문 요청이 들어온 경우")
     void promotionOrderLogicTest2() {
         //given
-        Purchase purchase = new Purchase("콜라",true,7,0,0);
+        Purchase purchase = new Purchase("콜라", true, 7, 0, 0);
 
         //when
-        coke.executePurchase(purchase,promotableDate);
+        coke.executePurchase(purchase, promotableDate);
 
         //then
-        ProductInventoryDto answer = new ProductInventoryDto("콜라",1000,0,2,"탄산2+1");
+        ProductInventoryDto answer = new ProductInventoryDto("콜라", 1000, 0, 2, "탄산2+1");
         assertThat(coke.showInventory()).isEqualTo(answer);
     }
 
@@ -86,13 +86,13 @@ class ProductTest {
     @DisplayName("6개의 일반 주문 요청이 들어온 경우")
     void unPromotedOrderLogicTest3() {
         //given
-        Purchase purchase = new Purchase("콜라",true,0,6,0);
+        Purchase purchase = new Purchase("콜라", true, 0, 6, 0);
 
         //when
-        coke.executePurchase(purchase,unPromotableDate);
+        coke.executePurchase(purchase, unPromotableDate);
 
         //then
-        ProductInventoryDto answer = new ProductInventoryDto("콜라",1000,3,0,"탄산2+1");
+        ProductInventoryDto answer = new ProductInventoryDto("콜라", 1000, 3, 0, "탄산2+1");
         assertThat(coke.showInventory()).isEqualTo(answer);
     }
 
@@ -100,13 +100,13 @@ class ProductTest {
     @DisplayName("2개의 일반 주문 요청이 들어온 경우")
     void unPromotedOrderLogicTest4() {
         //given
-        Purchase purchase = new Purchase("콜라",true,0,2,0);
+        Purchase purchase = new Purchase("콜라", true, 0, 2, 0);
 
         //when
-        coke.executePurchase(purchase,unPromotableDate);
+        coke.executePurchase(purchase, unPromotableDate);
 
         //then
-        ProductInventoryDto answer = new ProductInventoryDto("콜라",1000,6,1,"탄산2+1");
+        ProductInventoryDto answer = new ProductInventoryDto("콜라", 1000, 6, 1, "탄산2+1");
         assertThat(coke.showInventory()).isEqualTo(answer);
     }
 
@@ -116,24 +116,24 @@ class ProductTest {
     @Test
     void orderReceiptTest1() {
         //given
-        Purchase purchase = new Purchase("콜라",true,6,2,0);
+        Purchase purchase = new Purchase("콜라", true, 6, 2, 0);
 
         //when
-        ProductReceiptDto productReceiptDto = coke.executePurchase(purchase,promotableDate);
+        ProductReceiptDto productReceiptDto = coke.executePurchase(purchase, promotableDate);
         //then
-        ProductReceiptDto answer = new ProductReceiptDto("콜라",1000,8,2);
+        ProductReceiptDto answer = new ProductReceiptDto("콜라", 1000, 8, 2);
         assertThat(productReceiptDto).isEqualTo(answer);
     }
 
     @Test
     void orderReceiptTest2() {
         //given
-        Purchase purchase = new Purchase("콜라",true,0,3,0);
+        Purchase purchase = new Purchase("콜라", true, 0, 3, 0);
 
         //when
-        ProductReceiptDto productReceiptDto = coke.executePurchase(purchase,promotableDate);
+        ProductReceiptDto productReceiptDto = coke.executePurchase(purchase, promotableDate);
         //then
-        ProductReceiptDto answer = new ProductReceiptDto("콜라",1000,3,0);
+        ProductReceiptDto answer = new ProductReceiptDto("콜라", 1000, 3, 0);
         assertThat(productReceiptDto).isEqualTo(answer);
     }
 

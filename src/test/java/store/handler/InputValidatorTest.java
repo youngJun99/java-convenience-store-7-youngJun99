@@ -75,7 +75,7 @@ class InputValidatorTest {
 
     @ParameterizedTest
     @DisplayName("올바르지 않은 형식으로 입력하면 에러가 난다")
-    @ValueSource(strings = {"y","YES","ㅇ","No","NO"})
+    @ValueSource(strings = {"y", "YES", "ㅇ", "No", "NO"})
     void notValidResponseInput(String input) {
         assertThatThrownBy(() -> {
             inputvalidator.validateProductOrder(input);
@@ -84,9 +84,9 @@ class InputValidatorTest {
 
     @ParameterizedTest
     @DisplayName("형식에 맞게 입력하면 오류가 나지 않는다")
-    @ValueSource(strings = {"Y","N"})
+    @ValueSource(strings = {"Y", "N"})
     void validResponseInput(String input) {
-        assertDoesNotThrow(()->{
+        assertDoesNotThrow(() -> {
             inputvalidator.validateCustomerResponse(input);
         });
     }

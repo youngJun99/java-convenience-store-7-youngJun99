@@ -28,7 +28,7 @@ class InputHandlerTest {
 
     @BeforeAll
     static void setUp() {
-        inputHandler = new InputHandler(new InputValidator(),new InputView());
+        inputHandler = new InputHandler(new InputValidator(), new InputView());
     }
 
     @Test
@@ -39,12 +39,12 @@ class InputHandlerTest {
         System.setIn(new ByteArrayInputStream(readLine.getBytes()));
 
         //when
-        List<OrderDto> orders =  inputHandler.requestInputOrder();
+        List<OrderDto> orders = inputHandler.requestInputOrder();
 
         //then
-        OrderDto potatoChip = new OrderDto("감자칩",2);
-        OrderDto cider = new OrderDto("사이다",1);
-        List<OrderDto> answer = List.of(potatoChip,cider);
+        OrderDto potatoChip = new OrderDto("감자칩", 2);
+        OrderDto cider = new OrderDto("사이다", 1);
+        List<OrderDto> answer = List.of(potatoChip, cider);
 
         assertThat(orders).isEqualTo(answer);
     }
@@ -58,10 +58,10 @@ class InputHandlerTest {
         System.setIn(in);
 
         assertAll(
-                ()->assertThat(inputHandler.requestContinueShopping()).isTrue(),
-                ()->assertThat(inputHandler.requestMemberShipDiscount()).isTrue(),
-                ()->assertThat(inputHandler.requestContinueShopping()).isFalse(),
-                ()->assertThat(inputHandler.requestMemberShipDiscount()).isFalse()
+                () -> assertThat(inputHandler.requestContinueShopping()).isTrue(),
+                () -> assertThat(inputHandler.requestMemberShipDiscount()).isTrue(),
+                () -> assertThat(inputHandler.requestContinueShopping()).isFalse(),
+                () -> assertThat(inputHandler.requestMemberShipDiscount()).isFalse()
         );
     }
 
@@ -71,13 +71,13 @@ class InputHandlerTest {
         //given
         String readLine = "Y";
         System.setIn(new ByteArrayInputStream(readLine.getBytes()));
-        OrderApproveRequestDto request = new OrderApproveRequestDto("콜라",2,0);
+        OrderApproveRequestDto request = new OrderApproveRequestDto("콜라", 2, 0);
 
         //when
         OrderApproveResponseDto response = inputHandler.requestApproval(request);
 
         //then
-        OrderApproveResponseDto answer = new OrderApproveResponseDto("콜라",true);
+        OrderApproveResponseDto answer = new OrderApproveResponseDto("콜라", true);
         assertThat(response).isEqualTo(answer);
     }
 
@@ -87,13 +87,13 @@ class InputHandlerTest {
         //given
         String readLine = "N";
         System.setIn(new ByteArrayInputStream(readLine.getBytes()));
-        OrderApproveRequestDto request = new OrderApproveRequestDto("콜라",2,0);
+        OrderApproveRequestDto request = new OrderApproveRequestDto("콜라", 2, 0);
 
         //when
         OrderApproveResponseDto response = inputHandler.requestApproval(request);
 
         //then
-        OrderApproveResponseDto answer = new OrderApproveResponseDto("콜라",false);
+        OrderApproveResponseDto answer = new OrderApproveResponseDto("콜라", false);
         assertThat(response).isEqualTo(answer);
     }
 }

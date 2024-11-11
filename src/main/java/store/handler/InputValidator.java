@@ -19,12 +19,11 @@ public class InputValidator {
         }
     }
 
-    private static boolean DoesNotMatchResponseRegex(String input) {
-        return !input.matches(REGEX_OF_CUSTOMER_RESPONSE);
-    }
-
     private static boolean DoesNotMatchOrderRegex(String input) {
         return !input.matches(REGEX_OF_PRODUCT_ORDER);
     }
 
+    private static boolean DoesNotMatchResponseRegex(String input) {
+        return !input.matches(REGEX_OF_CUSTOMER_RESPONSE);
+    }
 }

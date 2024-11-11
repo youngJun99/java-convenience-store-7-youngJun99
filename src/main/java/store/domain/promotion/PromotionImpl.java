@@ -51,11 +51,6 @@ public class PromotionImpl implements Promotion {
         return checkBonusGivable(productName, requestAmount, promotableAmount, divider);
     }
 
-    @Override
-    public int calculateBonusToGive(int buyAmount) {
-        return buyAmount / (buy + get) * get;
-    }
-
     private Purchase checkBonusGivable(String productName, int requestAmount, int promotableAmount, int divider) {
 
         int leftOvers = requestAmount % divider;
@@ -69,6 +64,11 @@ public class PromotionImpl implements Promotion {
         //leftOver 만큼 프로모션 불가
         return partialPromotablePurchaseFrom(productName, requestAmount - leftOvers, leftOvers);
 
+    }
+
+    @Override
+    public int calculateBonusToGive(int buyAmount) {
+        return buyAmount / (buy + get) * get;
     }
 
     @Override

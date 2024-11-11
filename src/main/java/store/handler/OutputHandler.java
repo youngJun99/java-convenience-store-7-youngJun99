@@ -68,14 +68,14 @@ public class OutputHandler {
         for (ProductReceiptDto receipt : receipts) {
             String productName = receipt.productName();
             addPurchasedInventory(receipt, purchasedInventory, productName);
-            addBonuseReceid(receipt, bonusReceived, productName);
+            addBonusReceived(receipt, bonusReceived, productName);
         }
 
         outputView.printBoughtInventory(purchasedInventory);
         outputView.printBonusAmount(bonusReceived);
     }
 
-    private void addBonuseReceid(ProductReceiptDto receipt, List<String> bonusReceived, String productName) {
+    private void addBonusReceived(ProductReceiptDto receipt, List<String> bonusReceived, String productName) {
         if (receipt.promotionBonus() != 0) {
             int bonusAmount = receipt.promotionBonus();
             bonusReceived.add(formatBonusReceived(productName, bonusAmount));

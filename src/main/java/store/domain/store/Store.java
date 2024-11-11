@@ -36,14 +36,14 @@ public class Store {
 
     }
 
-    public List<ProductReceiptDto> executeOrder(ShoppingCart shoppingCart, LocalDate orderTime) {
-        List<Purchase> purchases = shoppingCart.getPurchases();
-        return purchases.stream()
-                .flatMap(purchase -> products.stream()
-                        .filter(product -> product.getProductName().equals(purchase.getProductName()))
-                        .map(product -> product.executePurchase(purchase, orderTime))
-                )
-                .toList();
+    private void validateOrderProducts(List<OrderDto> orders) {
+        boolean notAllItemIsAvailable = !orders.stream()
+                .allMatch(orderDto -> products.stream()
+                        .anyMatch(product -> product.getProductName().equals(orderDto.productName()))
+                );
+        if (notAllItemIsAvailable) {
+            throw new IllegalArgumentException(InputErrors.NO_SUCH_ITEM.getMessage());
+        }
     }
 
     private Purchase getPurchase(OrderDto orderDto, LocalDate orderedTime) {
@@ -55,15 +55,14 @@ public class Store {
         return matchingProduct.makePendingPurchase(orderDto.purchaseQuantity(), orderedTime);
     }
 
-
-    private void validateOrderProducts(List<OrderDto> orders) {
-        boolean notAllItemIsAvailable = !orders.stream()
-                .allMatch(orderDto -> products.stream()
-                        .anyMatch(product -> product.getProductName().equals(orderDto.productName()))
-                );
-        if (notAllItemIsAvailable) {
-            throw new IllegalArgumentException(InputErrors.NO_SUCH_ITEM.getMessage());
-        }
+    public List<ProductReceiptDto> executeOrder(ShoppingCart shoppingCart, LocalDate orderTime) {
+        List<Purchase> purchases = shoppingCart.getPurchases();
+        return purchases.stream()
+                .flatMap(purchase -> products.stream()
+                        .filter(product -> product.getProductName().equals(purchase.getProductName()))
+                        .map(product -> product.executePurchase(purchase, orderTime))
+                )
+                .toList();
     }
 
     @Override

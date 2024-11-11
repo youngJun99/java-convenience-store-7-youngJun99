@@ -50,7 +50,7 @@ class StoreFactoryImplTest {
     void ConvenienceStoreFactoryFunctionTest() throws IOException {
         PromotionFactoryImpl promotionFactoryImpl = new PromotionFactoryImpl();
         StoreFactoryImpl storeFactoryImpl = new StoreFactoryImpl(promotionFactoryImpl);
-        Store store = storeFactoryImpl.createStore("src/main/resources/products.md","src/main/resources/promotions.md");
+        Store store = storeFactoryImpl.createStore("src/main/resources/products.md", "src/main/resources/promotions.md");
         assertThat(store).isEqualTo(answer);
     }
 

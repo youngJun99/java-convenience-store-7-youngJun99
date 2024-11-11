@@ -30,6 +30,17 @@ public class InputHandler {
         return extractOrders(inputOrder);
     }
 
+    private List<OrderDto> extractOrders(String inputOrder) {
+        List<OrderDto> orders = new ArrayList<>();
+        Matcher matcher = orderPattern.matcher(inputOrder);
+        while (matcher.find()) {
+            String productName = matcher.group(1);
+            int quantity = Integer.parseInt(matcher.group(2));
+            orders.add(new OrderDto(productName, quantity));
+        }
+        return orders;
+    }
+
     public OrderApproveResponseDto requestApproval(OrderApproveRequestDto orderApproveRequestDto) {
         String productName = orderApproveRequestDto.productName();
         if (orderApproveRequestDto.extraReceivableBonus() != 0) {
@@ -38,16 +49,16 @@ public class InputHandler {
         return unPromotableConfirmResponse(orderApproveRequestDto, productName);
     }
 
-    private OrderApproveResponseDto unPromotableConfirmResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
-        int unPromotable = orderApproveRequestDto.unPromotableAmount();
-        String inputAnswer = responseRetryHandler(() -> inputView.printUnPromotableConditionRequest(productName, unPromotable));
+    private OrderApproveResponseDto bonusReceiveResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
+        int receivableBonus = orderApproveRequestDto.extraReceivableBonus();
+        String inputAnswer = responseRetryHandler(() -> inputView.printExtraBonusReceiveRequest(productName, receivableBonus));
         boolean answer = inputAnswer.equals("Y");
         return new OrderApproveResponseDto(productName, answer);
     }
 
-    private OrderApproveResponseDto bonusReceiveResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
-        int receivableBonus = orderApproveRequestDto.extraReceivableBonus();
-        String inputAnswer = responseRetryHandler(() -> inputView.printExtraBonusReceiveRequest(productName, receivableBonus));
+    private OrderApproveResponseDto unPromotableConfirmResponse(OrderApproveRequestDto orderApproveRequestDto, String productName) {
+        int unPromotable = orderApproveRequestDto.unPromotableAmount();
+        String inputAnswer = responseRetryHandler(() -> inputView.printUnPromotableConditionRequest(productName, unPromotable));
         boolean answer = inputAnswer.equals("Y");
         return new OrderApproveResponseDto(productName, answer);
     }
@@ -60,18 +71,6 @@ public class InputHandler {
     public boolean requestContinueShopping() {
         String inputAnswer = responseRetryHandler(inputView::printExtraBuyRequest);
         return inputAnswer.equals("Y");
-    }
-
-
-    private List<OrderDto> extractOrders(String inputOrder) {
-        List<OrderDto> orders = new ArrayList<>();
-        Matcher matcher = orderPattern.matcher(inputOrder);
-        while (matcher.find()) {
-            String productName = matcher.group(1);
-            int quantity = Integer.parseInt(matcher.group(2));
-            orders.add(new OrderDto(productName, quantity));
-        }
-        return orders;
     }
 
 

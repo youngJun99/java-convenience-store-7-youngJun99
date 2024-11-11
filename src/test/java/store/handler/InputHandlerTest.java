@@ -66,12 +66,28 @@ class InputHandlerTest {
     }
 
     @Test
-    @DisplayName("InputHandler는 구매 승인 요청에 Y를 입력하면 구매를 승인한다.")
-    void requestApprovalTest1() {
+    @DisplayName("InputHandler는 프로모션 불가 구매 승인 요청에 Y를 입력하면 구매를 승인한다.")
+    void requestUnPromotableApprovalTest1() {
         //given
         String readLine = "Y";
         System.setIn(new ByteArrayInputStream(readLine.getBytes()));
         OrderApproveRequestDto request = new OrderApproveRequestDto("콜라", 2, 0);
+
+        //when
+        OrderApproveResponseDto response = inputHandler.requestApproval(request);
+
+        //then
+        OrderApproveResponseDto answer = new OrderApproveResponseDto("콜라", true);
+        assertThat(response).isEqualTo(answer);
+    }
+
+    @Test
+    @DisplayName("InputHandler는 보너스 요청에 Y를 입력하면 구매를 승인한다.")
+    void requestBonusApprovalTest1() {
+        //given
+        String readLine = "Y";
+        System.setIn(new ByteArrayInputStream(readLine.getBytes()));
+        OrderApproveRequestDto request = new OrderApproveRequestDto("콜라", 0, 2);
 
         //when
         OrderApproveResponseDto response = inputHandler.requestApproval(request);
